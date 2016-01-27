@@ -56,7 +56,7 @@
                             <FrameLayout
                                 android:id="@+id/FrameLayoutSmallBaner1"
                                 android:layout_width="fill_parent"
-                                android:layout_height="160dp"
+                                android:layout_height="240dp"
                                 android:layout_weight="1" >
 
                                 <ProgressBar
@@ -95,7 +95,7 @@
                             <FrameLayout
                                 android:id="@+id/FrameLayoutSmallBaner2"
                                 android:layout_width="fill_parent"
-                                android:layout_height="160dp"
+                                android:layout_height="240dp"
                                 android:layout_weight="1" >
 
                                 <ProgressBar
@@ -127,7 +127,7 @@
                     <LinearLayout
                         android:id="@+id/linearLayout7"
                         android:layout_width="fill_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="120dp"
                         android:orientation="vertical" >
 
                         <LinearLayout
@@ -286,7 +286,7 @@
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
                     android:layout_width="fill_parent"
-                    android:layout_height="80dp" >
+                    android:layout_height="120dp" >
 
                     <LinearLayout
                         android:id="@+id/LinearLayout08"

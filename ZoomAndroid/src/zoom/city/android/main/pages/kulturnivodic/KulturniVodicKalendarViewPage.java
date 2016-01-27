@@ -5,14 +5,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
+import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.PreviewListItemPage;
 
-public class KulturniVodicKalendarViewPage extends Activity {
+public class KulturniVodicKalendarViewPage extends AppCompatActivity {
 
 	String title, date, dateTitle;
 	LinearLayout layout1, layout2, layout3, layout4, layout5;
@@ -46,7 +49,8 @@ public class KulturniVodicKalendarViewPage extends Activity {
 			dateTitle = extras.getString("dateTitle");
 		}
 
-		ComponentInstance.inicTitleBar(this, dateTitle);
+		//ComponentInstance.inicTitleBar(this, dateTitle);
+		Helper.inicActionBar(KulturniVodicKalendarViewPage.this, dateTitle);
 		
 		ComponentInstance.inicGoogleBaner(this,myPrefs.getString("nazivGrada", ""),"ca-app-pub-1530516813542398/7330128266");
 
@@ -174,5 +178,14 @@ public class KulturniVodicKalendarViewPage extends Activity {
 		txtView4 = (TextView) findViewById(R.id.textViewIcon4);
 		txtView5 = (TextView) findViewById(R.id.textViewIcon5);
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            finish(); break;
+            }
+        return true;
+    }
 
 }

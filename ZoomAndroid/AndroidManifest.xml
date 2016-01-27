@@ -72,7 +72,7 @@
         <activity
             android:name=".pages.kulturnivodic.KulturniVodicKalendarViewPage"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:theme="@style/AppThemeMy2Theme" >
         </activity>
         <activity
             android:name=".pages.kalendar.KalendarViewSwitcherActivity"
