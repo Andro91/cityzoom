@@ -1,0 +1,23 @@
+<!-- <WebView xmlns:android="http://schemas.android.com/apk/res/android" -->
+<!-- 	    android:id="@+id/webview" -->
+<!-- 	    android:layout_width="match_parent" -->
+<!-- 	    android:layout_height="fill_parent" -->
+<!-- 	/> -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent" >
+<ImageView 
+    android:id="@+id/ImageView_Video"
+    android:contentDescription="YouTubeVdeo"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:scaleType="centerCrop"
+	/>
+<ImageView 
+    android:contentDescription="YouTubeVdeoIcon"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:src="@drawable/youtube_play"
+    android:padding="55dp"
+	/>
+</RelativeLayout>

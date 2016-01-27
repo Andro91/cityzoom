@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="AppThemeMy2Theme" parent="@style/Theme.AppCompat">
+    </style>
+    <style name="MyThemeNoActionBar" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+</resources>

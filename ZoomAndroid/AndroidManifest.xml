@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="zoom.city.android.main"
+    android:versionCode="7"
+    android:versionName="1.6" >
+
+    <uses-sdk android:minSdkVersion="11"
+        android:targetSdkVersion="23" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <!--
+         The following two permissions are not required to use Google Maps Android 
+		API v2, but are recommended.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <!--
+    permission
+        android:name="zoom.city.android.main.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="zoom.city.android.main.permission.MAPS_RECEIVE" /
+    -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".StartActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <activity
+            android:name=".pages.MainPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".pages.kulturnivodic.KulturniVodicPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.PreviewListItemPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyThemeNoActionBar" >
+        </activity>
+        <activity
+            android:name=".pages.kalendar.KalendarPickerPage"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".pages.kulturnivodic.KulturniVodicKalendarViewPage"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".pages.kalendar.KalendarViewSwitcherActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".pages.cityzoom.CityZoomPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.cityzoom.SmestajPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.cityzoom.PrevozPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.cityzoom.KesPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.cityzoom.MedicoPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.pice.PicePage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.nightlife.NightlifePage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.nightlife.NightlifeKalendarViewPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyThemeNoActionBar" >
+        </activity>
+        <activity
+            android:name=".pages.taxisms.TaxiSMSPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyThemeNoActionBar" >
+        </activity>
+        <activity
+            android:name=".pages.wellness.WellnessAndSpaPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.rainbow.RainbowPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.rainbow.PreviewRainbowItemPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyThemeNoActionBar" >
+        </activity>
+        <activity
+            android:name=".pages.rainbow.RainbowIcePicePage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.rainbow.RainbowNightlifePage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.rainbow.RainbowWellnesPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.map.MapPage"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".pages.adresar.AdresarPage"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".pages.adresar.NaprednaPretragaPage"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".pages.SettingsPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyThemeSettings" >
+        </activity>
+        <activity
+            android:name=".pages.adresar.PreviewSearchResult"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyThemeNoActionBar" >
+        </activity>
+        <activity
+            android:name=".pages.adresar.PreviewAdvancedSearchPage"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".pages.previewitem.PreviewItemPage"
+            android:configChanges="orientation|keyboardHidden|screenSize|layoutDirection"
+            android:theme="@style/MyThemeNoActionBar" >
+        </activity>
+        <activity
+            android:name=".pages.smallbaners.SmallBanersPreviewPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyThemeNoActionBar" >
+        </activity>
+        <activity
+            android:name=".pages.taxisms.TaxiSMSPreviewPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMy2Theme" >
+        </activity>
+        <activity
+            android:name=".pages.map.PreviewItemOnMap"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCWDY81hHsQtEMqpTpuelWWD7ZuGKXTwa8" />
+
+        <activity
+            android:name=".PreviewFavouritesPage"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_preview_favourites_page"
+            android:theme="@style/MyThemeNoActionBar" >
+        </activity>
+    </application>
+
+</manifest>

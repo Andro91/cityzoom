@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+<!-- 	<include android:id="@+id/include1" android:layout_height="wrap_content" -->
+<!-- 		android:layout_width="fill_parent" layout="@layout/layout_title"></include> -->
+
+	<ScrollView
+	    android:id="@+id/scrollView1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_weight="1" >
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" >
+
+	        <LinearLayout
+	            android:id="@+id/linearLayout1"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" >
+
+	            <LinearLayout
+	                android:id="@+id/linearLayout4"
+	                android:layout_width="fill_parent"
+	                android:layout_height="160dp" >
+
+	                <LinearLayout
+	                    android:id="@+id/LinearLayout02"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="fill_parent"
+	                    android:layout_weight="1"
+	                    android:orientation="vertical" >
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayout2"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="fill_parent"
+	                        android:layout_weight="1"
+	                        android:orientation="vertical">
+
+	                        <LinearLayout
+	                            android:id="@+id/linearLayoutIcon1"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1"
+	                            android:background="@drawable/icon_background_drawable"
+	                            android:clickable="true"
+	                            android:orientation="vertical" >
+
+	                            <LinearLayout
+	                                android:id="@+id/linearLayout3"
+	                                android:layout_width="fill_parent"
+	                                android:layout_height="fill_parent"
+	                                android:layout_weight="1" >
+
+	                                <TextView
+	                                    android:id="@+id/textViewDateMounth"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="fill_parent"
+	                                    android:layout_weight="1"
+	                                    android:gravity="center"
+	                                    android:padding="3dp"
+	                                    android:text="MART 2014."
+	                                    android:textColor="#ffffff"
+	                                    android:textSize="18dp" />
+
+	                                <TextView
+	                                    android:id="@+id/textViewDateDay"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="fill_parent"
+	                                    android:layout_weight="1"
+	                                    android:gravity="center"
+	                                    android:padding="3dp"
+	                                    android:text="13"
+	                                    android:textColor="#ffffff"
+	                                    android:textSize="60dp" />
+	                            </LinearLayout>
+
+	                            <TextView
+	                                android:id="@+id/textViewIcon1"
+	                                android:layout_width="fill_parent"
+	                                android:layout_height="wrap_content"
+	                                android:gravity="center_horizontal"
+	                                android:text="Kalendar"
+	                                android:textColor="#ffffff"
+	                                android:textSize="16dp" />
+	                        </LinearLayout>
+	                    </LinearLayout>
+	                </LinearLayout>
+
+	                <LinearLayout
+	                    android:id="@+id/linearLayout7"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="fill_parent"
+	                    android:layout_weight="1"
+	                    android:orientation="vertical" >
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayout9"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="fill_parent"
+	                        android:layout_weight="1" >
+
+	                        <FrameLayout
+	                            android:id="@+id/FrameLayout04"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1">
+
+	                            <LinearLayout
+	                                android:id="@+id/linearLayoutIcon2"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="match_parent"
+	                                android:background="@drawable/icon_background_drawable"
+	                                android:clickable="true"
+	                                android:orientation="vertical"
+	                                android:padding="2dp" >
+
+	                                <ImageView
+	                                    android:id="@+id/imageViewIcon6"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="fill_parent"
+	                                    android:layout_weight="1"
+	                                    android:scaleType="centerCrop"
+	                                    android:src="@drawable/clubs" />
+
+	                                <TextView
+	                                    android:id="@+id/textViewIcon2"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="wrap_content"
+	                                    android:gravity="center_horizontal"
+	                                    android:text="Klubovi"
+	                                    android:textColor="#ffffff"
+	                                    android:textSize="10dp" />
+	                            </LinearLayout>
+	                        </FrameLayout>
+
+	                        <FrameLayout
+	                            android:id="@+id/frameLayout2"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1">
+
+	                            <LinearLayout
+	                                android:id="@+id/linearLayoutIcon3"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="match_parent"
+	                                android:background="@drawable/icon_background_drawable"
+	                                android:clickable="true"
+	                                android:orientation="vertical"
+	                                android:padding="2dp" >
+
+	                                <ImageView
+	                                    android:id="@+id/imageViewIcon7"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="fill_parent"
+	                                    android:layout_weight="1"
+	                                    android:scaleType="centerCrop"
+	                                    android:src="@drawable/bars" />
+
+	                                <TextView
+	                                    android:id="@+id/textViewIcon3"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="wrap_content"
+	                                    android:gravity="center_horizontal"
+	                                    android:text="barovi"
+	                                    android:textColor="#ffffff"
+	                                    android:textSize="10dp" />
+	                            </LinearLayout>
+	                        </FrameLayout>
+	                    </LinearLayout>
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayout10"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="fill_parent"
+	                        android:layout_weight="1" >
+
+	                        <FrameLayout
+	                            android:id="@+id/FrameLayout01"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1">
+
+	                            <LinearLayout
+	                                android:id="@+id/linearLayoutIcon4"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="match_parent"
+	                                android:background="@drawable/icon_background_drawable"
+	                                android:clickable="true"
+	                                android:orientation="vertical"
+	                                android:padding="2dp" >
+
+	                                <ImageView
+	                                    android:id="@+id/ImageView01"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="fill_parent"
+	                                    android:layout_weight="1"
+	                                    android:scaleType="centerCrop"
+	                                    android:src="@drawable/events" />
+
+	                                <TextView
+	                                    android:id="@+id/textViewIcon4"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="wrap_content"
+	                                    android:gravity="center_horizontal"
+	                                    android:text="Event-i"
+	                                    android:textColor="#ffffff"
+	                                    android:textSize="9dp" />
+	                            </LinearLayout>
+	                        </FrameLayout>
+
+	                        <FrameLayout
+	                            android:id="@+id/frameLayout3"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1">
+	                        </FrameLayout>
+	                    </LinearLayout>
+	                </LinearLayout>
+	            </LinearLayout>
+
+	            <LinearLayout
+	                android:id="@+id/LinearLayout09"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" >
+
+	                <FrameLayout
+	                    android:id="@+id/FrameLayout1"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="160dp" >
+
+	                    <ProgressBar
+	                        android:id="@+id/progressBar1"
+	                        style="?android:attr/progressBarStyleSmall"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:layout_gravity="center" />
+
+	                    <ImageView
+	                        android:id="@+id/imageViewBigBaner1"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="fill_parent"
+	                        android:scaleType="centerCrop" />
+	                </FrameLayout>
+	            </LinearLayout>
+	        </LinearLayout>
+
+	    </LinearLayout>
+	</ScrollView>
+<LinearLayout
+        android:id="@+id/linearLayoutGoogleBaner"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+</LinearLayout>

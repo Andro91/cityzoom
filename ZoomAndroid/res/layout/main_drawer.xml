@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <FrameLayout 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        >
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="140dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/navigation_logo" 
+        android:scaleType="centerCrop" />
+    </FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Main Navigation"
+        android:textColor="#ff2222"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginTop="15dp"
+        android:textSize="14sp" > 
+        </TextView>
+    <View 
+	    android:layout_width="match_parent"
+	    android:layout_height="1dp"
+	    android:layout_marginLeft="20dp"
+	    android:background="#333333"/>
+    
+<!-- CityZoom - city explore -->
+    <RelativeLayout 
+        android:layout_width="match_parent" 
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        >
+        <ImageView 
+            android:id="@+id/drawer_city_explore_image"
+	        android:layout_width="40dp" 
+	        android:layout_height="40dp"
+	        android:contentDescription="@string/app_name"
+	        android:layout_alignParentLeft="true"
+	        android:src="@drawable/drawer_cityzoom" 
+	        android:scaleType="fitCenter" />
+       	<TextView
+       	    android:id="@+id/drawer_city_explore_text"
+	        android:layout_width="match_parent"
+	        android:layout_toRightOf="@+id/drawer_city_explore_image"
+	        android:layout_height="match_parent"
+	        android:gravity="left"
+	        android:text="City Explore"
+	        android:textColor="#aaaaaa"
+	        android:padding="10dp"
+	        android:textSize="16sp" > 
+        </TextView>
+    </RelativeLayout>
+        <View 
+	    android:layout_width="match_parent"
+	    android:layout_height="1dp"
+	    android:layout_marginLeft="20dp"
+	    android:background="#333333"/>
+<!-- CityZoom - buisness -->
+    <RelativeLayout 
+        android:layout_width="match_parent" 
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        >
+        <ImageView 
+            android:id="@+id/drawer_buisness_image"
+	        android:layout_width="40dp" 
+	        android:layout_height="40dp"
+	        android:contentDescription="@string/app_name"
+	        android:layout_alignParentLeft="true"
+	        android:src="@drawable/drawer_buisness" 
+	        android:scaleType="fitCenter" />
+       	<TextView
+       	    android:id="@+id/drawer_buisness_text"
+	        android:layout_width="match_parent"
+	        android:layout_toRightOf="@+id/drawer_buisness_image"
+	        android:layout_height="match_parent"
+	        android:gravity="left"
+	        android:text="Buisness Directory"
+	        android:textColor="#aaaaaa"
+	        android:padding="10dp"
+	        android:textSize="16sp" > 
+        </TextView>
+    </RelativeLayout>
+        <View 
+	    android:layout_width="match_parent"
+	    android:layout_height="1dp"
+	    android:layout_marginLeft="20dp"
+	    android:background="#333333"/>
+    <!-- CityZoom - city favorite -->
+    <RelativeLayout 
+        android:layout_width="match_parent" 
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        >
+        <ImageView 
+            android:id="@+id/drawer_favorite_image"
+	        android:layout_width="40dp" 
+	        android:layout_height="40dp"
+	        android:contentDescription="@string/app_name"
+	        android:layout_alignParentLeft="true"
+	        android:src="@drawable/drawer_favorite" 
+	        android:scaleType="fitCenter" />
+       	<TextView
+       	    android:id="@+id/drawer_favorite_text"
+	        android:layout_width="match_parent"
+	        android:layout_toRightOf="@+id/drawer_favorite_image"
+	        android:layout_height="match_parent"
+	        android:gravity="left"
+	        android:text="Favorites"
+	        android:textColor="#aaaaaa"
+	        android:padding="10dp"
+	        android:textSize="16sp" > 
+        </TextView>
+    </RelativeLayout>
+        <View 
+	    android:layout_width="match_parent"
+	    android:layout_height="1dp"
+	    android:layout_marginLeft="20dp"
+	    android:background="#333333"/>
+
+    <!-- CityZoom - settings -->
+    <RelativeLayout 
+        android:id="@+id/drawer_settings_clickable"
+        android:layout_width="match_parent" 
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        >
+        <ImageView 
+            android:id="@+id/drawer_settings_image"
+	        android:layout_width="40dp" 
+	        android:layout_height="40dp"
+	        android:contentDescription="@string/app_name"
+	        android:layout_alignParentLeft="true"
+	        android:src="@drawable/drawer_settings" 
+	        android:scaleType="fitCenter" />
+       	<TextView
+       	    android:id="@+id/drawer_settings_text"
+	        android:layout_width="match_parent"
+	        android:layout_toRightOf="@+id/drawer_settings_image"
+	        android:layout_height="match_parent"
+	        android:gravity="left"
+	        android:text="Settings"
+	        android:textColor="#aaaaaa"
+	        android:padding="10dp"
+	        android:textSize="16sp" > 
+        </TextView>
+    </RelativeLayout>
+    	<TextView
+	        android:layout_width="match_parent"
+	        android:drawableLeft="@drawable/drawer_tick"
+	        android:layout_height="20dp"
+	        android:gravity="left"
+	        android:text="Visit our web page"
+	        android:textColor="#aaaaaa"
+	        android:textSize="14sp"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginTop="30dp"
+	        android:layout_marginBottom="20dp" > 
+        </TextView>
+            <TextView
+	        android:layout_width="match_parent"
+	        android:drawableLeft="@drawable/drawer_tick"
+	        android:layout_height="20dp"
+	        android:gravity="left"
+	        android:text="About Us"
+	        android:textColor="#aaaaaa"
+	        android:textSize="14sp"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginBottom="20dp" > 
+        </TextView>
+            <TextView
+	        android:layout_width="match_parent"
+	        android:drawableLeft="@drawable/drawer_tick"
+	        android:layout_height="20dp"
+	        android:gravity="left"
+	        android:text="Terms Of Use"
+	        android:textColor="#aaaaaa"
+	        android:textSize="14sp"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginBottom="20dp" > 
+        </TextView>
+            <TextView
+	        android:layout_width="match_parent"
+	        android:drawableLeft="@drawable/drawer_tick"
+	        android:layout_height="20dp"
+	        android:gravity="left"
+	        android:text="Contact Us"
+	        android:textColor="#aaaaaa"
+	        android:textSize="14sp"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginBottom="20dp" > 
+        </TextView>
+        
+
+</LinearLayout>
+</ScrollView>

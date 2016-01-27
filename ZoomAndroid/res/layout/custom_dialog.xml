@@ -1,0 +1,38 @@
+   <RelativeLayout 
+       	xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content" >
+
+	    <Button
+	        android:id="@+id/rd_1"
+	        android:layout_width="match_parent"
+	        android:layout_height="40dp"
+	        android:layout_below="@+id/text_1"
+	        android:background="@drawable/button_dugmici_drawable"
+	        android:textColor="#ffffffff"
+	        android:textSize="20dp"
+	        android:text="--------" />
+	
+	    <Button
+	        android:id="@+id/rd_2"
+	        android:layout_width="match_parent"
+	        android:layout_height="40dp"
+	        android:layout_below="@+id/rd_1"
+	        android:layout_centerInParent="true"
+	        android:background="@drawable/button_dugmici_drawable"
+	        android:textColor="#ffffffff"
+	        android:textSize="20dp"
+	        android:text="--------" />
+	
+	    <Button
+	        android:id="@+id/b_cancel"
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dp"
+	        android:layout_below="@+id/rd_2"
+	        android:layout_centerInParent="true"
+	        android:background="@drawable/button_dugmici_drawable"
+	        android:textColor="#ffffffff"
+	        android:textSize="20dp"
+	        android:text="Cancel" />
+	    
+    </RelativeLayout>

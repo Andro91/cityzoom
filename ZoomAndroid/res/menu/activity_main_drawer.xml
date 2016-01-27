@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_naslovna" android:title="Naslovna" />
+        <item android:id="@+id/nav_fudbal" android:title="Fudbal" />
+        <item android:id="@+id/nav_kosarka" android:title="Košarka" />
+        <item android:id="@+id/nav_tenis" android:title="Tenis" />
+        <item android:id="@+id/nav_izlog" android:title="Izlog" />
+        <item android:id="@+id/nav_vaterpolo" android:title="Vaterpolo" />
+        <item android:id="@+id/nav_odbojka" android:title="Odbojka" />
+        <item android:id="@+id/nav_rukomet" android:title="Rukomet" />
+        <item android:id="@+id/nav_showtime" android:title="Show Time" />
+    </group>
+
+</menu>

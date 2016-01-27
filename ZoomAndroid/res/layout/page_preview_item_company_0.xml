@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="com.daimajia.slider.demo.MainActivity"  >
+	<include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_itempreview" >
+    </include>
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+                
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#000000"
+            android:padding="10dp" >
+            
+<!--	BIGBANER SLAJDER POCETAK -->
+<!-- 			<FrameLayout -->
+<!-- 			    android:id="@+id/FrameLayout1" -->
+<!-- 			    android:layout_width="fill_parent" -->
+<!-- 			    android:layout_height="150dp"> -->
+<!-- 					    <com.daimajia.slider.library.SliderLayout -->
+<!-- 					        android:id="@+id/slider" -->
+<!-- 					        android:layout_width="match_parent" -->
+<!-- 					        custom:pager_animation="Default" -->
+<!-- 					        custom:auto_cycle="true" -->
+<!-- 					        custom:indicator_visibility="visible" -->
+<!-- 					        custom:pager_animation_span="1100" -->
+<!-- 					        android:layout_height="fill_parent"/> -->
+<!-- 			</FrameLayout> -->
+<!--	BIGBANER SLAJDER KRAJ      -->
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="TextView"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:textStyle="bold" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/textViewPhone1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"
+                android:text="TextView"
+                android:textColor="#cccccc"
+                android:textSize="16dp" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="TextView"
+                android:textColor="#cccccc"
+                android:textSize="16dp" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/textViewWeb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="15dp"
+                android:text="TextView"
+                android:textColor="#cccccc"
+                android:textSize="16dp" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/textViewAdrress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="TextView"
+                android:textColor="#cccccc"
+                android:textSize="16dp" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/textViewCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="TextView"
+                android:textColor="#cccccc"
+                android:textSize="16dp" >
+            </TextView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

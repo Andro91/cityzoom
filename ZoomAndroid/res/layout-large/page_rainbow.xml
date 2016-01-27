@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+<!-- 	<include  -->
+<!-- 	    android:id="@+id/include1" -->
+<!-- 		android:layout_height="wrap_content"  -->
+<!-- 		android:layout_width="fill_parent"  -->
+<!-- 		layout="@layout/layout_top_button"></include> -->
+
+	<ScrollView
+	    android:id="@+id/scrollView1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_weight="1" >
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" >
+			
+			<include
+				android:id="@+id/toolbar"
+				layout="@layout/toolbar" >
+				</include>
+
+	        <LinearLayout
+	            android:id="@+id/linearLayout1"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" >
+
+	            <LinearLayout
+	                android:id="@+id/linearLayout2"
+	                android:layout_width="fill_parent"
+	                android:layout_height="120dp" >
+
+	                <FrameLayout
+	                    android:id="@+id/FrameLayout03"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="fill_parent"
+	                    android:layout_weight="1">
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayoutIcon1"
+	                        android:layout_width="match_parent"
+	                        android:layout_height="match_parent"
+	                        android:background="#BBeb52d4"
+	                        android:clickable="true"
+	                        android:orientation="vertical"
+	                        android:padding="10dp" >
+
+	                        <ImageView
+	                            android:id="@+id/imageViewIcon1"
+	                            android:layout_width="wrap_content"
+	                            android:layout_height="wrap_content"
+	                            android:layout_weight="1"
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/must_rainbow_256" />
+
+	                        <TextView
+	                            android:id="@+id/textViewIcon1"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="wrap_content"
+	                            android:gravity="center_horizontal"
+	                            android:text="Cafei"
+	                            android:textColor="#ffffff"
+	                            android:textSize="14sp" />
+	                    </LinearLayout>
+	                </FrameLayout>
+
+	                <FrameLayout
+	                    android:id="@+id/FrameLayout02"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="fill_parent"
+	                    android:layout_weight="1">
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayoutIcon2"
+	                        android:layout_width="match_parent"
+	                        android:layout_height="match_parent"
+	                        android:background="#BB7150ec"
+	                        android:clickable="true"
+	                        android:orientation="vertical"
+                            android:paddingLeft="2dp"
+                            android:paddingRight="2dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"  >
+
+	                        <ImageView
+	                            android:id="@+id/imageViewIcon2"
+	                            android:layout_width="wrap_content"
+	                            android:layout_height="wrap_content"
+	                            android:layout_weight="1"
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/drink_and_food_256a" />
+
+	                        <TextView
+	                            android:id="@+id/textViewIcon2"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="wrap_content"
+	                            android:gravity="center_horizontal"
+	                            android:text="Bars"
+	                            android:textColor="#ffffff"
+	                            android:textSize="14sp" />
+	                    </LinearLayout>
+	                </FrameLayout>
+
+	                <FrameLayout
+	                    android:id="@+id/FrameLayout01"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="fill_parent"
+	                    android:layout_weight="1">
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayoutIcon3"
+	                        android:layout_width="match_parent"
+	                        android:layout_height="match_parent"
+	                        android:background="#BB048fd3"
+	                        android:clickable="true"
+	                        android:orientation="vertical"
+	                        android:padding="10dp" >
+
+	                        <ImageView
+	                            android:id="@+id/imageViewIcon3"
+	                            android:layout_width="wrap_content"
+	                            android:layout_height="wrap_content"
+	                            android:layout_weight="1"
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/nightlife_256" />
+
+	                        <TextView
+	                            android:id="@+id/textViewIcon3"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="wrap_content"
+	                            android:gravity="center_horizontal"
+	                            android:text="Clubs"
+	                            android:textColor="#ffffff"
+	                            android:textSize="14sp" />
+	                    </LinearLayout>
+	                </FrameLayout>
+
+	                <FrameLayout
+	                    android:id="@+id/FrameLayout04"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="fill_parent"
+	                    android:layout_weight="1">
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayoutIcon4"
+	                        android:layout_width="match_parent"
+	                        android:layout_height="match_parent"
+	                        android:background="#BB4c338d"
+	                        android:clickable="true"
+	                        android:orientation="vertical"
+                            android:paddingLeft="2dp"
+                            android:paddingRight="2dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp" >
+
+	                        <ImageView
+	                            android:id="@+id/ImageView01"
+	                            android:layout_width="wrap_content"
+	                            android:layout_height="wrap_content"
+	                            android:layout_weight="1"
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/spa_256" />
+
+	                        <TextView
+	                            android:id="@+id/textViewIcon4"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="wrap_content"
+	                            android:gravity="center_horizontal"
+	                            android:text="Wellness&amp;Spa"
+	                            android:textColor="#ffffff"
+	                            android:textSize="14sp" />
+	                    </LinearLayout>
+	                </FrameLayout>
+	            </LinearLayout>
+
+	            <FrameLayout
+	                android:id="@+id/FrameLayout1"
+	                android:layout_width="fill_parent"
+	                android:layout_height="240dp">
+
+	                <ProgressBar
+	                    android:id="@+id/progressBar1"
+	                    style="?android:attr/progressBarStyleSmall"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center" />
+
+	                <ImageView
+	                    android:id="@+id/imageViewBigBaner1"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="fill_parent"
+	                    android:scaleType="centerCrop" />
+	            </FrameLayout>
+	            
+	            <LinearLayout
+	                android:id="@+id/linearLayout4"
+	                android:layout_width="fill_parent"
+	                android:layout_height="120dp"
+	                android:orientation="vertical" >
+
+	                <LinearLayout
+	                    android:id="@+id/linearLayout7"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="fill_parent"
+	                    android:layout_weight="1"
+	                    android:orientation="horizontal" >
+
+	                    <LinearLayout
+	                        android:id="@+id/LinearLayout07"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="fill_parent"
+	                        android:layout_weight="1"
+	                        android:orientation="horizontal" >
+
+	                        <FrameLayout
+	                            android:id="@+id/FrameLayout05"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1">
+
+	                            <LinearLayout
+	                                android:id="@+id/linearLayoutIcon6"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="match_parent"
+	                                android:background="#BB007cb6"
+	                                android:clickable="true"
+	                                android:orientation="vertical"
+	                                android:padding="10dp" >
+
+	                                <ImageView
+	                                    android:id="@+id/imageViewIcon6"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="fill_parent"
+	                                    android:layout_weight="1"
+	                                    android:scaleType="fitCenter"
+	                                    android:src="@drawable/cruising_256" />
+
+	                                <TextView
+	                                    android:id="@+id/textViewTitle6"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="wrap_content"
+	                                    android:gravity="center_horizontal"
+	                                    android:text="Cruising"
+	                                    android:textColor="#ffffff"
+	                                    android:textSize="14sp" />
+	                            </LinearLayout>
+	                        </FrameLayout>
+
+	                        <FrameLayout
+	                            android:id="@+id/FrameLayout10"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1">
+
+	                        </FrameLayout>
+	                    </LinearLayout>
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayout6"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="fill_parent"
+	                        android:layout_weight="1"
+	                        android:orientation="horizontal" >
+	                    </LinearLayout>
+	                </LinearLayout>
+	            </LinearLayout>
+	            
+	            
+	            
+	        </LinearLayout>
+
+	    </LinearLayout>
+	</ScrollView>
+<LinearLayout
+        android:id="@+id/linearLayoutGoogleBaner"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+</LinearLayout>

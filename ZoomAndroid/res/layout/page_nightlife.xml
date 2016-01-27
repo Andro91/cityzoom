@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+<!-- 	<include  -->
+<!-- 	    android:id="@+id/include1"  -->
+<!-- 	    android:layout_height="wrap_content" -->
+<!-- 		android:layout_width="fill_parent"  -->
+<!-- 		layout="@layout/layout_top_button"></include> -->
+
+	<ScrollView
+	    android:id="@+id/scrollView1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_weight="1" >
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" >
+
+	        <LinearLayout
+	            android:id="@+id/linearLayout1"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" >
+
+	            <LinearLayout
+	                android:id="@+id/linearLayout4"
+	                android:layout_width="fill_parent"
+	                android:layout_height="160dp" >
+
+	                <LinearLayout
+	                    android:id="@+id/LinearLayout02"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="fill_parent"
+	                    android:layout_weight="1"
+	                    android:orientation="vertical" >
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayout2"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="160dp"
+	                        android:orientation="vertical">
+
+	                        <LinearLayout
+	                            android:id="@+id/linearLayoutIcon1"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1"
+	                            android:background="#BB0ddcb7"
+	                            android:clickable="true"
+	                            android:padding="10dp"
+	                            android:orientation="vertical" >
+
+	                            <RelativeLayout
+	                                android:id="@+id/linearLayout3"
+	                                android:layout_width="fill_parent"
+	                                android:layout_height="fill_parent"
+	                                android:layout_weight="1" >
+	                                
+	                                <ImageView
+	                                    android:id="@+id/kulturniKalendarIcon"
+	                                    android:layout_width="wrap_content"
+	                                    android:layout_height="50dp"
+	                                    android:scaleType="fitCenter"
+	                                    android:layout_alignParentTop="true"
+	                                    android:paddingLeft="10dp"
+	                                    android:paddingRight="10dp"
+	                                    android:src="@drawable/calendar_256" />
+
+	                                <LinearLayout 
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="wrap_content"
+	                                    android:layout_below="@+id/kulturniKalendarIcon"
+	                                    android:orientation="horizontal">
+		                                <TextView
+		                                    android:id="@+id/textViewDateDay"
+		                                    android:layout_width="fill_parent"
+		                                    android:layout_height="fill_parent"
+		                                    android:layout_weight="1.1"
+		                                    android:gravity="right"
+		                                    android:text="13"
+		                                    android:textColor="#ffffff"
+		                                    android:textSize="30sp" />
+		                                <TextView
+		                                    android:id="@+id/textViewDateMounth"
+		                                    android:layout_width="fill_parent"
+		                                    android:layout_height="fill_parent"
+		                                    android:layout_weight="0.9"
+		                                    android:gravity="left"
+		                                    android:text="June 2016."
+		                                    android:textColor="#ffffff"
+		                                    android:textSize="15sp"
+		                                    android:paddingLeft="5dp" />
+	                                </LinearLayout>
+	                            </RelativeLayout>
+
+	                            <TextView
+	                                android:id="@+id/textViewIcon1"
+	                                android:layout_width="fill_parent"
+	                                android:layout_height="wrap_content"
+	                                android:gravity="center_horizontal"
+	                                android:text="Calendar"
+	                                android:textColor="#ffffff"
+	                                android:textSize="16sp"
+	                                android:layout_marginBottom="10dp" />
+	                        </LinearLayout>
+	                    </LinearLayout>
+	                </LinearLayout>
+
+	                <LinearLayout
+	                    android:id="@+id/linearLayout7"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="fill_parent"
+	                    android:layout_weight="1"
+	                    android:orientation="vertical" >
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayout9"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="fill_parent"
+	                        android:layout_weight="1" >
+
+	                        <FrameLayout
+	                            android:id="@+id/FrameLayout04"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1">
+
+	                            <LinearLayout
+	                                android:id="@+id/linearLayoutIcon2"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="match_parent"
+	                                android:background="#BBeb52d4"
+	                                android:clickable="true"
+	                                android:orientation="vertical"
+	                                android:padding="10dp" >
+
+	                                <ImageView
+	                                    android:id="@+id/imageViewIcon6"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="fill_parent"
+	                                    android:layout_weight="1"
+	                                    android:scaleType="fitCenter"
+	                                    android:src="@drawable/clubs_256" />
+
+	                                <TextView
+	                                    android:id="@+id/textViewIcon2"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="wrap_content"
+	                                    android:gravity="center_horizontal"
+	                                    android:text="Klubovi"
+	                                    android:textColor="#ffffff"
+	                                    android:textSize="12sp" />
+	                            </LinearLayout>
+	                        </FrameLayout>
+
+	                        <FrameLayout
+	                            android:id="@+id/frameLayout2"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1">
+
+	                            <LinearLayout
+	                                android:id="@+id/linearLayoutIcon3"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="match_parent"
+	                                android:background="#BB7150ec"
+	                                android:clickable="true"
+	                                android:orientation="vertical"
+	                                android:padding="10dp" >
+
+	                                <ImageView
+	                                    android:id="@+id/imageViewIcon7"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="fill_parent"
+	                                    android:layout_weight="1"
+	                                    android:scaleType="fitCenter"
+	                                    android:src="@drawable/bars_256" />
+
+	                                <TextView
+	                                    android:id="@+id/textViewIcon3"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="wrap_content"
+	                                    android:gravity="center_horizontal"
+	                                    android:text="barovi"
+	                                    android:textColor="#ffffff"
+	                                    android:textSize="12sp" />
+	                            </LinearLayout>
+	                        </FrameLayout>
+	                    </LinearLayout>
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayout10"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="fill_parent"
+	                        android:layout_weight="1" >
+
+	                        <FrameLayout
+	                            android:id="@+id/FrameLayout01"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1">
+
+	                            <LinearLayout
+	                                android:id="@+id/linearLayoutIcon4"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="match_parent"
+	                                android:background="#BB048fd3"
+	                                android:clickable="true"
+	                                android:orientation="vertical"
+	                                android:padding="10dp" >
+
+	                                <ImageView
+	                                    android:id="@+id/ImageView01"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="fill_parent"
+	                                    android:layout_weight="1"
+	                                    android:scaleType="fitCenter"
+	                                    android:src="@drawable/events_256" />
+
+	                                <TextView
+	                                    android:id="@+id/textViewIcon4"
+	                                    android:layout_width="fill_parent"
+	                                    android:layout_height="wrap_content"
+	                                    android:gravity="center_horizontal"
+	                                    android:text="Events"
+	                                    android:textColor="#ffffff"
+	                                    android:textSize="12sp" />
+	                            </LinearLayout>
+	                        </FrameLayout>
+
+	                        <FrameLayout
+	                            android:id="@+id/frameLayout3"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_weight="1">
+	                        </FrameLayout>
+	                    </LinearLayout>
+	                </LinearLayout>
+	            </LinearLayout>
+
+	            <LinearLayout
+	                android:id="@+id/LinearLayout09"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" >
+
+	                <FrameLayout
+	                    android:id="@+id/FrameLayout1"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="180dp" >
+
+	                    <ProgressBar
+	                        android:id="@+id/progressBar1"
+	                        style="?android:attr/progressBarStyleSmall"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:layout_gravity="center" />
+
+	                    <ImageView
+	                        android:id="@+id/imageViewBigBaner1"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="fill_parent"
+	                        android:scaleType="centerCrop" />
+	                </FrameLayout>
+	            </LinearLayout>
+	        </LinearLayout>
+
+	    </LinearLayout>
+	</ScrollView>
+<LinearLayout
+        android:id="@+id/linearLayoutGoogleBaner"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+</LinearLayout>

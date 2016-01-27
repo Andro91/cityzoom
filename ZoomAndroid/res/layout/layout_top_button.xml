@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:padding="3dp" >
+
+        <FrameLayout
+            android:id="@+id/FrameLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:background="@drawable/button_settings_background_drawable" 
+            android:padding="5dp" >
+
+            <ImageView
+                android:id="@+id/imageViewUp"
+                android:layout_width="42dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:paddingBottom="3dp" 
+            	android:paddingTop="3dp" 
+            	android:paddingLeft="5dp" 
+            	android:paddingRight="5dp"
+                android:src="@drawable/ic_action_up" />
+
+        </FrameLayout>
+        
+        <FrameLayout
+            android:id="@+id/FrameLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_settings_background_drawable" 
+            android:padding="5dp" 
+            android:layout_gravity="center">
+            
+        	<TextView 
+				android:text="BACK" 
+				android:layout_height="wrap_content"
+				android:id="@+id/textViewTitle" 
+				android:layout_width="fill_parent"
+				android:gravity="left"
+				android:layout_gravity="center_vertical"
+				android:textColor="#ffffff" 
+				android:textSize="16dp">
+			</TextView>
+			
+        	<View
+            	android:id="@+id/view1"
+            	android:layout_width="2dp"
+            	android:layout_height="1dp" />
+		
+			<TextView 
+				android:text="BACK" 
+				android:layout_height="wrap_content"
+				android:id="@+id/textViewMainTitle" 
+				android:layout_width="fill_parent"
+				android:textColor="#ffffff" 
+				android:gravity="center"
+				android:layout_gravity="center_vertical"
+				android:textStyle="bold"
+				android:textSize="18dp">
+			</TextView>
+		
+		</FrameLayout>
+		
+        <View
+            android:id="@+id/view2"
+            android:layout_width="12dp"
+            android:layout_height="1dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" 
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+    	<include
+		android:id="@+id/toolbar"
+		layout="@layout/toolbar" >
+		</include>
+	
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"  
+        android:background="#272729"
+		android:paddingBottom="20dp" 
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp" 
+		android:paddingTop="20dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+        
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp" >
+
+                    <TextView
+                        android:id="@+id/textViewZemlja"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:text="Country"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerZemlja"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/settings_spinner_drawable" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp" >
+
+                    <TextView
+                        android:id="@+id/textViewGrad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:text="City"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerGrad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/settings_spinner_drawable" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout04"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp" >
+
+                    <TextView
+                        android:id="@+id/textViewJezik"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:text="Language"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerJezik"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:focusable="true"
+                        android:dropDownWidth="400dp"
+                        android:spinnerMode="dialog"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/settings_spinner_drawable" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/frameLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp" >
+
+                    <Button
+                        android:id="@+id/buttonConfirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/icon_background_drawable_settings"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="OK"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
+                </FrameLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+<LinearLayout
+        android:id="@+id/linearLayoutGoogleBaner"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+</LinearLayout>
