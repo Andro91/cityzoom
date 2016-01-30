@@ -48,8 +48,8 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon1"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
 	                            android:layout_weight="1"
 	                            android:scaleType="fitCenter"
 	                            android:src="@drawable/attractions_256" />
@@ -82,8 +82,8 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon2"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
 	                            android:layout_weight="1"
 	                            android:scaleType="fitCenter"
 	                            android:src="@drawable/inspire_256" />
@@ -119,8 +119,8 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon3"
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/accomodation_256" >
@@ -155,8 +155,8 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon4"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="fill_parent"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
 	                            android:layout_weight="1"
 	                            android:scaleType="fitCenter"
 	                            android:src="@drawable/trafic_256" />
@@ -228,8 +228,8 @@
 
 	                                <ImageView
 	                                    android:id="@+id/ImageView03"
-	                                    android:layout_width="fill_parent"
-	                                    android:layout_height="fill_parent"
+	                                    android:layout_width="match_parent"
+	                                    android:layout_height="0dp"
 	                                    android:layout_weight="1"
 	                                    android:scaleType="fitCenter"
 	                                    android:src="@drawable/shopping_256" />
@@ -263,7 +263,7 @@
 	                                <ImageView
 	                                    android:id="@+id/imageViewIcon9"
 	                                    android:layout_width="match_parent"
-	                                    android:layout_height="fill_parent"
+	                                    android:layout_height="0dp"
 	                                    android:layout_weight="1"
 	                                    android:scaleType="fitCenter"
 	                                    android:src="@drawable/petrol_256" />
@@ -305,8 +305,8 @@
 
 	                                <ImageView
 	                                    android:id="@+id/imageViewIcon6"
-	                                    android:layout_width="fill_parent"
-	                                    android:layout_height="fill_parent"
+	                                    android:layout_width="match_parent"
+	                                    android:layout_height="0dp"
 	                                    android:layout_weight="1"
 	                                    android:scaleType="fitCenter"
 	                                    android:src="@drawable/money_256" />
@@ -370,8 +370,8 @@
 
 	                                <ImageView
 	                                    android:id="@+id/imageViewIcon7"
-	                                    android:layout_width="fill_parent"
-	                                    android:layout_height="fill_parent"
+	                                    android:layout_width="match_parent"
+	                                    android:layout_height="0dp"
 	                                    android:layout_weight="1"
 	                                    android:scaleType="fitCenter"
 	                                    android:src="@drawable/wifi_256" />
@@ -429,8 +429,8 @@
 
 	                                <ImageView
 	                                    android:id="@+id/ImageView01"
-	                                    android:layout_width="fill_parent"
-	                                    android:layout_height="fill_parent"
+	                                    android:layout_width="match_parent"
+	                                    android:layout_height="0dp"
 	                                    android:layout_weight="1"
 	                                    android:scaleType="fitCenter"
 	                                    android:src="@drawable/medicine_256" />

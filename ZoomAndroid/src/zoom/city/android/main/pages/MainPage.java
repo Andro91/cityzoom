@@ -20,6 +20,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -42,7 +43,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import zoom.city.android.main.PreviewFavouritesPage;
 import zoom.city.android.main.R;
+import zoom.city.android.main.adapter.FavouritesAdapter;
 import zoom.city.android.main.constant.ComponentInstance;
 import zoom.city.android.main.constant.Constant;
 import zoom.city.android.main.container.ImageContainer;
@@ -98,19 +101,7 @@ public class MainPage extends AppCompatActivity {
 		
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.drawer_settings_clickable);
-        
-		rl.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(view.getContext(),
-						SettingsPage.class);
-				((Activity) view.getContext()).startActivity(intent);
-				((Activity) view.getContext()).finish();
-			}
-		});
+		inicMainDrawer();
        
 		//Inicijalizacija slajdera POCETAK
 		mDemoSlider = (SliderLayout)findViewById(R.id.slider);
@@ -819,7 +810,90 @@ public class MainPage extends AppCompatActivity {
 		//mTracker.send(null);
 	}
 
+	private void inicMainDrawer(){
+        RelativeLayout r1 = (RelativeLayout) findViewById(R.id.drawer_cityzoom_clickable);
+        RelativeLayout r2 = (RelativeLayout) findViewById(R.id.drawer_busness_clickable);
+        RelativeLayout r3 = (RelativeLayout) findViewById(R.id.drawer_favorite_clickable);
+        RelativeLayout r4 = (RelativeLayout) findViewById(R.id.drawer_settings_clickable);
+        TextView t1 = (TextView) findViewById(R.id.drawer_weblink_webpage);
+        TextView t2 = (TextView) findViewById(R.id.drawer_weblink_about);
+        TextView t3 = (TextView) findViewById(R.id.drawer_weblink_terms);
+        TextView t4 = (TextView) findViewById(R.id.drawer_weblink_contact);
+        
+        r1.setOnClickListener(new View.OnClickListener() {
 
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(view.getContext(),
+						CityZoomPage.class);
+				((Activity) view.getContext()).startActivity(intent);
+				//((Activity) view.getContext()).finish();
+			}
+		});
+        r2.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(view.getContext(),
+						AdresarPage.class);
+				((Activity) view.getContext()).startActivity(intent);
+				//((Activity) view.getContext()).finish();
+			}
+		});
+        r3.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(view.getContext(),
+						PreviewFavouritesPage.class);
+				((Activity) view.getContext()).startActivity(intent);
+				//((Activity) view.getContext()).finish();
+			}
+		});
+		r4.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(view.getContext(),
+						SettingsPage.class);
+				((Activity) view.getContext()).startActivity(intent);
+				((Activity) view.getContext()).finish();
+			}
+		});
+		t1.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.cityzoom.info"));
+				startActivity(browserIntent);
+			}
+		});
+		t2.setOnClickListener(new View.OnClickListener() {
+					
+			@Override
+			public void onClick(View v) {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.cityzoom.info/staticpagefrontend/8"));
+				startActivity(browserIntent);
+			}
+		});
+		t3.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.cityzoom.info/staticpagefrontend/28"));
+				startActivity(browserIntent);
+			}
+		});
+		t4.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.cityzoom.info/contact"));
+				startActivity(browserIntent);
+			}
+		});
+		
+	}
 
 
 }

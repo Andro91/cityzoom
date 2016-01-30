@@ -27,8 +27,8 @@ import zoom.city.android.main.pages.PreviewListItemPage;
 
 public class WellnessAndSpaPage extends AppCompatActivity {
 
-	LinearLayout layout1, layout2, layout3;
-	TextView txtView1, txtView2, txtView3;
+	LinearLayout layout1, layout2, layout3, layout4;
+	TextView txtView1, txtView2, txtView3, txtView4;
 
 	InterstitialAd interstitial;
 	
@@ -176,6 +176,39 @@ public class WellnessAndSpaPage extends AppCompatActivity {
 				
 			}
 		});
+		layout4.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				// TODO Auto-generated method stub
+				if (interstitial.isLoaded()) {
+					interstitial.show();
+					interstitial.setAdListener(new AdListener() {
+
+						@Override
+						public void onAdClosed() {
+							// TODO Auto-generated method stub
+							super.onAdClosed();
+
+							Intent intent = new Intent(WellnessAndSpaPage.this,
+									PreviewListItemPage.class);
+							intent.putExtra("title", ComponentInstance
+									.getTitleString(ComponentInstance.STRING_SPORT));
+							intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_WELNES_AND_SPA));
+							startActivity(intent);
+						}
+					});
+				} else {
+					Intent intent = new Intent(view.getContext(),
+							PreviewListItemPage.class);
+					intent.putExtra("title", ComponentInstance
+							.getTitleString(ComponentInstance.STRING_SPORT));
+					intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_WELNES_AND_SPA));
+					startActivity(intent);
+				}
+				
+			}
+		});
 	}
 
 	private void fillData() {
@@ -186,6 +219,8 @@ public class WellnessAndSpaPage extends AppCompatActivity {
 				.getTitleString(ComponentInstance.STRING_SPA));
 		txtView3.setText(ComponentInstance
 				.getTitleString(ComponentInstance.STRING_BEAUTY));
+		txtView4.setText(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_SPORT));
 	}
 
 	private void inicComponent() {
@@ -193,10 +228,12 @@ public class WellnessAndSpaPage extends AppCompatActivity {
 		layout1 = (LinearLayout) findViewById(R.id.linearLayoutIcon1);
 		layout2 = (LinearLayout) findViewById(R.id.linearLayoutIcon2);
 		layout3 = (LinearLayout) findViewById(R.id.linearLayoutIcon3);
+		layout4 = (LinearLayout) findViewById(R.id.linearLayoutIcon4);
 
 		txtView1 = (TextView) findViewById(R.id.textViewTitle1);
 		txtView2 = (TextView) findViewById(R.id.textViewTitle2);
 		txtView3 = (TextView) findViewById(R.id.textViewTitle3);
+		txtView4 = (TextView) findViewById(R.id.textViewTitle4);
 		
 		//ComponentInstance.inicTopButton(this);
 	}
@@ -285,36 +322,6 @@ public class WellnessAndSpaPage extends AppCompatActivity {
         case android.R.id.home:
             finish(); break;
             }
-        return true;
-    }
-	
-	public void inicActionBar() {
-		try{
-			ActionBar actionBar = getSupportActionBar();
-			String title = ComponentInstance.getTitleString(ComponentInstance.STRING_WELNES_AND_SPA);
-			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setDisplayShowHomeEnabled(false);
-			actionBar.setDisplayShowTitleEnabled(true);
-			actionBar.setDisplayUseLogoEnabled(false);
-			if(!isBlank(title)){
-				getSupportActionBar().setTitle(" " + title);
-			}else{
-				getSupportActionBar().setTitle(" " + "BACK");
-			}
-			}catch(Exception ex){
-				Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
-			}
-	}
-	
-    public static boolean isBlank(String string) {
-        if (string == null || string.length() == 0 || string.equals("null"))
-            return true;
-
-        int l = string.length();
-        for (int i = 0; i < l; i++) {
-            if (!Character.isWhitespace(string.codePointAt(i)))
-                return false;
-        }
         return true;
     }
 

@@ -56,8 +56,8 @@
 
                             <ImageView
                                 android:id="@+id/imageViewIcon2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/taxi_256" />
@@ -91,8 +91,8 @@
 
                             <ImageView
                                 android:id="@+id/imageViewIcon1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/bus_256" />
@@ -238,8 +238,8 @@
 
                             <ImageView
                                 android:id="@+id/imageViewIcon3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/rentacar_256" />
@@ -276,8 +276,8 @@
 
                             <ImageView
                                 android:id="@+id/imageViewIcon4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="fill_parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/rentascooter_256" />

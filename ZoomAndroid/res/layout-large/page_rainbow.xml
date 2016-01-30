@@ -52,7 +52,7 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon1"
-	                            android:layout_width="wrap_content"
+	                            android:layout_width="match_parent"
 	                            android:layout_height="wrap_content"
 	                            android:layout_weight="1"
 	                            android:scaleType="fitCenter"
@@ -123,7 +123,7 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon3"
-	                            android:layout_width="wrap_content"
+	                            android:layout_width="match_parent"
 	                            android:layout_height="wrap_content"
 	                            android:layout_weight="1"
 	                            android:scaleType="fitCenter"
@@ -160,7 +160,7 @@
 
 	                        <ImageView
 	                            android:id="@+id/ImageView01"
-	                            android:layout_width="wrap_content"
+	                            android:layout_width="match_parent"
 	                            android:layout_height="wrap_content"
 	                            android:layout_weight="1"
 	                            android:scaleType="fitCenter"
@@ -224,7 +224,7 @@
 	                            android:layout_weight="1">
 
 	                            <LinearLayout
-	                                android:id="@+id/linearLayoutIcon6"
+	                                android:id="@+id/linearLayoutIcon5"
 	                                android:layout_width="match_parent"
 	                                android:layout_height="match_parent"
 	                                android:background="#BB007cb6"
@@ -233,15 +233,15 @@
 	                                android:padding="10dp" >
 
 	                                <ImageView
-	                                    android:id="@+id/imageViewIcon6"
-	                                    android:layout_width="fill_parent"
+	                                    android:id="@+id/imageViewIcon5"
+	                                    android:layout_width="match_parent"
 	                                    android:layout_height="fill_parent"
 	                                    android:layout_weight="1"
 	                                    android:scaleType="fitCenter"
 	                                    android:src="@drawable/cruising_256" />
 
 	                                <TextView
-	                                    android:id="@+id/textViewTitle6"
+	                                    android:id="@+id/textViewIcon5"
 	                                    android:layout_width="fill_parent"
 	                                    android:layout_height="wrap_content"
 	                                    android:gravity="center_horizontal"

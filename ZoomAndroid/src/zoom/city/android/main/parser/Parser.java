@@ -757,6 +757,18 @@ public class Parser {
 										+ drzavaId + "&city=" + gradId
 										+ "&language=" + jezikId + "&id=370"));
 			}
+			// SPORT
+			else if (title.equalsIgnoreCase(ComponentInstance
+					.getTitleString(ComponentInstance.STRING_SPORT))) {
+				DataContainer
+						.getInstance()
+						.getDataItemList()
+						.put(title + date,
+								parseItems(Constant.MAIN_URL
+										+ "service/companies?seckey=zoom&country="
+										+ drzavaId + "&city=" + gradId
+										+ "&language=" + jezikId + "&id=386"));
+			}
 
 			// NIGHTLIFE
 			// KLUBOVI
@@ -814,6 +826,19 @@ public class Parser {
 										+ drzavaId + "&city=" + gradId
 										+ "&language=" + jezikId + "&id=373"));
 			}
+			// RAINBOW CRUISING
+						else if (title.equalsIgnoreCase(ComponentInstance
+								.getTitleString(ComponentInstance.STRING_CRUISING)
+								+ "_RAINBOW")) {
+							DataContainer
+									.getInstance()
+									.getDataItemList()
+									.put(title + date,
+											parseItems(Constant.MAIN_URL
+													+ "service/companies?seckey=zoom&country="
+													+ drzavaId + "&city=" + gradId
+													+ "&language=" + jezikId + "&id=387"));
+						}
 			// RAINBOW CAFEI
 			else if (title.equalsIgnoreCase(ComponentInstance
 					.getTitleString(ComponentInstance.STRING_CAFEI)

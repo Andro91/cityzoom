@@ -153,8 +153,8 @@
 
                                     <ImageView
                                         android:id="@+id/imageViewIcon6"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
                                         android:layout_weight="1"
                                         android:scaleType="fitCenter"
                                         android:src="@drawable/theatre_256" />
@@ -187,8 +187,8 @@
 
                                     <ImageView
                                         android:id="@+id/imageViewIcon7"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
                                         android:layout_weight="1"
                                         android:scaleType="fitCenter"
                                         android:src="@drawable/concerts_256" />
@@ -226,7 +226,7 @@
                                     <ImageView
                                         android:id="@+id/imageViewIcon9"
                                         android:layout_width="match_parent"
-                                        android:layout_height="fill_parent"
+                                        android:layout_height="0dp"
                                         android:layout_weight="1"
                                         android:scaleType="fitCenter"
                                         android:src="@drawable/culturalcenter_256" />
@@ -263,8 +263,8 @@
 
                                     <ImageView
                                         android:id="@+id/ImageView01"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
                                         android:layout_weight="1"
                                         android:scaleType="fitCenter"
                                         android:src="@drawable/museum_256" />

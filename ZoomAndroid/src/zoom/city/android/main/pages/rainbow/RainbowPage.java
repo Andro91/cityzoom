@@ -26,8 +26,8 @@ import zoom.city.android.main.helper.Helper;
 
 public class RainbowPage extends AppCompatActivity {
 
-	LinearLayout layout1, layout2, layout3, layout4;
-	TextView txtView1, txtView2, txtView3, txtView4;
+	LinearLayout layout1, layout2, layout3, layout4, layout5;
+	TextView txtView1, txtView2, txtView3, txtView4, txtView5;
 
 	InterstitialAd interstitial;
 	
@@ -190,6 +190,39 @@ public class RainbowPage extends AppCompatActivity {
 				
 			}
 		});
+		layout5.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				// TODO Auto-generated method stub
+				if (interstitial.isLoaded()) {
+					interstitial.show();
+					interstitial.setAdListener(new AdListener() {
+
+						@Override
+						public void onAdClosed() {
+							// TODO Auto-generated method stub
+							super.onAdClosed();
+
+							Intent intent = new Intent(RainbowPage.this,
+									PreviewRainbowItemPage.class);
+							intent.putExtra("title", ComponentInstance
+									.getTitleString(ComponentInstance.STRING_CRUISING));
+							intent.putExtra("titleup", ComponentInstance.STRING_RAINBOW);
+							startActivity(intent);
+						}
+					});
+				} else {
+					Intent intent = new Intent(view.getContext(),
+							PreviewRainbowItemPage.class);
+					intent.putExtra("title", ComponentInstance
+							.getTitleString(ComponentInstance.STRING_CRUISING));
+					intent.putExtra("titleup", ComponentInstance.STRING_RAINBOW);
+					startActivity(intent);
+				}
+				
+			}
+		});
 	}
 
 	private void fillData() {
@@ -202,6 +235,8 @@ public class RainbowPage extends AppCompatActivity {
 				.getTitleString(ComponentInstance.STRING_NIGHT_LIFE));
 		txtView4.setText(ComponentInstance
 				.getTitleString(ComponentInstance.STRING_WELNES_AND_SPA));
+		txtView5.setText(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_CRUISING));
 	}
 
 	private void inicComponent() {
@@ -210,11 +245,13 @@ public class RainbowPage extends AppCompatActivity {
 		layout2 = (LinearLayout) findViewById(R.id.linearLayoutIcon2);
 		layout3 = (LinearLayout) findViewById(R.id.linearLayoutIcon3);
 		layout4 = (LinearLayout) findViewById(R.id.linearLayoutIcon4);
+		layout5 = (LinearLayout) findViewById(R.id.linearLayoutIcon5);
 
 		txtView1 = (TextView) findViewById(R.id.textViewIcon1);
 		txtView2 = (TextView) findViewById(R.id.textViewIcon2);
 		txtView3 = (TextView) findViewById(R.id.textViewIcon3);
 		txtView4 = (TextView) findViewById(R.id.textViewIcon4);
+		txtView5 = (TextView) findViewById(R.id.textViewIcon5);
 
 		//ComponentInstance.inicTopButton(this);
 	}
