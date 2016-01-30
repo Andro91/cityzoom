@@ -555,6 +555,18 @@ public class Parser {
 										+ drzavaId + "&city=" + gradId
 										+ "&language=" + jezikId + "&id=360"));
 			}
+			// METRO
+			else if (title.equalsIgnoreCase(ComponentInstance
+					.getTitleString(ComponentInstance.STRING_METRO))) {
+				DataContainer
+						.getInstance()
+						.getDataItemList()
+						.put(title + date,
+								parseItems(Constant.MAIN_URL
+										+ "service/companies?seckey=zoom&country="
+										+ drzavaId + "&city=" + gradId
+										+ "&language=" + jezikId + "&id=385"));
+			}
 
 			// SHOPPING
 			else if (title.equalsIgnoreCase(ComponentInstance

@@ -123,6 +123,9 @@ public class StringContainer {
 		iconTextLocal.add("Categories");
 		iconTextLocal.add("More...");
 		iconTextLocal.add("Must 2 Do");
+		iconTextLocal.add("Metro");
+		iconTextLocal.add("Sport");
+		iconTextLocal.add("Cruising");
 		
 		iconTextList.add(iconTextLocal);
 		
@@ -209,6 +212,9 @@ public class StringContainer {
 		iconTextEnglish.add("Categories");
 		iconTextEnglish.add("More...");
 		iconTextEnglish.add("Must 2 Do");
+		iconTextEnglish.add("Metro");
+		iconTextEnglish.add("Sport");
+		iconTextEnglish.add("Cruising");
 		
 		iconTextList.add(iconTextEnglish);
 		
@@ -295,6 +301,9 @@ public class StringContainer {
 		iconTextGerman.add("Kategorien");
 		iconTextGerman.add("More...");
 		iconTextGerman.add("Must 2 Do");
+		iconTextGerman.add("Metro");
+		iconTextGerman.add("Sport");
+		iconTextGerman.add("Kreuzfahrt");
 		
 		iconTextList.add(iconTextGerman);
 		
@@ -381,6 +390,9 @@ public class StringContainer {
 		iconTextFrench.add("Catégories");
 		iconTextFrench.add("More...");
 		iconTextFrench.add("Must 2 Do");
+		iconTextFrench.add("Métro");
+		iconTextFrench.add("Sport");
+		iconTextFrench.add("Croisière");
 		
 		iconTextList.add(iconTextFrench);
 		
@@ -467,6 +479,9 @@ public class StringContainer {
 		iconTextItalian.add("Categorie");
 		iconTextItalian.add("More...");
 		iconTextItalian.add("Must 2 Do");
+		iconTextItalian.add("Métro");
+		iconTextItalian.add("Sport");
+		iconTextItalian.add("Crociera");
 		
 		iconTextList.add(iconTextItalian);
 		
@@ -553,6 +568,9 @@ public class StringContainer {
 		iconTextEspanola.add("Categorías");
 		iconTextEspanola.add("More...");
 		iconTextEspanola.add("Must 2 Do");
+		iconTextEspanola.add("Metro");
+		iconTextEspanola.add("Deporte");
+		iconTextEspanola.add("Crucero");
 		
 		iconTextList.add(iconTextEspanola);
 		
@@ -639,6 +657,9 @@ public class StringContainer {
 		iconTextRuski.add("Категории");
 		iconTextRuski.add("More...");
 		iconTextRuski.add("Must 2 Do");
+		iconTextRuski.add("Mетро");
+		iconTextRuski.add("Спорт");
+		iconTextRuski.add("Kрейсерский");
 		
 		iconTextList.add(iconTextRuski);
 		

@@ -27,9 +27,9 @@ import zoom.city.android.main.pages.PreviewListItemPage;
 
 public class PrevozPage extends AppCompatActivity {
 
-	LinearLayout layout1, layout2, layout3, layout4, layout5, layout6, layout7;
+	LinearLayout layout1, layout2, layout3, layout4, layout5, layout6, layout7, layout8;
 	TextView txtView1, txtView2, txtView3, txtView4, txtView5, txtView6,
-			txtView7;
+			txtView7, txtView8;
 	
 	InterstitialAd interstitial;
 	
@@ -290,6 +290,36 @@ public class PrevozPage extends AppCompatActivity {
 				
 			}
 		});
+		layout8.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				// TODO Auto-generated method stub
+				if (interstitial.isLoaded()) {
+					interstitial.show();
+					interstitial.setAdListener(new AdListener() {
+
+						@Override
+						public void onAdClosed() {
+							// TODO Auto-generated method stub
+							super.onAdClosed();
+							Intent intent = new Intent(PrevozPage.this,
+									PreviewListItemPage.class);
+							intent.putExtra("title", ComponentInstance
+									.getTitleString(ComponentInstance.STRING_METRO));
+							startActivity(intent);
+						}
+					});
+				} else {
+					Intent intent = new Intent(view.getContext(),
+							PreviewListItemPage.class);
+					intent.putExtra("title", ComponentInstance
+							.getTitleString(ComponentInstance.STRING_METRO));
+					startActivity(intent);
+				}
+				
+			}
+		});
 	}
 
 	private void fillData() {
@@ -319,6 +349,7 @@ public class PrevozPage extends AppCompatActivity {
 		layout5 = (LinearLayout) findViewById(R.id.linearLayoutIcon5);
 		layout6 = (LinearLayout) findViewById(R.id.linearLayoutIcon6);
 		layout7 = (LinearLayout) findViewById(R.id.linearLayoutIcon7);
+		layout8 = (LinearLayout) findViewById(R.id.linearLayoutIcon8);
 
 		txtView1 = (TextView) findViewById(R.id.textViewTitle1);
 		txtView2 = (TextView) findViewById(R.id.textViewTitle2);
@@ -327,6 +358,7 @@ public class PrevozPage extends AppCompatActivity {
 		txtView5 = (TextView) findViewById(R.id.textViewTitle5);
 		txtView6 = (TextView) findViewById(R.id.textViewTitle6);
 		txtView7 = (TextView) findViewById(R.id.textViewTitle7);
+		txtView8 = (TextView) findViewById(R.id.textViewTitle8);
 
 	}
 	
@@ -416,23 +448,5 @@ public class PrevozPage extends AppCompatActivity {
             }
         return true;
     }
-	
-	public void inicActionBar() {
-		try{
-			ActionBar actionBar = getSupportActionBar();
-			String title = ComponentInstance.getTitleString(ComponentInstance.STRING_PREVOZ);
-			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setDisplayShowHomeEnabled(false);
-			actionBar.setDisplayShowTitleEnabled(true);
-			actionBar.setDisplayUseLogoEnabled(false);
-			if(!Helper.isBlank(title)){
-				getSupportActionBar().setTitle(" " + title);
-			}else{
-				getSupportActionBar().setTitle(" " + "BACK");
-			}
-			}catch(Exception ex){
-				Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
-			}
-	}
 
 }
