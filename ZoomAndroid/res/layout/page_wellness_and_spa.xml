@@ -8,6 +8,8 @@
 <!-- 		android:layout_width="fill_parent"  -->
 <!-- 		layout="@layout/layout_top_button"></include> -->
 
+
+
 	<ScrollView
 	    android:id="@+id/scrollView1"
 	    android:layout_width="fill_parent"
@@ -18,6 +20,11 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="vertical" >
+			
+			    <include
+					android:id="@+id/toolbar"
+					layout="@layout/toolbar" >
+				</include>
 
 	        <LinearLayout
 	            android:id="@+id/linearLayout1"
@@ -40,18 +47,18 @@
 	                        android:id="@+id/linearLayoutIcon1"
 	                        android:layout_width="match_parent"
 	                        android:layout_height="match_parent"
-	                        android:background="@drawable/icon_background_drawable"
+	                        android:background="#BB048fd3"
 	                        android:clickable="true"
 	                        android:orientation="vertical"
-	                        android:padding="2dp" >
+	                        android:padding="10dp" >
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon1"
 	                            android:layout_width="wrap_content"
 	                            android:layout_height="wrap_content"
 	                            android:layout_weight="1"
-	                            android:scaleType="centerCrop"
-	                            android:src="@drawable/wellness" />
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/wellness_256" />
 
 	                        <TextView
 	                            android:id="@+id/textViewTitle1"
@@ -60,7 +67,7 @@
 	                            android:gravity="center_horizontal"
 	                            android:text="Wellness"
 	                            android:textColor="#ffffff"
-	                            android:textSize="10dp" />
+	                            android:textSize="12sp" />
 	                    </LinearLayout>
 	                </FrameLayout>
 
@@ -74,18 +81,18 @@
 	                        android:id="@+id/linearLayoutIcon2"
 	                        android:layout_width="match_parent"
 	                        android:layout_height="match_parent"
-	                        android:background="@drawable/icon_background_drawable"
+	                        android:background="#BBcf69ff"
 	                        android:clickable="true"
 	                        android:orientation="vertical"
-	                        android:padding="2dp" >
+	                        android:padding="10dp" >
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon2"
 	                            android:layout_width="wrap_content"
 	                            android:layout_height="wrap_content"
 	                            android:layout_weight="1"
-	                            android:scaleType="centerCrop"
-	                            android:src="@drawable/spa" />
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/spa_256" />
 
 	                        <TextView
 	                            android:id="@+id/textViewTitle2"
@@ -94,7 +101,7 @@
 	                            android:gravity="center_horizontal"
 	                            android:text="Spa"
 	                            android:textColor="#ffffff"
-	                            android:textSize="10dp" />
+	                            android:textSize="12sp" />
 	                    </LinearLayout>
 	                </FrameLayout>
 
@@ -108,18 +115,18 @@
 	                        android:id="@+id/linearLayoutIcon3"
 	                        android:layout_width="match_parent"
 	                        android:layout_height="match_parent"
-	                        android:background="@drawable/icon_background_drawable"
+	                        android:background="#BB04ccd3"
 	                        android:clickable="true"
 	                        android:orientation="vertical"
-	                        android:padding="2dp" >
+	                        android:padding="10dp" >
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon3"
 	                            android:layout_width="wrap_content"
 	                            android:layout_height="wrap_content"
 	                            android:layout_weight="1"
-	                            android:scaleType="centerCrop"
-	                            android:src="@drawable/beauty" />
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/beauty_256" />
 
 	                        <TextView
 	                            android:id="@+id/textViewTitle3"
@@ -128,22 +135,49 @@
 	                            android:gravity="center_horizontal"
 	                            android:text="Beauty"
 	                            android:textColor="#ffffff"
-	                            android:textSize="10dp" />
+	                            android:textSize="12sp" />
 	                    </LinearLayout>
 	                </FrameLayout>
 
 	                <FrameLayout
-	                    android:id="@+id/frameLayout1"
+	                    android:id="@+id/FrameLayout01a"
 	                    android:layout_width="fill_parent"
 	                    android:layout_height="fill_parent"
 	                    android:layout_weight="1">
+
+	                    <LinearLayout
+	                        android:id="@+id/linearLayoutIcon4"
+	                        android:layout_width="match_parent"
+	                        android:layout_height="match_parent"
+	                        android:background="@drawable/icon_background_drawable_color3"
+	                        android:clickable="true"
+	                        android:orientation="vertical"
+	                        android:padding="10dp" >
+
+	                        <ImageView
+	                            android:id="@+id/imageViewIcon4"
+	                            android:layout_width="wrap_content"
+	                            android:layout_height="wrap_content"
+	                            android:layout_weight="1"
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/sport_256" />
+
+	                        <TextView
+	                            android:id="@+id/textViewTitle4"
+	                            android:layout_width="fill_parent"
+	                            android:layout_height="wrap_content"
+	                            android:gravity="center_horizontal"
+	                            android:text="Sport"
+	                            android:textColor="#ffffff"
+	                            android:textSize="12sp" />
+	                    </LinearLayout>
 	                </FrameLayout>
 	            </LinearLayout>
 
 	            <FrameLayout
 	                android:id="@+id/FrameLayout1"
 	                android:layout_width="fill_parent"
-	                android:layout_height="240dp">
+	                android:layout_height="180dp">
 
 	                <ProgressBar
 	                    android:id="@+id/progressBar1"

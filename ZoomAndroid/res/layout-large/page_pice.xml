@@ -51,6 +51,7 @@
 	                        android:padding="10dp" >
 
 	                        <ImageView
+	                            android:layout_gravity="center_horizontal"
 	                            android:id="@+id/imageViewIcon1"
 	                            android:layout_width="match_parent"
 	                            android:layout_height="0dp"
@@ -85,6 +86,7 @@
 	                        android:padding="10dp" >
 
 	                        <ImageView
+	                            android:layout_gravity="center_horizontal"
 	                            android:id="@+id/imageViewIcon2"
 	                            android:layout_width="match_parent"
 	                            android:layout_height="0dp"
@@ -119,6 +121,7 @@
 	                        android:padding="10dp" >
 
 	                        <ImageView
+	                            android:layout_gravity="center_horizontal"
 	                            android:id="@+id/imageViewIcon3"
 	                            android:layout_width="match_parent"
 	                            android:layout_height="0dp"

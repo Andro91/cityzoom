@@ -152,6 +152,7 @@
                                     android:padding="10dp" >
 
                                     <ImageView
+	                            android:layout_gravity="center_horizontal"
                                         android:id="@+id/imageViewIcon6"
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
@@ -186,6 +187,7 @@
                                     android:padding="10dp" >
 
                                     <ImageView
+	                            android:layout_gravity="center_horizontal"
                                         android:id="@+id/imageViewIcon7"
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
@@ -224,6 +226,7 @@
 		                            android:paddingBottom="2dp" >
 
                                     <ImageView
+	                            android:layout_gravity="center_horizontal"
                                         android:id="@+id/imageViewIcon9"
                                         android:layout_width="match_parent"
                                         android:layout_height="fill_parent"
@@ -262,6 +265,7 @@
 		                            android:paddingBottom="2dp" >
 
                                     <ImageView
+	                            android:layout_gravity="center_horizontal"
                                         android:id="@+id/ImageView01"
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"

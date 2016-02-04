@@ -52,6 +52,7 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon1"
+	                            android:layout_gravity="center_horizontal"
 	                            android:layout_width="match_parent"
 	                            android:layout_height="0dp"
 	                            android:layout_weight="1"
@@ -86,6 +87,7 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon2"
+	                            android:layout_gravity="center_horizontal"
 	                            android:layout_width="match_parent"
 	                            android:layout_height="0dp"
 	                            android:layout_weight="1"
@@ -120,6 +122,7 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon3"
+	                            android:layout_gravity="center_horizontal"
 	                            android:layout_width="match_parent"
 	                            android:layout_height="0dp"
 	                            android:layout_weight="1"

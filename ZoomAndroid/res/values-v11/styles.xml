@@ -25,10 +25,8 @@
 <!--     	<item name="android:listSelector">@drawable/ad_selectable_background</item> -->
 <!--   	</style> -->
   	<style name="MySpinnerDropDownItem" parent="android:style/Widget.DropDownItem.Spinner">
-    	<item name="android:background">@drawable/spiner_theme</item>
-    	<item name="android:checkMark">@null</item>
-    	<item name="android:height">80dp</item>
-    	<item name="android:textColor">#CCCCCC</item>
+<!--     	<item name="android:background">#222222</item> -->
+    		<item name="android:textColor">#EEEEEE</item>
   	</style>
 </resources>
 
