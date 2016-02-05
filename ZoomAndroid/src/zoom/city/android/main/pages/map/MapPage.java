@@ -88,6 +88,8 @@ public class MapPage extends Activity {
 		mapView = ((MapFragment) getFragmentManager()
 				.findFragmentById(R.id.map)).getMap();
 		
+		mapView.setPadding(0, 0, 0, 80);
+		
 		mapView.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 			
 			@Override

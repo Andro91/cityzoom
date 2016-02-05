@@ -44,14 +44,14 @@
 
             <LinearLayout
                 android:id="@+id/handle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp" >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#cccccc"
+                    android:background="#ff402c"
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
                     android:paddingLeft="20dp"
@@ -60,10 +60,11 @@
 
                     <Button
                         android:id="@+id/buttonKategorije"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#00000000"
-                        android:text="Kategorije" />
+                        android:text="Kategorije"
+					    android:textColor="#ffffff" 
+					    android:background="#ff402c" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -71,19 +72,19 @@
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#70ffffff"
+                android:background="#00ffffff"
                 android:orientation="vertical"
                 android:padding="10dp" >
 
                 <ScrollView
                     android:id="@+id/scrollView1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" >
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:background="#ffffff"
+                        android:background="#555555"
                         android:orientation="vertical" >
 
                         <LinearLayout
@@ -99,7 +100,8 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_night_life" />
+                                android:src="@drawable/map_night_life"
+                                android:visibility="gone" />
 
                             <View
                                 android:id="@+id/view1"
@@ -120,7 +122,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -137,10 +139,11 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_ice_pice" />
+                                android:src="@drawable/map_ice_pice"
+                                android:visibility="gone" />
 
                             <View
-                                android:id="@+id/view1"
+                                android:id="@+id/view1g"
                                 android:layout_width="10dp"
                                 android:layout_height="fill_parent" />
 
@@ -158,7 +161,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -175,10 +178,11 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_shoping" />
+                                android:src="@drawable/map_shoping"
+                                android:visibility="gone" />
 
                             <View
-                                android:id="@+id/view1"
+                                android:id="@+id/view1h"
                                 android:layout_width="10dp"
                                 android:layout_height="fill_parent" />
 
@@ -196,7 +200,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -213,10 +217,11 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_smestaj" />
+                                android:src="@drawable/map_smestaj"
+                                android:visibility="gone" />
 
                             <View
-                                android:id="@+id/view1"
+                                android:id="@+id/view1a"
                                 android:layout_width="10dp"
                                 android:layout_height="fill_parent" />
 
@@ -234,7 +239,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -251,10 +256,11 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_wi_fi" />
+                                android:src="@drawable/map_wi_fi"
+                                android:visibility="gone" />
 
                             <View
-                                android:id="@+id/view1"
+                                android:id="@+id/view1b"
                                 android:layout_width="10dp"
                                 android:layout_height="fill_parent" />
 
@@ -272,7 +278,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -289,10 +295,11 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_bank" />
+                                android:src="@drawable/map_bank"
+                                android:visibility="gone" />
 
                             <View
-                                android:id="@+id/view1"
+                                android:id="@+id/view1c"
                                 android:layout_width="10dp"
                                 android:layout_height="fill_parent" />
 
@@ -310,7 +317,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -327,10 +334,11 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_gas" />
+                                android:src="@drawable/map_gas"
+                                android:visibility="gone" />
 
                             <View
-                                android:id="@+id/view1"
+                                android:id="@+id/view1d"
                                 android:layout_width="10dp"
                                 android:layout_height="fill_parent" />
 
@@ -348,7 +356,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -365,10 +373,11 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_znamenitosti" />
+                                android:src="@drawable/map_znamenitosti"
+                                android:visibility="gone" />
 
                             <View
-                                android:id="@+id/view1"
+                                android:id="@+id/view1e"
                                 android:layout_width="10dp"
                                 android:layout_height="fill_parent" />
 
@@ -386,7 +395,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -403,10 +412,11 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_inspiracija" />
+                                android:src="@drawable/map_inspiracija"
+                                android:visibility="gone" />
 
                             <View
-                                android:id="@+id/view1"
+                                android:id="@+id/view1q"
                                 android:layout_width="10dp"
                                 android:layout_height="fill_parent" />
 
@@ -424,7 +434,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -441,10 +451,11 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_kultura" />
+                                android:src="@drawable/map_kultura"
+                                android:visibility="gone" />
 
                             <View
-                                android:id="@+id/view1"
+                                android:id="@+id/view1m"
                                 android:layout_width="10dp"
                                 android:layout_height="fill_parent" />
 
@@ -462,7 +473,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -479,10 +490,11 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_rainbow" />
+                                android:src="@drawable/map_rainbow"
+                                android:visibility="gone" />
 
                             <View
-                                android:id="@+id/view1"
+                                android:id="@+id/view1f"
                                 android:layout_width="10dp"
                                 android:layout_height="fill_parent" />
 
@@ -500,7 +512,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
-                                android:textColor="#000000"
+                                android:textColor="#DDDDDD"
                                 android:textSize="18sp" />
                         </LinearLayout>
                     </LinearLayout>
