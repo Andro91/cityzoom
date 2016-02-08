@@ -162,12 +162,12 @@
         <activity
             android:name=".pages.adresar.AdresarPage"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:theme="@style/MyThemeSettings" >
         </activity>
         <activity
             android:name=".pages.adresar.NaprednaPretragaPage"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:theme="@style/MyThemeSettings" >
         </activity>
         <activity
             android:name=".pages.SettingsPage"
@@ -182,7 +182,7 @@
         <activity
             android:name=".pages.adresar.PreviewAdvancedSearchPage"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:theme="@style/MyThemeSettings" >
         </activity>
         <activity
             android:name=".pages.previewitem.PreviewItemPage"

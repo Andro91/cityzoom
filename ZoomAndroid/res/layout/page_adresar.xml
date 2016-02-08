@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:background="#3c2a98"
+        android:background="#272729"
         android:orientation="vertical"
         android:paddingBottom="20dp"
         android:paddingLeft="10dp"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="Poslovni adresar"
                 android:textColor="#ffffff"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -44,8 +44,9 @@
                 android:inputType="textFilter"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:textColor="#3c2a98"
-                android:textSize="16dp" >
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:background="@drawable/pretraga_spinner_drawable" >
 
                 <requestFocus />
             </EditText>
@@ -77,14 +78,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/button_background_drawable"
-                android:paddingBottom="15dp"
+                android:background="@drawable/icon_background_drawable_settings"
+                android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:paddingTop="15dp"
+                android:paddingTop="10dp"
                 android:text="Traži"
                 android:textColor="#ffffff"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
         </FrameLayout>
 
         <FrameLayout
@@ -100,10 +101,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:paddingTop="10dp"
                 android:text="Napredna pretraga"
                 android:textColor="#ffffff"
-                android:textSize="18dp" />
+                android:textSize="18sp"
+                android:background="@drawable/icon_background_drawable_settings" />
         </FrameLayout>
     </LinearLayout>
 

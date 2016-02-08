@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:background="#3c2a98"
+        android:background="#272729"
         android:orientation="vertical"
         android:paddingBottom="20dp"
         android:paddingLeft="10dp"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="Poslovni adresar"
                 android:textColor="#ffffff"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <ScrollView
@@ -66,8 +66,9 @@
                         android:inputType="textFilter"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
-                        android:textColor="#3c2a98"
-                        android:textSize="16dp" >
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/pretraga_spinner_drawable"
+                        android:textSize="16sp" >
 
                         <requestFocus />
                     </EditText>
@@ -97,7 +98,8 @@
                         android:inputType="textFilter"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
-                        android:textColor="#3c2a98"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/pretraga_spinner_drawable"
                         android:textSize="16dp" />
                 </LinearLayout>
 
@@ -121,7 +123,14 @@
                     <Spinner
                         android:id="@+id/spinnerGrad"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:layout_marginLeft="@dimen/settings_margin"
+                        android:layout_marginRight="@dimen/settings_margin"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/settings_spinner_drawable" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -144,7 +153,14 @@
                     <Spinner
                         android:id="@+id/spinnerZona"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:layout_marginLeft="@dimen/settings_margin"
+                        android:layout_marginRight="@dimen/settings_margin"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/settings_spinner_drawable" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -167,7 +183,15 @@
                     <Spinner
                         android:id="@+id/spinnerKategorija"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:textColor="#ffffff"
+                        android:layout_marginLeft="@dimen/settings_margin"
+                        android:layout_marginRight="@dimen/settings_margin"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/settings_spinner_drawable" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -190,7 +214,15 @@
                     <Spinner
                         android:id="@+id/spinnerDelatnost"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:textColor="#ffffff"
+                        android:layout_marginLeft="@dimen/settings_margin"
+                        android:layout_marginRight="@dimen/settings_margin"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/settings_spinner_drawable" />
                 </LinearLayout>
 
                 <FrameLayout
@@ -204,7 +236,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/button_background_drawable"
+                        android:background="@drawable/icon_background_drawable_settings"
                         android:padding="10dp"
                         android:text="Traži"
                         android:textColor="#ffffff"
