@@ -19,6 +19,7 @@ import android.widget.ListView;
 import zoom.city.android.main.R;
 import zoom.city.android.main.adapter.SearchListViewAdapter;
 import zoom.city.android.main.data.DataItem;
+import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.parser.ParserSearch;
 
 public class PreviewSearchResult extends AppCompatActivity {
@@ -47,7 +48,7 @@ public class PreviewSearchResult extends AppCompatActivity {
 		inicComponent();
 		fillData();
 		onComponentCLick();
-		inicActionBar();
+		Helper.inicActionBar(PreviewSearchResult.this, "Search");
 		//ComponentInstance.inicTitleBar(this, ComponentInstance.getTitleString(ComponentInstance.STRING_ADRESAR));
 
 		handler = new Handler() {
@@ -124,35 +125,6 @@ public class PreviewSearchResult extends AppCompatActivity {
 		listView = (ListView) findViewById(R.id.listView);
 		progresLayout = (LinearLayout) findViewById(R.id.linearLayoutProgres);
 	}
-	
-	public void inicActionBar() {
-		try{
-			ActionBar actionBar = getSupportActionBar();
-			
-			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setDisplayShowHomeEnabled(false);
-			actionBar.setDisplayShowTitleEnabled(true);
-			actionBar.setDisplayUseLogoEnabled(false);
-			if(!isBlank(title)){
-				getSupportActionBar().setTitle(" " + title);
-			}else{
-				getSupportActionBar().setTitle(" " + "BACK");
-			}
-			}catch(Exception ex){
-				Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
-			}
-	}
-	
-    public static boolean isBlank(String string) {
-        if (string == null || string.length() == 0 || string.equals("null"))
-            return true;
 
-        int l = string.length();
-        for (int i = 0; i < l; i++) {
-            if (!Character.isWhitespace(string.codePointAt(i)))
-                return false;
-        }
-        return true;
-    }
 
 }

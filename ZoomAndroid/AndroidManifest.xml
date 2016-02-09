@@ -157,7 +157,7 @@
         <activity
             android:name=".pages.map.MapPage"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:theme="@style/AppThemeMy2Theme" >
         </activity>
         <activity
             android:name=".pages.adresar.AdresarPage"

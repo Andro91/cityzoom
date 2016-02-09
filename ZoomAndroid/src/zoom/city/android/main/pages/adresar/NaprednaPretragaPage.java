@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -17,8 +19,9 @@ import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
 import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.data.DataItem;
+import zoom.city.android.main.helper.Helper;
 
-public class NaprednaPretragaPage extends Activity {
+public class NaprednaPretragaPage extends AppCompatActivity {
 
 	TextView txtTitle, txtImeFirme, txtAdresa, txtGrad, txtZona, txtKategorija,
 			txtDelatnost;
@@ -41,6 +44,9 @@ public class NaprednaPretragaPage extends Activity {
 		inicComponent();
 		onComponentClick();
 		fillData();
+		
+		Helper.inicActionBar(NaprednaPretragaPage.this, ComponentInstance
+				.getTitleString(ComponentInstance.STRING_POSLOVNI_ADRESAR));
 		
 		ComponentInstance.inicGoogleBaner(this,myPrefs.getString("nazivGrada", ""),"ca-app-pub-1530516813542398/1143993865");
 
@@ -200,5 +206,14 @@ public class NaprednaPretragaPage extends Activity {
 		spinnerKategorija = (Spinner) findViewById(R.id.spinnerKategorija);
 		spinnerZona = (Spinner) findViewById(R.id.spinnerZona);
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            finish(); break;
+            }
+        return true;
+    }
 
 }

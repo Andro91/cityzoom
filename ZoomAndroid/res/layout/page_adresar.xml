@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <include
+		android:id="@+id/toolbar"
+		layout="@layout/toolbar" >
+		</include>
+    
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -11,8 +16,8 @@
         android:background="#272729"
         android:orientation="vertical"
         android:paddingBottom="20dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:paddingTop="20dp" >
 
         <LinearLayout
@@ -27,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:text="Poslovni adresar"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,10 +81,10 @@
 
             <Button
                 android:id="@+id/buttonSearch"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/icon_background_drawable_settings"
+                android:background="@drawable/icon_background_drawable_redbutton"
                 android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
@@ -106,8 +112,7 @@
                 android:paddingTop="10dp"
                 android:text="Napredna pretraga"
                 android:textColor="#ffffff"
-                android:textSize="18sp"
-                android:background="@drawable/icon_background_drawable_settings" />
+                android:textSize="18sp" />
         </FrameLayout>
     </LinearLayout>
 

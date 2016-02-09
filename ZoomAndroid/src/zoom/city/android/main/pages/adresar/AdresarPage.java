@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -13,8 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
+import zoom.city.android.main.helper.Helper;
 
-public class AdresarPage extends Activity {
+public class AdresarPage extends AppCompatActivity {
 
 	TextView txtTitle, txtNapredna;
 	Button searchButton;
@@ -38,6 +41,9 @@ public class AdresarPage extends Activity {
 		inicComponent();
 		onCOmponentCLick();
 		fillData();
+		
+		Helper.inicActionBar(AdresarPage.this, ComponentInstance
+				.getTitleString(ComponentInstance.STRING_POSLOVNI_ADRESAR));
 		
 		ComponentInstance.inicGoogleBaner(this,myPrefs.getString("nazivGrada", ""),"ca-app-pub-1530516813542398/1143993865");
 	}
@@ -86,5 +92,14 @@ public class AdresarPage extends Activity {
 		txtNapredna = (TextView) findViewById(R.id.textViewNapredna);
 		searchText = (EditText) findViewById(R.id.editTextSearch);
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            finish(); break;
+            }
+        return true;
+    }
 
 }

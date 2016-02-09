@@ -6,6 +6,8 @@
     android:layout_height="fill_parent"
     tools:context=".MainActivity" >
 
+
+	
     <fragment
         android:id="@+id/map"
         android:layout_width="match_parent"
@@ -59,12 +61,14 @@
                     android:paddingTop="10dp" >
 
                     <Button
+                        android:minHeight="0dp"
+						android:minWidth="0dp"
                         android:id="@+id/buttonKategorije"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Kategorije"
 					    android:textColor="#ffffff" 
-					    android:background="#ff402c" />
+					    android:background="@drawable/icon_background_drawable_redbutton" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -72,7 +76,7 @@
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#00ffffff"
+                android:background="#00555555"
                 android:orientation="vertical"
                 android:padding="10dp" >
 
@@ -82,7 +86,7 @@
                     android:layout_height="match_parent" >
 
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#555555"
                         android:orientation="vertical" >
@@ -90,10 +94,7 @@
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije1"
@@ -123,16 +124,13 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije2"
@@ -162,16 +160,13 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije3"
@@ -201,16 +196,13 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije4"
@@ -240,16 +232,13 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije5"
@@ -279,16 +268,13 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije6"
@@ -318,16 +304,13 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije7"
@@ -357,16 +340,13 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije8"
@@ -396,16 +376,13 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije9"
@@ -435,16 +412,13 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije10"
@@ -474,16 +448,13 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp" >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/imageViewKategorije11"
@@ -513,7 +484,7 @@
                                 android:paddingLeft="10dp"
                                 android:text="NightLife"
                                 android:textColor="#DDDDDD"
-                                android:textSize="18sp" />
+                                android:textSize="20sp" />
                         </LinearLayout>
                     </LinearLayout>
                 </ScrollView>

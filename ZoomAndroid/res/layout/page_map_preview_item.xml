@@ -5,6 +5,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context=".MainActivity" >
+    
+    <include
+		android:id="@+id/toolbar"
+		layout="@layout/toolbar" >
+		</include>
 
     <fragment
         android:id="@+id/map"

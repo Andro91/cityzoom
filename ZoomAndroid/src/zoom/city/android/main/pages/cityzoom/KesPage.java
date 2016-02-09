@@ -273,22 +273,5 @@ public class KesPage extends AppCompatActivity {
         return true;
     }
 	
-	public void inicActionBar() {
-		try{
-			ActionBar actionBar = getSupportActionBar();
-			String title = ComponentInstance.getTitleString(ComponentInstance.STRING_KES);
-			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setDisplayShowHomeEnabled(false);
-			actionBar.setDisplayShowTitleEnabled(true);
-			actionBar.setDisplayUseLogoEnabled(false);
-			if(!Helper.isBlank(title)){
-				getSupportActionBar().setTitle(" " + title);
-			}else{
-				getSupportActionBar().setTitle(" " + "BACK");
-			}
-			}catch(Exception ex){
-				Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
-			}
-	}
 
 }

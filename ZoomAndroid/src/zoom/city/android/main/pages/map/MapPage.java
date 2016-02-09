@@ -24,6 +24,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,10 +37,11 @@ import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
 import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.data.DataItem;
+import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.previewitem.PreviewItemPage;
 import zoom.city.android.main.parser.ParserMap;
 
-public class MapPage extends Activity {
+public class MapPage extends AppCompatActivity {
 
 	SharedPreferences myPrefs;
 	Thread thread;
@@ -79,6 +81,8 @@ public class MapPage extends Activity {
 		
 		
 		sendGoogleAnaliticsData("Map - screen");
+		
+		Helper.inicActionBar(MapPage.this, "MAP");
 
 	}
 
