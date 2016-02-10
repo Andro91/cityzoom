@@ -88,6 +88,14 @@ public class ParserSearch {
 					if (pom.has("type")) {
 						dataItem.setCategory(pom.getString("type"));
 					}
+					
+					if (pom.has("x")) {
+						dataItem.setX(pom.getString("x"));
+					}
+					
+					if (pom.has("y")) {
+						dataItem.setY(pom.getString("y"));
+					}
 
 					dataItem.setTitleIndicator("1");
 

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="match_parent"
 	android:layout_height="match_parent">
-	<include android:id="@+id/include1"
-		android:layout_height="wrap_content" android:layout_width="fill_parent" layout="@layout/layout_title"></include>
+<!-- 	<include android:id="@+id/include1" -->
+<!-- 		android:layout_height="wrap_content" android:layout_width="fill_parent" layout="@layout/layout_title"></include> -->
 
 	<ScrollView
 	    android:id="@+id/scrollView1"
@@ -15,6 +15,11 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="vertical" >
+			
+			<include
+				android:id="@+id/toolbar"
+				layout="@layout/toolbar" >
+				</include>
 
 	        <LinearLayout
 	            android:id="@+id/linearLayout1"
@@ -32,24 +37,25 @@
 	                    android:layout_width="fill_parent"
 	                    android:layout_height="fill_parent"
 	                    android:layout_weight="1"
-	                    android:padding="3dp" >
+	                     >
 
 	                    <LinearLayout
 	                        android:id="@+id/linearLayoutIcon1"
 	                        android:layout_width="match_parent"
 	                        android:layout_height="match_parent"
-	                        android:background="@drawable/icon_background_drawable"
+	                        android:background="@drawable/icon_background_drawable_color2"
 	                        android:clickable="true"
 	                        android:orientation="vertical"
-	                        android:padding="2dp" >
+	                        android:padding="10dp" >
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon1"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
+	                            android:gravity="center_horizontal"
 	                            android:layout_weight="1"
-	                            android:scaleType="centerCrop"
-	                            android:src="@drawable/bolince" />
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/hospital_256" />
 
 	                        <TextView
 	                            android:id="@+id/textViewTitle1"
@@ -58,7 +64,7 @@
 	                            android:gravity="center_horizontal"
 	                            android:text="Bolnice"
 	                            android:textColor="#ffffff"
-	                            android:textSize="10dp" />
+	                            android:textSize="12sp" />
 	                    </LinearLayout>
 	                </FrameLayout>
 
@@ -67,24 +73,25 @@
 	                    android:layout_width="fill_parent"
 	                    android:layout_height="fill_parent"
 	                    android:layout_weight="1"
-	                    android:padding="3dp" >
+	                     >
 
 	                    <LinearLayout
 	                        android:id="@+id/linearLayoutIcon2"
 	                        android:layout_width="match_parent"
 	                        android:layout_height="match_parent"
-	                        android:background="@drawable/icon_background_drawable"
+	                        android:background="@drawable/icon_background_drawable_color1"
 	                        android:clickable="true"
 	                        android:orientation="vertical"
-	                        android:padding="2dp" >
+	                        android:padding="10dp" >
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon2"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
+	                            android:gravity="center_horizontal"
 	                            android:layout_weight="1"
-	                            android:scaleType="centerCrop"
-	                            android:src="@drawable/apoteke" />
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/pharmacy_256" />
 
 	                        <TextView
 	                            android:id="@+id/textViewTitle2"
@@ -93,7 +100,7 @@
 	                            android:gravity="center_horizontal"
 	                            android:text="Apoteke"
 	                            android:textColor="#ffffff"
-	                            android:textSize="10dp" />
+	                            android:textSize="12sp" />
 	                    </LinearLayout>
 	                </FrameLayout>
 
@@ -102,24 +109,25 @@
 	                    android:layout_width="fill_parent"
 	                    android:layout_height="fill_parent"
 	                    android:layout_weight="1"
-	                    android:padding="3dp" >
+	                     >
 
 	                    <LinearLayout
 	                        android:id="@+id/linearLayoutIcon3"
 	                        android:layout_width="match_parent"
 	                        android:layout_height="match_parent"
-	                        android:background="@drawable/icon_background_drawable"
+	                        android:background="@drawable/icon_background_drawable_color3"
 	                        android:clickable="true"
 	                        android:orientation="vertical"
-	                        android:padding="2dp" >
+	                        android:padding="10dp" >
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon3"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
+	                            android:gravity="center_horizontal"
 	                            android:layout_weight="1"
-	                            android:scaleType="centerCrop"
-	                            android:src="@drawable/ordinacije" />
+	                            android:scaleType="fitCenter"
+	                            android:src="@drawable/clinics_256" />
 
 	                        <TextView
 	                            android:id="@+id/textViewTitle3"
@@ -128,7 +136,7 @@
 	                            android:gravity="center_horizontal"
 	                            android:text="Ordinacije"
 	                            android:textColor="#ffffff"
-	                            android:textSize="10dp" />
+	                            android:textSize="12sp" />
 	                    </LinearLayout>
 	                </FrameLayout>
 
@@ -137,15 +145,15 @@
 	                    android:layout_width="fill_parent"
 	                    android:layout_height="fill_parent"
 	                    android:layout_weight="1"
-	                    android:padding="3dp" >
+	                     >
 	                </FrameLayout>
 	            </LinearLayout>
 
 	            <FrameLayout
 	                android:id="@+id/FrameLayout1"
 	                android:layout_width="fill_parent"
-	                android:layout_height="240dp"
-	                android:padding="3dp" >
+	                android:layout_height="180dp"
+	                 >
 
 	                <ProgressBar
 	                    android:id="@+id/progressBar1"

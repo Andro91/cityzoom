@@ -47,8 +47,9 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon1"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
+	                            android:gravity="center_horizontal"
 	                            android:layout_weight="1"
 	                            android:scaleType="fitCenter"
 	                            android:src="@drawable/hotels_256" />
@@ -84,8 +85,9 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon2"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
+	                            android:gravity="center_horizontal"
 	                            android:layout_weight="1"
 	                            android:scaleType="fitCenter"
 	                            android:src="@drawable/apartments_256" />
@@ -118,8 +120,9 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon3"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
+	                            android:gravity="center_horizontal"
 	                            android:layout_weight="1"
 	                            android:scaleType="fitCenter"
 	                            android:src="@drawable/motels_256" />
@@ -152,8 +155,9 @@
 
 	                        <ImageView
 	                            android:id="@+id/imageViewIcon4"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="fill_parent"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
+	                            android:gravity="center_horizontal"
 	                            android:layout_weight="1"
 	                            android:scaleType="fitCenter"
 	                            android:src="@drawable/hostels_256" />
@@ -226,8 +230,9 @@
 
 	                                <ImageView
 	                                    android:id="@+id/imageViewIcon5"
-	                                    android:layout_width="fill_parent"
-	                                    android:layout_height="fill_parent"
+			                            android:layout_width="match_parent"
+			                            android:layout_height="0dp"
+			                            android:gravity="center_horizontal"
 	                                    android:layout_weight="1"
 	                                    android:scaleType="fitCenter"
 	                                    android:src="@drawable/rooms_256" />
@@ -260,8 +265,9 @@
 
 	                                <ImageView
 	                                    android:id="@+id/ImageView01"
-	                                    android:layout_width="fill_parent"
-	                                    android:layout_height="fill_parent"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
+	                            android:gravity="center_horizontal"
 	                                    android:layout_weight="1"
 	                                    android:scaleType="fitCenter"
 	                                    android:src="@drawable/camps_256" />
@@ -307,8 +313,9 @@
 
 	                                <ImageView
 	                                    android:id="@+id/imageViewIcon9"
-	                                    android:layout_width="match_parent"
-	                                    android:layout_height="fill_parent"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="0dp"
+	                            android:gravity="center_horizontal"
 	                                    android:layout_weight="1"
 	                                    android:scaleType="fitCenter"
 	                                    android:src="@drawable/long_term_256" />
@@ -344,8 +351,9 @@
 
 	                                <ImageView
 	                                    android:id="@+id/imageViewIcon7"
-	                                    android:layout_width="fill_parent"
-	                                    android:layout_height="fill_parent"
+			                            android:layout_width="match_parent"
+			                            android:layout_height="0dp"
+			                            android:gravity="center_horizontal"
 	                                    android:layout_weight="1"
 	                                    android:scaleType="fitCenter"
 	                                    android:src="@drawable/rentlocal_256" />
