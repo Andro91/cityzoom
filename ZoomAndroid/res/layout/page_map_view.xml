@@ -91,401 +91,474 @@
                         android:background="#555555"
                         android:orientation="vertical" >
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="fill_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije1"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_night_life"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije1" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_night_life" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije1" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije1" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="fill_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije2"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_ice_pice"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije2" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_ice_pice" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1g"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1g" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije2" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije2" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="fill_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije3"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_shoping"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije3" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_shoping" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1h"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1h" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije3" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije3" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="fill_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije4"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_smestaj"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije4" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_smestaj" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1a"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1a" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije4" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije4" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="match_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije5"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_wi_fi"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije5" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_wi_fi" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1b"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1b" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije5" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije5" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="fill_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije6"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_bank"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije6" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_bank" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1c"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1c" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije6"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije6" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije6"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije6" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="fill_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije7"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_gas"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije7" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_gas" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1d"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1d" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije7" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije7" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="fill_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije8"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_znamenitosti"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije8" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_znamenitosti" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1e"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1e" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije8" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije8" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="fill_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije9"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_inspiracija"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije9" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_inspiracija" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1q"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1q" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije9"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije9" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije9"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije9" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="fill_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije10"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_kultura"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije10" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_kultura" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1m"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1m" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije10"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije10" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije10"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije10" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp" >
+<!--                         <LinearLayout -->
+<!--                             android:layout_width="fill_parent" -->
+<!--                             android:layout_height="match_parent" -->
+<!--                             android:padding="5dp" > -->
 
-                            <ImageView
-                                android:id="@+id/imageViewKategorije11"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/map_rainbow"
-                                android:visibility="gone" />
+<!--                             <ImageView -->
+<!--                                 android:id="@+id/imageViewKategorije11" -->
+<!--                                 android:layout_width="30dp" -->
+<!--                                 android:layout_height="30dp" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:src="@drawable/map_rainbow" -->
+<!--                                 android:visibility="gone" /> -->
 
-                            <View
-                                android:id="@+id/view1f"
-                                android:layout_width="10dp"
-                                android:layout_height="fill_parent" />
+<!--                             <View -->
+<!--                                 android:id="@+id/view1f" -->
+<!--                                 android:layout_width="10dp" -->
+<!--                                 android:layout_height="fill_parent" /> -->
 
-                            <CheckBox
-                                android:id="@+id/checkBoxKategorije11"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true" />
+<!--                             <CheckBox -->
+<!--                                 android:id="@+id/checkBoxKategorije11" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:clickable="true" /> -->
 
-                            <TextView
-                                android:id="@+id/textViewKategorije11"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingLeft="10dp"
-                                android:text="NightLife"
-                                android:textColor="#DDDDDD"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+<!--                             <TextView -->
+<!--                                 android:id="@+id/textViewKategorije11" -->
+<!--                                 android:layout_width="wrap_content" -->
+<!--                                 android:layout_height="wrap_content" -->
+<!--                                 android:layout_gravity="center_vertical" -->
+<!--                                 android:paddingLeft="10dp" -->
+<!--                                 android:text="NightLife" -->
+<!--                                 android:textColor="#DDDDDD" -->
+<!--                                 android:textSize="20sp" /> -->
+<!--                         </LinearLayout> -->
+                            <RadioGroup 
+						        android:layout_width="match_parent"
+						        android:layout_height="wrap_content"
+						        android:id="@+id/myRadioGroup"
+						        android:checkedButton="@+id/sound" >
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija1"
+						        	android:text="Sound" />
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija2"
+						        	android:text="Vibration" />
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija3"
+						        	android:text="Silent" />
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija4"
+						        	android:text="Sound" />
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija5"
+						        	android:text="Vibration" />
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija6"
+						        	android:text="Silent" />
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija7"
+						        	android:text="Sound" />
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija8"
+						        	android:text="Vibration" />
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija9"
+						        	android:text="Silent" />
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija10"
+						        	android:text="Sound" />
+						        
+						        <RadioButton 
+						            android:layout_width="wrap_content"
+						        	android:layout_height="wrap_content"
+						        	android:id="@+id/radioKategorija11"
+						        	android:text="Vibration" />
+						        
+						    </RadioGroup>
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>

@@ -109,13 +109,6 @@ public class PreviewItemPage extends AppCompatActivity {
 		
 		getData();
 		
-    	if (type.equalsIgnoreCase("company")) {
-//			if (previewType.equalsIgnoreCase("0")) {
-//				
-//			}
-		}
-		
-		//inicActionBar();
 	}
 	
 	@Override
@@ -166,7 +159,19 @@ public class PreviewItemPage extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
     	super.onCreateOptionsMenu(menu);
     	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_menu, menu);
+    	if (type.equalsIgnoreCase("company")) {
+			if (dataItem.getPreviewtype().equalsIgnoreCase("0")) {
+//				Log.d("MENU", "1");
+				inflater.inflate(R.menu.item_list_menu, menu);
+			}else{
+//				Log.d("MENU", "2");
+//				Log.d("MENU", "2 " + dataItem.getPreviewtype());
+				inflater.inflate(R.menu.action_menu, menu);
+			}
+    	}else{
+//    		Log.d("MENU", "3");
+			inflater.inflate(R.menu.action_menu, menu);
+		}
         return true;
     }
 

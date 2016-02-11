@@ -79,7 +79,7 @@ public class AdresarPage extends AppCompatActivity {
 
 				Intent intent = new Intent(view.getContext(),
 						PreviewSearchResult.class);
-				intent.putExtra("searchText", searchText.getText().toString());
+				intent.putExtra("searchText", searchText.getText().toString().trim());
 				startActivity(intent);
 			}
 		});

@@ -20,10 +20,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.provider.SyncStateContract.Constants;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +36,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
 import zoom.city.android.main.container.DataContainer;
@@ -40,6 +48,7 @@ import zoom.city.android.main.data.DataItem;
 import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.previewitem.PreviewItemPage;
 import zoom.city.android.main.parser.ParserMap;
+import zoom.city.android.main.service.LocationService;
 
 public class MapPage extends AppCompatActivity {
 
@@ -51,9 +60,13 @@ public class MapPage extends AppCompatActivity {
 			imageView11;
 	CheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6,
 			checkBox7, checkBox8, checkBox9, checkBox10, checkBox11;
-	TextView txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, txt10,
+	RadioButton txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, txt10,
 			txt11;
+	
+	private RadioGroup radioGroup;
 
+	LocationService locationService;
+	
 	private HashMap<String, String> infoList;
 	
 	private GoogleMap mapView;
@@ -91,6 +104,28 @@ public class MapPage extends AppCompatActivity {
 		// TODO Auto-generated method stub
 		mapView = ((MapFragment) getFragmentManager()
 				.findFragmentById(R.id.map)).getMap();
+		
+
+		locationService = new LocationService(MapPage.this);
+		locationService.getLocation();
+		
+		mapView.setMyLocationEnabled(true);
+
+	    Location location = mapView.getMyLocation();
+	    LatLng myLocation = null; //new LatLng(44.8167d, 20.4667d);
+	    
+		if (location != null) {
+	        myLocation = new LatLng(location.getLatitude(),
+	                location.getLongitude());
+	    } else {
+	    	LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+			Criteria criteria = new Criteria();
+			String provider = service.getBestProvider(criteria, false);
+			Location lastKnownLocation = service.getLastKnownLocation(provider);
+			myLocation = new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
+	    }
+		
+		mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 13));
 		
 		mapView.setPadding(0, 0, 0, 80);
 		
@@ -149,144 +184,177 @@ public class MapPage extends AppCompatActivity {
 
 	private void onCheckBoxChange() {
 		// TODO Auto-generated method stub
-		checkBox1
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//		checkBox1
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "nightlife", 1);
+//					}
+//				});
+//		checkBox2
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "iceipice", 2);
+//					}
+//				});
+//		checkBox3
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "shopping", 3);
+//					}
+//				});
+//		checkBox4
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "smestaj", 4);
+//					}
+//				});
+//		checkBox5
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "wifi", 5);
+//					}
+//				});
+//		checkBox6
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "bank", 6);
+//					}
+//				});
+//		checkBox7
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "gas", 7);
+//					}
+//				});
+//		checkBox8
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "znamenitosti", 8);
+//					}
+//				});
+//		checkBox9
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "inspiracija", 9);
+//					}
+//				});
+//		checkBox10
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "kultura", 10);
+//					}
+//				});
+//		checkBox11
+//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						// TODO Auto-generated method stub
+//						onCheckedCategory(isChecked, "rainbow", 11);
+//					}
+//				});
+		
+		radioGroup = (RadioGroup) findViewById(R.id.myRadioGroup);
+		
+		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "nightlife", 1);
-					}
-				});
-		checkBox2
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "iceipice", 2);
-					}
-				});
-		checkBox3
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "shopping", 3);
-					}
-				});
-		checkBox4
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "smestaj", 4);
-					}
-				});
-		checkBox5
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "wifi", 5);
-					}
-				});
-		checkBox6
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "bank", 6);
-					}
-				});
-		checkBox7
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "gas", 7);
-					}
-				});
-		checkBox8
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "znamenitosti", 8);
-					}
-				});
-		checkBox9
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "inspiracija", 9);
-					}
-				});
-		checkBox10
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "kultura", 10);
-					}
-				});
-		checkBox11
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						// TODO Auto-generated method stub
-						onCheckedCategory(isChecked, "rainbow", 11);
-					}
-				});
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				// find which radio button is selected
+				if(checkedId == R.id.radioKategorija1) {
+					Toast.makeText(getApplicationContext(), "choice: Silent", 
+							Toast.LENGTH_SHORT).show();
+				} else if(checkedId == R.id.radioKategorija1) {
+					Toast.makeText(getApplicationContext(), "choice: Sound", 
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getApplicationContext(), "choice: Vibration", 
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+			
+		});
 
 	}
 
 	private void inicComponent() {
 
-		txt1 = (TextView) findViewById(R.id.textViewKategorije1);
-		txt2 = (TextView) findViewById(R.id.textViewKategorije2);
-		txt3 = (TextView) findViewById(R.id.textViewKategorije3);
-		txt4 = (TextView) findViewById(R.id.textViewKategorije4);
-		txt5 = (TextView) findViewById(R.id.textViewKategorije5);
-		txt6 = (TextView) findViewById(R.id.textViewKategorije6);
-		txt7 = (TextView) findViewById(R.id.textViewKategorije7);
-		txt8 = (TextView) findViewById(R.id.textViewKategorije8);
-		txt9 = (TextView) findViewById(R.id.textViewKategorije9);
-		txt10 = (TextView) findViewById(R.id.textViewKategorije10);
-		txt11 = (TextView) findViewById(R.id.textViewKategorije11);
-
-		checkBox1 = (CheckBox) findViewById(R.id.checkBoxKategorije1);
-		checkBox2 = (CheckBox) findViewById(R.id.checkBoxKategorije2);
-		checkBox3 = (CheckBox) findViewById(R.id.checkBoxKategorije3);
-		checkBox4 = (CheckBox) findViewById(R.id.checkBoxKategorije4);
-		checkBox5 = (CheckBox) findViewById(R.id.checkBoxKategorije5);
-		checkBox6 = (CheckBox) findViewById(R.id.checkBoxKategorije6);
-		checkBox7 = (CheckBox) findViewById(R.id.checkBoxKategorije7);
-		checkBox8 = (CheckBox) findViewById(R.id.checkBoxKategorije8);
-		checkBox9 = (CheckBox) findViewById(R.id.checkBoxKategorije9);
-		checkBox10 = (CheckBox) findViewById(R.id.checkBoxKategorije10);
-		checkBox11 = (CheckBox) findViewById(R.id.checkBoxKategorije11);
+//		txt1 = (TextView) findViewById(R.id.textViewKategorije1);
+//		txt2 = (TextView) findViewById(R.id.textViewKategorije2);
+//		txt3 = (TextView) findViewById(R.id.textViewKategorije3);
+//		txt4 = (TextView) findViewById(R.id.textViewKategorije4);
+//		txt5 = (TextView) findViewById(R.id.textViewKategorije5);
+//		txt6 = (TextView) findViewById(R.id.textViewKategorije6);
+//		txt7 = (TextView) findViewById(R.id.textViewKategorije7);
+//		txt8 = (TextView) findViewById(R.id.textViewKategorije8);
+//		txt9 = (TextView) findViewById(R.id.textViewKategorije9);
+//		txt10 = (TextView) findViewById(R.id.textViewKategorije10);
+//		txt11 = (TextView) findViewById(R.id.textViewKategorije11);
+		
+		txt1 = (RadioButton) findViewById(R.id.radioKategorija1);
+		txt2 = (RadioButton) findViewById(R.id.radioKategorija2);
+		txt3 = (RadioButton) findViewById(R.id.radioKategorija3);
+		txt4 = (RadioButton) findViewById(R.id.radioKategorija4);
+		txt5 = (RadioButton) findViewById(R.id.radioKategorija5);
+		txt6 = (RadioButton) findViewById(R.id.radioKategorija6);
+		txt7 = (RadioButton) findViewById(R.id.radioKategorija7);
+		txt8 = (RadioButton) findViewById(R.id.radioKategorija8);
+		txt9 = (RadioButton) findViewById(R.id.radioKategorija9);
+		txt10 = (RadioButton) findViewById(R.id.radioKategorija10);
+		txt11 = (RadioButton) findViewById(R.id.radioKategorija11);
+//
+//		checkBox1 = (CheckBox) findViewById(R.id.checkBoxKategorije1);
+//		checkBox2 = (CheckBox) findViewById(R.id.checkBoxKategorije2);
+//		checkBox3 = (CheckBox) findViewById(R.id.checkBoxKategorije3);
+//		checkBox4 = (CheckBox) findViewById(R.id.checkBoxKategorije4);
+//		checkBox5 = (CheckBox) findViewById(R.id.checkBoxKategorije5);
+//		checkBox6 = (CheckBox) findViewById(R.id.checkBoxKategorije6);
+//		checkBox7 = (CheckBox) findViewById(R.id.checkBoxKategorije7);
+//		checkBox8 = (CheckBox) findViewById(R.id.checkBoxKategorije8);
+//		checkBox9 = (CheckBox) findViewById(R.id.checkBoxKategorije9);
+//		checkBox10 = (CheckBox) findViewById(R.id.checkBoxKategorije10);
+//		checkBox11 = (CheckBox) findViewById(R.id.checkBoxKategorije11);
 
 		progres = (LinearLayout) findViewById(R.id.linearLayoutProgres);
 		
