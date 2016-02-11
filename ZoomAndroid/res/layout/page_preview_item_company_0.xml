@@ -8,7 +8,7 @@
     tools:context="com.daimajia.slider.demo.MainActivity"  >
 	<include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar_itempreview" >
+        layout="@layout/toolbar" >
     </include>
     <ScrollView
         android:id="@+id/scrollView1"
@@ -18,7 +18,7 @@
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#000000"
             android:padding="10dp" >

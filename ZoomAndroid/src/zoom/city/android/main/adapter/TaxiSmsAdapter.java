@@ -76,6 +76,7 @@ public class TaxiSmsAdapter extends ArrayAdapter<DataItem> {
 			holder.txtDate.setText(dataItem.getDate());
 		} else {
 			holder.txtDate.setText("");
+			holder.txtDate.setVisibility(View.GONE);
 		}
 
 		if (dataItem.getImage() != null) {

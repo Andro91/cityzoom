@@ -109,6 +109,12 @@ public class PreviewItemPage extends AppCompatActivity {
 		
 		getData();
 		
+    	if (type.equalsIgnoreCase("company")) {
+//			if (previewType.equalsIgnoreCase("0")) {
+//				
+//			}
+		}
+		
 		//inicActionBar();
 	}
 	
@@ -1457,9 +1463,11 @@ public class PreviewItemPage extends AppCompatActivity {
 					});
 				}
 				
-				Log.d("MYTAG", "Zona: " + dataItem.getZona());
+//				Log.d("MYTAG", "Street: " + dataItem.getStreet());
+//				Log.d("MYTAG", "City: " + dataItem.getCity());
+//				Log.d("MYTAG", "Zona: " + dataItem.getZona());
 				
-				if(!Helper.isBlank(dataItem.getStreet())){
+				if(Helper.isBlank(dataItem.getStreet())){
 					txtAdrress.setVisibility(View.GONE);
 					separatorAddress.setVisibility(View.GONE);
 				}

@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import zoom.city.android.main.R;
 import zoom.city.android.main.container.ImageContainer;
 import zoom.city.android.main.data.DataItem;
 import zoom.city.android.main.pages.previewitem.PreviewItemPage;
+import zoom.city.android.main.parser.ParserItem;
+import zoom.city.android.main.service.LocationService;
 
 public class SearchListViewAdapter extends ArrayAdapter<DataItem> {
 
@@ -23,6 +26,10 @@ public class SearchListViewAdapter extends ArrayAdapter<DataItem> {
 	private int layoutResourceId;
 	private List<DataItem> data = new ArrayList<DataItem>();
 	private String language;
+	private LocationService locationService;
+	private Thread mainThread;
+	private String dist = "No GPS!";
+	private DataItem dataForDist;
 
 	public SearchListViewAdapter(Context context, int layoutResourceId,
 			List<DataItem> data, String language) {
@@ -31,6 +38,8 @@ public class SearchListViewAdapter extends ArrayAdapter<DataItem> {
 		this.context = context;
 		this.language = language;
 		this.data=data;
+		locationService = new LocationService(context);
+		locationService.getLocation();
 
 		
 		/*
@@ -91,6 +100,37 @@ public class SearchListViewAdapter extends ArrayAdapter<DataItem> {
 		// ispitujemo da li je pozicija parna i u zavisnosti od toga postavljamo
 		// view item
 
+		mainThread = new Thread() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+
+				try {
+					dataForDist = ParserItem.parseDistData(data.get(position).getId(), language, "company");
+//					dist = ParserDistance.uzmiDistancu(
+//							Double.toString(locationService.getLatitude()),
+//							Double.toString(locationService.getLongitude()),
+//							dataForDist.getX(),dataForDist.getY());
+					float[] distances = new float[1];
+					Location.distanceBetween(locationService.getLatitude(), locationService.getLongitude(), 
+							Double.parseDouble(dataForDist.getX()), Double.parseDouble(dataForDist.getY()), distances);
+					//String.valueOf(distances[0] / 1000).substring(0, 4);
+					dist = String.valueOf(distances[0] / 1000).substring(0, 4) + "km";
+					
+
+				} catch (Exception e) {
+					// TODO: handle exception
+				} finally {
+					//handler.sendEmptyMessage(0);
+				}
+			}
+
+		};
+		
+		mainThread.start();
+		
 		if (row == null) {
 			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			row = inflater.inflate(layoutResourceId, parent, false);
@@ -119,7 +159,7 @@ public class SearchListViewAdapter extends ArrayAdapter<DataItem> {
 		}
 
 		if (dataItem.getDate() != null) {
-			holder.txtDate.setText(dataItem.getDate());
+			holder.txtDate.setText(dist);
 		} else {
 			holder.txtDate.setText("");
 		}
