@@ -495,66 +495,88 @@
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija1"
 						        	android:text="Sound" />
 						        
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija2"
 						        	android:text="Vibration" />
 						        
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija3"
 						        	android:text="Silent" />
 						        
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija4"
 						        	android:text="Sound" />
 						        
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija5"
 						        	android:text="Vibration" />
 						        
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija6"
 						        	android:text="Silent" />
 						        
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija7"
 						        	android:text="Sound" />
 						        
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija8"
 						        	android:text="Vibration" />
 						        
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija9"
 						        	android:text="Silent" />
 						        
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija10"
 						        	android:text="Sound" />
 						        
 						        <RadioButton 
 						            android:layout_width="wrap_content"
 						        	android:layout_height="wrap_content"
+						        	android:paddingLeft="5dp"
+						        	android:textSize="18sp"
 						        	android:id="@+id/radioKategorija11"
 						        	android:text="Vibration" />
 						        

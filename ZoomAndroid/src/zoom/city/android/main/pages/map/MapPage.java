@@ -303,14 +303,38 @@ public class MapPage extends AppCompatActivity {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				// find which radio button is selected
 				if(checkedId == R.id.radioKategorija1) {
-					Toast.makeText(getApplicationContext(), "choice: Silent", 
-							Toast.LENGTH_SHORT).show();
-				} else if(checkedId == R.id.radioKategorija1) {
-					Toast.makeText(getApplicationContext(), "choice: Sound", 
-							Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(getApplicationContext(), "choice: Vibration", 
-							Toast.LENGTH_SHORT).show();
+					removeFromMap();
+					onCheckedCategory(true, "nightlife", 1);
+				} else if(checkedId == R.id.radioKategorija2) {
+					removeFromMap();
+					onCheckedCategory(true, "iceipice", 2);
+				} else if(checkedId == R.id.radioKategorija3) {
+					removeFromMap();
+					onCheckedCategory(true, "shopping", 3);
+				} else if(checkedId == R.id.radioKategorija4) {
+					removeFromMap();
+					onCheckedCategory(true, "smestaj", 4);
+				} else if(checkedId == R.id.radioKategorija5) {
+					removeFromMap();
+					onCheckedCategory(true, "wifi", 5);
+				} else if(checkedId == R.id.radioKategorija6) {
+					removeFromMap();
+					onCheckedCategory(true, "bank", 6);
+				} else if(checkedId == R.id.radioKategorija7) {
+					removeFromMap();
+					onCheckedCategory(true, "gas", 7);
+				} else if(checkedId == R.id.radioKategorija8) {
+					removeFromMap();
+					onCheckedCategory(true, "znamenitosti", 8);
+				} else if(checkedId == R.id.radioKategorija9) {
+					removeFromMap();
+					onCheckedCategory(true, "inspiracija", 9);
+				} else if(checkedId == R.id.radioKategorija10) {
+					removeFromMap();
+					onCheckedCategory(true, "kultura", 10);
+				} else if(checkedId == R.id.radioKategorija11) {
+					removeFromMap();
+					onCheckedCategory(true, "rainbow", 11);
 				}
 			}
 			
@@ -405,37 +429,37 @@ public class MapPage extends AppCompatActivity {
 		switch (checkeBoxId) {
 		case 1:
 
-			return checkBox1.isChecked();
+			return txt1.isChecked();
 		case 2:
 
-			return checkBox2.isChecked();
+			return txt2.isChecked();
 		case 3:
 
-			return checkBox3.isChecked();
+			return txt3.isChecked();
 		case 4:
 
-			return checkBox4.isChecked();
+			return txt4.isChecked();
 		case 5:
 
-			return checkBox5.isChecked();
+			return txt5.isChecked();
 		case 6:
 
-			return checkBox6.isChecked();
+			return txt6.isChecked();
 		case 7:
 
-			return checkBox7.isChecked();
+			return txt7.isChecked();
 		case 8:
 
-			return checkBox8.isChecked();
+			return txt8.isChecked();
 		case 9:
 
-			return checkBox9.isChecked();
+			return txt9.isChecked();
 		case 10:
 
-			return checkBox10.isChecked();
+			return txt10.isChecked();
 		case 11:
 
-			return checkBox11.isChecked();
+			return txt11.isChecked();
 		default:
 			return false;
 		}
@@ -576,9 +600,9 @@ public class MapPage extends AppCompatActivity {
 						.position(
 								new LatLng(Double.parseDouble(pomItem.getX()),
 										Double.parseDouble(pomItem.getY())))
-						.title(pomItem.getTitle())
-						.icon(BitmapDescriptorFactory
-								.fromResource(getIconResourceId(categoryId))));
+						.title(pomItem.getTitle()));
+						//.icon(BitmapDescriptorFactory
+							//	.fromResource(getIconResourceId(categoryId))));
 
 				mapView.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 

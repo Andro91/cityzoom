@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -173,14 +174,17 @@ public class NaprednaPretragaPage extends AppCompatActivity {
 				// TODO Auto-generated method stub
 
 				Intent intent = new Intent(view.getContext(),
-						PreviewSearchResult.class);
-				intent.putExtra("searchText", editImeFirme.getText().toString());
-				intent.putExtra("street", editAdresa.getText().toString());
-				intent.putExtra("township", ((DataItem)spinnerZona.getSelectedItem()).getId());
-				intent.putExtra("category", ((DataItem)spinnerKategorija.getSelectedItem()).getId());
-				intent.putExtra("subcategory", ((DataItem)spinnerDelatnost.getSelectedItem()).getId());
-				intent.putExtra("gradId", ((DataItem)spinnerGrad.getSelectedItem()).getId());
-	
+						PreviewAdvancedSearchPage.class);
+				try{
+					intent.putExtra("searchText", editImeFirme.getText().toString());
+					intent.putExtra("street", editAdresa.getText().toString());
+					intent.putExtra("township", ((DataItem)spinnerZona.getSelectedItem()).getId());
+					intent.putExtra("category", ((DataItem)spinnerKategorija.getSelectedItem()).getId());
+					intent.putExtra("subcategory", ((DataItem)spinnerDelatnost.getSelectedItem()).getId());
+					intent.putExtra("gradId", ((DataItem)spinnerGrad.getSelectedItem()).getId());
+				}catch(NullPointerException ex){
+					Log.d("MYTAG", ex.getMessage());
+				}
 				startActivity(intent);
 			}
 		});

@@ -256,7 +256,9 @@
         android:id="@+id/linearLayoutGoogleBaner"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:visibility="gone" >
+        
     </LinearLayout>
 
 </LinearLayout>

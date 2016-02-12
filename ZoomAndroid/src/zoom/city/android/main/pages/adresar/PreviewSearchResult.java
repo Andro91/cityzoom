@@ -116,7 +116,7 @@ public class PreviewSearchResult extends AppCompatActivity {
 		if (extras != null) {
 			title = extras.getString("title");
 			date = extras.getString("date");
-			searchText =extras.getString("searchText");
+			searchText = extras.getString("searchText");
 		}
 	}
 
