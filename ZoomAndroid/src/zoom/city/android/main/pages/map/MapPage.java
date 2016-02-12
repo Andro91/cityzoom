@@ -1,5 +1,6 @@
 package zoom.city.android.main.pages.map;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Criteria;
@@ -28,6 +30,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.SyncStateContract.Constants;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +42,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 import zoom.city.android.main.R;
@@ -70,11 +74,16 @@ public class MapPage extends AppCompatActivity {
 	private HashMap<String, String> infoList;
 	
 	private GoogleMap mapView;
+	
+	AlertDialog categoryDialog;
 
+	
+	
 	// Handler refreshMap;
 
 	LinearLayout progres;
 	Button buttonKategorije;
+	AlertDialog.Builder builder;
 	
 	GoogleAnalytics mGa;
 	Tracker mTracker;
@@ -92,10 +101,75 @@ public class MapPage extends AppCompatActivity {
 		fillData();
 		onCheckBoxChange();
 		
+		builder = new AlertDialog.Builder(this);
+        builder.setTitle(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_KATEGORIJE));
+        
+        List<String> itemsList = new ArrayList<String>();
+    	String[] items = new String[11];
+        
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_NIGHT_LIFE));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_ICE_PICE));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_SHOPPING));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_SMESTAJ));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_WI_FI));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_BANKE));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_GAS));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_ZNAMENITOSTI));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_INSPIRACIJA));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_KULTURNI_CENTRI));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_RAINBOW));
+        
+        for (int i = 0; i < itemsList.size(); i++) {
+			items[i] = itemsList.get(i);
+		}
+        
+        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+
+                switch(item)
+                {
+                case 0:
+            		 onCheckedCategory(true, "nightlife", 1);
+                     break;
+                case 1:
+                    // Your code when 2nd  option seletced
+                    break;
+                case 2:
+                    // Your code when 3rd option seletced
+                    break;
+                case 3:
+                    // Your code when 4th  option seletced           
+                    break;
+                }
+                categoryDialog.hide();  
+            }
+        });
+        categoryDialog = builder.create();
 		
 		sendGoogleAnaliticsData("Map - screen");
 		
 		Helper.inicActionBar(MapPage.this, "MAP");
+		
+		buttonKategorije.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//categoryDialog = builder.create();
+				categoryDialog.show();
+			}
+		});
 
 	}
 
@@ -154,28 +228,28 @@ public class MapPage extends AppCompatActivity {
 	}
 	
 	private void fillData() {
-		txt1.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_NIGHT_LIFE));
-		txt2.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_ICE_PICE));
-		txt3.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_SHOPPING));
-		txt4.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_SMESTAJ));
-		txt5.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_WI_FI));
-		txt6.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_BANKE));
-		txt7.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_GAS));
-		txt8.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_ZNAMENITOSTI));
-		txt9.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_INSPIRACIJA));
-		txt10.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_KULTURNI_CENTRI));
-		txt11.setText(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_RAINBOW));
+//		txt1.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_NIGHT_LIFE));
+//		txt2.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_ICE_PICE));
+//		txt3.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_SHOPPING));
+//		txt4.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_SMESTAJ));
+//		txt5.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_WI_FI));
+//		txt6.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_BANKE));
+//		txt7.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_GAS));
+//		txt8.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_ZNAMENITOSTI));
+//		txt9.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_INSPIRACIJA));
+//		txt10.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_KULTURNI_CENTRI));
+//		txt11.setText(ComponentInstance
+//				.getTitleString(ComponentInstance.STRING_RAINBOW));
 		
 		buttonKategorije.setText(ComponentInstance
 				.getTitleString(ComponentInstance.STRING_KATEGORIJE));
@@ -295,50 +369,50 @@ public class MapPage extends AppCompatActivity {
 //					}
 //				});
 		
-		radioGroup = (RadioGroup) findViewById(R.id.myRadioGroup);
+//		radioGroup = (RadioGroup) findViewById(R.id.myRadioGroup);
 		
-		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				// find which radio button is selected
-				if(checkedId == R.id.radioKategorija1) {
-					removeFromMap();
-					onCheckedCategory(true, "nightlife", 1);
-				} else if(checkedId == R.id.radioKategorija2) {
-					removeFromMap();
-					onCheckedCategory(true, "iceipice", 2);
-				} else if(checkedId == R.id.radioKategorija3) {
-					removeFromMap();
-					onCheckedCategory(true, "shopping", 3);
-				} else if(checkedId == R.id.radioKategorija4) {
-					removeFromMap();
-					onCheckedCategory(true, "smestaj", 4);
-				} else if(checkedId == R.id.radioKategorija5) {
-					removeFromMap();
-					onCheckedCategory(true, "wifi", 5);
-				} else if(checkedId == R.id.radioKategorija6) {
-					removeFromMap();
-					onCheckedCategory(true, "bank", 6);
-				} else if(checkedId == R.id.radioKategorija7) {
-					removeFromMap();
-					onCheckedCategory(true, "gas", 7);
-				} else if(checkedId == R.id.radioKategorija8) {
-					removeFromMap();
-					onCheckedCategory(true, "znamenitosti", 8);
-				} else if(checkedId == R.id.radioKategorija9) {
-					removeFromMap();
-					onCheckedCategory(true, "inspiracija", 9);
-				} else if(checkedId == R.id.radioKategorija10) {
-					removeFromMap();
-					onCheckedCategory(true, "kultura", 10);
-				} else if(checkedId == R.id.radioKategorija11) {
-					removeFromMap();
-					onCheckedCategory(true, "rainbow", 11);
-				}
-			}
-			
-		});
+//		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+//
+//			@Override
+//			public void onCheckedChanged(RadioGroup group, int checkedId) {
+//				// find which radio button is selected
+//				if(checkedId == R.id.radioKategorija1) {
+//					removeFromMap();
+//					onCheckedCategory(true, "nightlife", 1);
+//				} else if(checkedId == R.id.radioKategorija2) {
+//					removeFromMap();
+//					onCheckedCategory(true, "iceipice", 2);
+//				} else if(checkedId == R.id.radioKategorija3) {
+//					removeFromMap();
+//					onCheckedCategory(true, "shopping", 3);
+//				} else if(checkedId == R.id.radioKategorija4) {
+//					removeFromMap();
+//					onCheckedCategory(true, "smestaj", 4);
+//				} else if(checkedId == R.id.radioKategorija5) {
+//					removeFromMap();
+//					onCheckedCategory(true, "wifi", 5);
+//				} else if(checkedId == R.id.radioKategorija6) {
+//					removeFromMap();
+//					onCheckedCategory(true, "bank", 6);
+//				} else if(checkedId == R.id.radioKategorija7) {
+//					removeFromMap();
+//					onCheckedCategory(true, "gas", 7);
+//				} else if(checkedId == R.id.radioKategorija8) {
+//					removeFromMap();
+//					onCheckedCategory(true, "znamenitosti", 8);
+//				} else if(checkedId == R.id.radioKategorija9) {
+//					removeFromMap();
+//					onCheckedCategory(true, "inspiracija", 9);
+//				} else if(checkedId == R.id.radioKategorija10) {
+//					removeFromMap();
+//					onCheckedCategory(true, "kultura", 10);
+//				} else if(checkedId == R.id.radioKategorija11) {
+//					removeFromMap();
+//					onCheckedCategory(true, "rainbow", 11);
+//				}
+//			}
+//			
+//		});
 
 	}
 
@@ -356,17 +430,17 @@ public class MapPage extends AppCompatActivity {
 //		txt10 = (TextView) findViewById(R.id.textViewKategorije10);
 //		txt11 = (TextView) findViewById(R.id.textViewKategorije11);
 		
-		txt1 = (RadioButton) findViewById(R.id.radioKategorija1);
-		txt2 = (RadioButton) findViewById(R.id.radioKategorija2);
-		txt3 = (RadioButton) findViewById(R.id.radioKategorija3);
-		txt4 = (RadioButton) findViewById(R.id.radioKategorija4);
-		txt5 = (RadioButton) findViewById(R.id.radioKategorija5);
-		txt6 = (RadioButton) findViewById(R.id.radioKategorija6);
-		txt7 = (RadioButton) findViewById(R.id.radioKategorija7);
-		txt8 = (RadioButton) findViewById(R.id.radioKategorija8);
-		txt9 = (RadioButton) findViewById(R.id.radioKategorija9);
-		txt10 = (RadioButton) findViewById(R.id.radioKategorija10);
-		txt11 = (RadioButton) findViewById(R.id.radioKategorija11);
+//		txt1 = (RadioButton) findViewById(R.id.radioKategorija1);
+//		txt2 = (RadioButton) findViewById(R.id.radioKategorija2);
+//		txt3 = (RadioButton) findViewById(R.id.radioKategorija3);
+//		txt4 = (RadioButton) findViewById(R.id.radioKategorija4);
+//		txt5 = (RadioButton) findViewById(R.id.radioKategorija5);
+//		txt6 = (RadioButton) findViewById(R.id.radioKategorija6);
+//		txt7 = (RadioButton) findViewById(R.id.radioKategorija7);
+//		txt8 = (RadioButton) findViewById(R.id.radioKategorija8);
+//		txt9 = (RadioButton) findViewById(R.id.radioKategorija9);
+//		txt10 = (RadioButton) findViewById(R.id.radioKategorija10);
+//		txt11 = (RadioButton) findViewById(R.id.radioKategorija11);
 //
 //		checkBox1 = (CheckBox) findViewById(R.id.checkBoxKategorije1);
 //		checkBox2 = (CheckBox) findViewById(R.id.checkBoxKategorije2);
@@ -426,43 +500,43 @@ public class MapPage extends AppCompatActivity {
 
 	private boolean getCheckeBoxState(int checkeBoxId) {
 
-		switch (checkeBoxId) {
-		case 1:
-
-			return txt1.isChecked();
-		case 2:
-
-			return txt2.isChecked();
-		case 3:
-
-			return txt3.isChecked();
-		case 4:
-
-			return txt4.isChecked();
-		case 5:
-
-			return txt5.isChecked();
-		case 6:
-
-			return txt6.isChecked();
-		case 7:
-
-			return txt7.isChecked();
-		case 8:
-
-			return txt8.isChecked();
-		case 9:
-
-			return txt9.isChecked();
-		case 10:
-
-			return txt10.isChecked();
-		case 11:
-
-			return txt11.isChecked();
-		default:
+//		switch (checkeBoxId) {
+//		case 1:
+//
+//			return txt1.isChecked();
+//		case 2:
+//
+//			return txt2.isChecked();
+//		case 3:
+//
+//			return txt3.isChecked();
+//		case 4:
+//
+//			return txt4.isChecked();
+//		case 5:
+//
+//			return txt5.isChecked();
+//		case 6:
+//
+//			return txt6.isChecked();
+//		case 7:
+//
+//			return txt7.isChecked();
+//		case 8:
+//
+//			return txt8.isChecked();
+//		case 9:
+//
+//			return txt9.isChecked();
+//		case 10:
+//
+//			return txt10.isChecked();
+//		case 11:
+//
+//			return txt11.isChecked();
+//		default:
 			return false;
-		}
+//		}
 	}
 
 	public class RefreshMapAsyncTask extends AsyncTask<String, Void, Message> {
