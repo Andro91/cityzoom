@@ -42,7 +42,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 import zoom.city.android.main.R;
@@ -87,6 +86,9 @@ public class MapPage extends AppCompatActivity {
 	
 	GoogleAnalytics mGa;
 	Tracker mTracker;
+	
+	List<String> itemsList = new ArrayList<String>();
+	String[] items = new String[11];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,58 +101,61 @@ public class MapPage extends AppCompatActivity {
 		inicMapComponent();
 		inicComponent();
 		fillData();
-		onCheckBoxChange();
 		
 		builder = new AlertDialog.Builder(this);
         builder.setTitle(ComponentInstance
 				.getTitleString(ComponentInstance.STRING_KATEGORIJE));
         
-        List<String> itemsList = new ArrayList<String>();
-    	String[] items = new String[11];
         
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_NIGHT_LIFE));
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_ICE_PICE));
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_SHOPPING));
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_SMESTAJ));
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_WI_FI));
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_BANKE));
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_GAS));
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_ZNAMENITOSTI));
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_INSPIRACIJA));
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_KULTURNI_CENTRI));
-    	itemsList.add(ComponentInstance
-				.getTitleString(ComponentInstance.STRING_RAINBOW));
-        
-        for (int i = 0; i < itemsList.size(); i++) {
-			items[i] = itemsList.get(i);
-		}
         
         builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-
+            	
                 switch(item)
                 {
                 case 0:
-            		 onCheckedCategory(true, "nightlife", 1);
-                     break;
+                	mapView.clear();
+            		onCheckedCategory(true, "nightlife", 1);
+                    break;
                 case 1:
-                    // Your code when 2nd  option seletced
+                	mapView.clear();
+                	onCheckedCategory(true, "iceipice", 2);
                     break;
                 case 2:
-                    // Your code when 3rd option seletced
+                	mapView.clear();
+                	onCheckedCategory(true, "shopping", 3);
                     break;
                 case 3:
-                    // Your code when 4th  option seletced           
+                	mapView.clear();
+                	onCheckedCategory(true, "smestaj", 4);
+                    break;
+                case 4:
+                	mapView.clear();
+                	onCheckedCategory(true, "wifi", 5);
+                    break;
+                case 5:
+                	mapView.clear();
+                	onCheckedCategory(true, "bank", 6);
+                    break;
+                case 6:
+                	mapView.clear();
+                	onCheckedCategory(true, "gas", 7);
+                    break;
+                case 7:
+                	mapView.clear();
+                	onCheckedCategory(true, "znamenitosti", 8);
+                    break;
+                case 8:
+                	mapView.clear();
+                	onCheckedCategory(true, "inspiracija", 9);
+                    break;
+                case 9:
+                	mapView.clear();
+                	onCheckedCategory(true, "kultura", 10);
+                    break;
+                case 10:
+                	mapView.clear();
+                	onCheckedCategory(true, "rainbow", 11);
                     break;
                 }
                 categoryDialog.hide();  
@@ -228,193 +233,39 @@ public class MapPage extends AppCompatActivity {
 	}
 	
 	private void fillData() {
-//		txt1.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_NIGHT_LIFE));
-//		txt2.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_ICE_PICE));
-//		txt3.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_SHOPPING));
-//		txt4.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_SMESTAJ));
-//		txt5.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_WI_FI));
-//		txt6.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_BANKE));
-//		txt7.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_GAS));
-//		txt8.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_ZNAMENITOSTI));
-//		txt9.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_INSPIRACIJA));
-//		txt10.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_KULTURNI_CENTRI));
-//		txt11.setText(ComponentInstance
-//				.getTitleString(ComponentInstance.STRING_RAINBOW));
+		
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_NIGHT_LIFE));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_ICE_PICE));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_SHOPPING));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_SMESTAJ));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_WI_FI));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_BANKE));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_GAS));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_ZNAMENITOSTI));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_INSPIRACIJA));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_KULTURNI_CENTRI));
+    	itemsList.add(ComponentInstance
+				.getTitleString(ComponentInstance.STRING_RAINBOW));
+        
+        for (int i = 0; i < itemsList.size(); i++) {
+			items[i] = itemsList.get(i);
+		}
 		
 		buttonKategorije.setText(ComponentInstance
 				.getTitleString(ComponentInstance.STRING_KATEGORIJE));
 		
 	}
 
-	private void onCheckBoxChange() {
-		// TODO Auto-generated method stub
-//		checkBox1
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "nightlife", 1);
-//					}
-//				});
-//		checkBox2
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "iceipice", 2);
-//					}
-//				});
-//		checkBox3
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "shopping", 3);
-//					}
-//				});
-//		checkBox4
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "smestaj", 4);
-//					}
-//				});
-//		checkBox5
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "wifi", 5);
-//					}
-//				});
-//		checkBox6
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "bank", 6);
-//					}
-//				});
-//		checkBox7
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "gas", 7);
-//					}
-//				});
-//		checkBox8
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "znamenitosti", 8);
-//					}
-//				});
-//		checkBox9
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "inspiracija", 9);
-//					}
-//				});
-//		checkBox10
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "kultura", 10);
-//					}
-//				});
-//		checkBox11
-//				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView,
-//							boolean isChecked) {
-//						// TODO Auto-generated method stub
-//						onCheckedCategory(isChecked, "rainbow", 11);
-//					}
-//				});
-		
-//		radioGroup = (RadioGroup) findViewById(R.id.myRadioGroup);
-		
-//		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//
-//			@Override
-//			public void onCheckedChanged(RadioGroup group, int checkedId) {
-//				// find which radio button is selected
-//				if(checkedId == R.id.radioKategorija1) {
-//					removeFromMap();
-//					onCheckedCategory(true, "nightlife", 1);
-//				} else if(checkedId == R.id.radioKategorija2) {
-//					removeFromMap();
-//					onCheckedCategory(true, "iceipice", 2);
-//				} else if(checkedId == R.id.radioKategorija3) {
-//					removeFromMap();
-//					onCheckedCategory(true, "shopping", 3);
-//				} else if(checkedId == R.id.radioKategorija4) {
-//					removeFromMap();
-//					onCheckedCategory(true, "smestaj", 4);
-//				} else if(checkedId == R.id.radioKategorija5) {
-//					removeFromMap();
-//					onCheckedCategory(true, "wifi", 5);
-//				} else if(checkedId == R.id.radioKategorija6) {
-//					removeFromMap();
-//					onCheckedCategory(true, "bank", 6);
-//				} else if(checkedId == R.id.radioKategorija7) {
-//					removeFromMap();
-//					onCheckedCategory(true, "gas", 7);
-//				} else if(checkedId == R.id.radioKategorija8) {
-//					removeFromMap();
-//					onCheckedCategory(true, "znamenitosti", 8);
-//				} else if(checkedId == R.id.radioKategorija9) {
-//					removeFromMap();
-//					onCheckedCategory(true, "inspiracija", 9);
-//				} else if(checkedId == R.id.radioKategorija10) {
-//					removeFromMap();
-//					onCheckedCategory(true, "kultura", 10);
-//				} else if(checkedId == R.id.radioKategorija11) {
-//					removeFromMap();
-//					onCheckedCategory(true, "rainbow", 11);
-//				}
-//			}
-//			
-//		});
-
-	}
 
 	private void inicComponent() {
 
@@ -467,99 +318,43 @@ public class MapPage extends AppCompatActivity {
 			// checke if data is in container
 			// if it is, display it
 			// if it is not, start thread, load it, and display
-			if (DataContainer.getInstance().getMapDataList()
-					.containsKey(checkeBoxId)) {
+			if (DataContainer.getInstance().getMapDataList().containsKey(checkeBoxId)) {
 				// Display data on map
-
 				List<DataItem> pomDataList = DataContainer.getInstance()
 						.getMapDataList().get(checkeBoxId);
 				// Toast.makeText(MapPage.this, "Show " + pomDataList,
 				// Toast.LENGTH_LONG).show();
 				showOnMap(pomDataList, checkeBoxId);
-			}
-
-			else {
-
+			} else {
 				RefreshMapAsyncTask refreshTask = new RefreshMapAsyncTask();
-
 				refreshTask.execute(new String[] { categoryString,
 						Integer.toString(checkeBoxId) });
-
 			}
-
 		} else {
 			// Checked if data is display on map
 			// if it is - remove it
 			// Toast.makeText(MapPage.this, "Check data on map",
 			// Toast.LENGTH_LONG)
 			// .show();
-
 			removeFromMap();
 		}
-	}
-
-	private boolean getCheckeBoxState(int checkeBoxId) {
-
-//		switch (checkeBoxId) {
-//		case 1:
-//
-//			return txt1.isChecked();
-//		case 2:
-//
-//			return txt2.isChecked();
-//		case 3:
-//
-//			return txt3.isChecked();
-//		case 4:
-//
-//			return txt4.isChecked();
-//		case 5:
-//
-//			return txt5.isChecked();
-//		case 6:
-//
-//			return txt6.isChecked();
-//		case 7:
-//
-//			return txt7.isChecked();
-//		case 8:
-//
-//			return txt8.isChecked();
-//		case 9:
-//
-//			return txt9.isChecked();
-//		case 10:
-//
-//			return txt10.isChecked();
-//		case 11:
-//
-//			return txt11.isChecked();
-//		default:
-			return false;
-//		}
 	}
 
 	public class RefreshMapAsyncTask extends AsyncTask<String, Void, Message> {
 
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
-
 			progres.setVisibility(View.VISIBLE);
-
 			super.onPreExecute();
 		}
 
 		@Override
 		protected void onProgressUpdate(Void... values) {
-			// TODO Auto-generated method stub
 			super.onProgressUpdate(values);
 		}
 
 		@Override
 		protected void onPostExecute(Message msg) {
-			// TODO Auto-generated method stub
-
 			progres.setVisibility(View.GONE);
 
 			// String categoryString =
@@ -568,21 +363,8 @@ public class MapPage extends AppCompatActivity {
 
 			List<DataItem> pomDataList = DataContainer.getInstance()
 					.getMapDataList().get(checkeBoxId);
-
-			if (getCheckeBoxState(checkeBoxId)) {
-				// show data
-				// Toast.makeText(MapPage.this, "Show " + pomDataList,
-				// Toast.LENGTH_LONG).show();
-
-				showOnMap(pomDataList, checkeBoxId);
-
-			} else {
-				// remove data
-				// Toast.makeText(MapPage.this, "Hide " + pomDataList,
-				// Toast.LENGTH_LONG).show();
-				removeFromMap();
-			}
-
+			
+			showOnMap(pomDataList, checkeBoxId);
 			super.onPostExecute(msg);
 		}
 
@@ -618,48 +400,6 @@ public class MapPage extends AppCompatActivity {
 			return message;
 		}
 
-	}
-
-	private int getIconResourceId(int categoryId) {
-
-		switch (categoryId) {
-		case 1:
-
-			return R.drawable.map_night_life_icon;
-		case 2:
-
-			return R.drawable.map_ice_pice_icon;
-		case 3:
-
-			return R.drawable.map_shoping_icon;
-		case 4:
-
-			return R.drawable.map_smestaj_icon;
-		case 5:
-
-			return R.drawable.map_wi_fi_icon;
-		case 6:
-
-			return R.drawable.map_bank_icon;
-		case 7:
-
-			return R.drawable.map_gas_icon;
-		case 8:
-
-			return R.drawable.map_znamenitosti_icon;
-		case 9:
-
-			return R.drawable.map_inspiracija_icon;
-		case 10:
-
-			return R.drawable.map_kultura_icon;
-		case 11:
-
-			return R.drawable.map_rainbow_icon;
-
-		default:
-			return R.drawable.map_night_life_icon;
-		}
 	}
 
 	private void showOnMap(List<DataItem> pomDataList, int categoryId) {
@@ -698,27 +438,20 @@ public class MapPage extends AppCompatActivity {
 				});
 
 			}
-
+			try{
 			mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(
 					(new LatLng(Double.parseDouble(pomDataList.get(0).getX()),
 							Double.parseDouble(pomDataList.get(0).getY()))),
 					12.0f));
+			}catch(IndexOutOfBoundsException indexException){
+				Log.d("MYTAG", "index out of bounds!!!");
+			}
 		}
 
 	}
 
 	private void removeFromMap() {
 		mapView.clear();
-
-		for (int i = 1; i < 12; i++) {
-
-			if (getCheckeBoxState(i)) {
-				showOnMap(DataContainer.getInstance().getMapDataList().get(i),
-						i);
-			}
-
-		}
-
 	}
 	
 	private void sendGoogleAnaliticsData(String title) {

@@ -176,8 +176,8 @@ public class NaprednaPretragaPage extends AppCompatActivity {
 				Intent intent = new Intent(view.getContext(),
 						PreviewAdvancedSearchPage.class);
 				try{
-					intent.putExtra("searchText", editImeFirme.getText().toString());
-					intent.putExtra("street", editAdresa.getText().toString());
+					intent.putExtra("searchText", editImeFirme.getText().toString().trim());
+					intent.putExtra("street", editAdresa.getText().toString().trim());
 					intent.putExtra("township", ((DataItem)spinnerZona.getSelectedItem()).getId());
 					intent.putExtra("category", ((DataItem)spinnerKategorija.getSelectedItem()).getId());
 					intent.putExtra("subcategory", ((DataItem)spinnerDelatnost.getSelectedItem()).getId());

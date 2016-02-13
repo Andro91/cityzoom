@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import zoom.city.android.main.constant.Constant;
 import zoom.city.android.main.data.DataItem;
 
@@ -121,6 +122,14 @@ public class ParserSearch {
 		// getting JSON Object from URL
 		JSONObject json = null;
 		try{
+		Log.d("URL", Constant.MAIN_URL
+				+ "service/advancedsearch?seckey=zoom&country=" + country
+				+ "&language=" + languaga + "&title="
+				+ URLEncoder.encode(searchText,"UTF-8") + "&street="
+				+ URLEncoder.encode(street,"UTF-8") + "&cityid=" + city + "&township="
+				+ URLEncoder.encode(township,"UTF-8") + "&category="
+				+ URLEncoder.encode(category,"UTF-8") + "&subcategory="
+				+ URLEncoder.encode(subcategory,"UTF-8"));
 		json = jParser.getJSONFromUrl(Constant.MAIN_URL
 				+ "service/advancedsearch?seckey=zoom&country=" + country
 				+ "&language=" + languaga + "&title="
