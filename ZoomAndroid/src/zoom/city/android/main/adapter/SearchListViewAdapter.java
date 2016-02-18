@@ -16,6 +16,7 @@ import android.widget.TextView;
 import zoom.city.android.main.R;
 import zoom.city.android.main.container.ImageContainer;
 import zoom.city.android.main.data.DataItem;
+import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.previewitem.PreviewItemPage;
 import zoom.city.android.main.parser.ParserItem;
 import zoom.city.android.main.service.LocationService;
@@ -179,7 +180,11 @@ public class SearchListViewAdapter extends ArrayAdapter<DataItem> {
 						PreviewItemPage.class);
 
 				intent.putExtra("id", dataItem.getId());
-				intent.putExtra("type", dataItem.getCategory());
+				if(!Helper.isBlank(dataItem.getCategory())){
+					intent.putExtra("type", dataItem.getCategory());
+				}else{
+					intent.putExtra("type", "company");
+				}
 				intent.putExtra("language", language);
 
 				((Activity) context).startActivity(intent);
