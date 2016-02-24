@@ -217,6 +217,7 @@ public class NightlifePage extends AppCompatActivity {
 							intent.putExtra("title", ComponentInstance
 									.getTitleString(ComponentInstance.STRING_EVENTS));
 							intent.putExtra("titleup", title);
+							intent.putExtra("type", "event");
 							
 							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 							
@@ -230,6 +231,7 @@ public class NightlifePage extends AppCompatActivity {
 					intent.putExtra("title", ComponentInstance
 							.getTitleString(ComponentInstance.STRING_EVENTS));
 					intent.putExtra("titleup", title);
+					intent.putExtra("type", "event");
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					
@@ -347,22 +349,5 @@ public class NightlifePage extends AppCompatActivity {
             }
         return true;
     }
-	
-	public void inicActionBar() {
-		try{
-			ActionBar actionBar = getSupportActionBar();
-			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setDisplayShowHomeEnabled(false);
-			actionBar.setDisplayShowTitleEnabled(true);
-			actionBar.setDisplayUseLogoEnabled(false);
-			if(!Helper.isBlank(title)){
-				getSupportActionBar().setTitle(" " + title);
-			}else{
-				getSupportActionBar().setTitle(" " + "BACK");
-			}
-			}catch(Exception ex){
-				Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
-			}
-	}
 
 }

@@ -101,7 +101,6 @@ public class FavouritesAdapter extends ArrayAdapter<DataItem> {
 						//String.valueOf(distances[0] / 1000).substring(0, 4);
 						dist = String.valueOf(distances[0] / 1000).substring(0, 4) + "km";
 						
-
 					} catch (Exception e) {
 						// TODO: handle exception
 					} finally {
@@ -165,18 +164,23 @@ public class FavouritesAdapter extends ArrayAdapter<DataItem> {
 			} else {
 				holder.txtDate.setText(dist);
 			}
+			Log.d("FAVADAPTER", "company/event if");
 			
-			if(dataItem.getPreviewtype().equalsIgnoreCase("event")){
-				if (!Helper.isBlank(dataItem.getImage())) {
-					ImageContainer.getInstance().getImageDownloader()
-							.download(dataItem.getImage(), holder.imageView);
-				}
-			}else{
-				if (!Helper.isBlank(dataItem.getLogo())) {
-					ImageContainer.getInstance().getImageDownloader()
-							.download(dataItem.getLogo(), holder.imageView);
-				}
-			}
+			ImageContainer.getInstance().getImageDownloader().download(dataItem.getImage(), holder.imageView);
+			
+//			if(dataItem.getPreviewtype().equalsIgnoreCase("event")){
+//				if (!Helper.isBlank(dataItem.getImage())) {
+//					ImageContainer.getInstance().getImageDownloader()
+//							.download(dataItem.getImage(), holder.imageView);
+//				}
+//			}else{
+//				Log.d("FAVADAPTER", "company");
+//				if (!Helper.isBlank(dataItem.getLogo())) {
+//					ImageContainer.getInstance().getImageDownloader()
+//							.download(dataItem.getLogo(), holder.imageView);
+//				}
+//			}
+			
 			row.setOnClickListener(new View.OnClickListener() {
 
 				@Override

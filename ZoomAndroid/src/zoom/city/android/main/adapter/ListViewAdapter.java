@@ -212,8 +212,22 @@ public class ListViewAdapter extends ArrayAdapter<DataItem> {
 			
 			while(mainThread.isAlive());
 			
+			String pomDate = null;
 			if ((dataItem.getDate() != null)&&(dataItem.getDate()!="")) {
-				holder.txtDate.setText(dataItem.getDate());
+				pomDate = dataItem.getDate();
+			}
+			try{
+				String[] pomDateArray = new String[2];
+				pomDateArray = pomDate.split(" - ");
+				if(pomDateArray[0].trim().equals(pomDateArray[1].trim())){
+					pomDate = pomDateArray[0].trim();
+				}
+			}catch(Exception ex){
+				
+			}
+			
+			if (!Helper.isBlank(pomDate)) {
+				holder.txtDate.setText(pomDate);
 			} else {
 				holder.txtDate.setText(dist);
 			}

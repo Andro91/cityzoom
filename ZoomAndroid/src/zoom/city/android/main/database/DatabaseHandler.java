@@ -57,7 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //	private static final String KEY_IMAGE3 = "image3";
 	private static final String KEY_COMPANYID = "companyId";
 //	private static final String KEY_SHARE = "share";
-//	private static final String KEY_SLIDER = "slider";
+	private static final String KEY_SLIDER = "slider";
  
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -77,7 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_Y + " TEXT,"
                 + KEY_LOGO + " TEXT,"
                 + KEY_PREVIEWTYPE + " TEXT,"
-                + KEY_IMAGE + " TEXT"
+                + KEY_IMAGE + " TEXT "
         		+ ")";
         db.execSQL(CREATE_FAVOURITES_TABLE);
     }
@@ -147,6 +147,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         dataItem.setLogo(cursor.getString(8));
         dataItem.setPreviewtype(cursor.getString(9));
         dataItem.setImage(cursor.getString(10));
+        
         return dataItem;
     }
      
@@ -175,6 +176,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 dataItem.setPreviewtype(cursor.getString(9));
                 dataItem.setImage(cursor.getString(10));
                 dataItem.setTitleIndicator("1");
+                
                 // Adding contact to list
                 favouriteList.add(dataItem);
             } while (cursor.moveToNext());
@@ -223,9 +225,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @return true if the item exists in the database, false otherwise 
      */
     public boolean checkFavouriteStatus(String id) {
-        String countQuery = "SELECT  * FROM " + TABLE_FAVOURITES + " WHERE " + KEY_TITLE + " = '" + id + "'";
+    	Log.d("MYTAG", "DATABASE: " + id);
+        String countQuery = "SELECT  * FROM " + TABLE_FAVOURITES + " WHERE " + KEY_TITLE + " = ?";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
+        Cursor cursor = db.rawQuery(countQuery, new String[] { id });
         //cursor.close();
         Log.d("MYTAG", "DATABASE: " + countQuery);
         Log.d("MYTAG", "COUNT: " + cursor.getCount());

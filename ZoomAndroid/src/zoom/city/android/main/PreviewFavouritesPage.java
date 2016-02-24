@@ -50,8 +50,29 @@ public class PreviewFavouritesPage extends AppCompatActivity {
 		fillData();
 		onComponentCLick();
 		
-		inicActionBar();
+		Helper.inicActionBar(this,"Favourites");
 
+		
+
+		//progresLayout.setVisibility(View.VISIBLE);
+
+	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            finish();
+            return true;
+        }
+        return true;
+	}
+	
+	
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		handler = new Handler() {
 
 			@Override
@@ -85,24 +106,16 @@ public class PreviewFavouritesPage extends AppCompatActivity {
 
 		};
 		thread.start();
-
-		progresLayout.setVisibility(View.VISIBLE);
-
 	}
 	
 	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            return true;
-        }
-        return true;
+	protected void onPause() {
+		super.onPause();
+		thread.interrupt();
 	}
-	
 
 	private void onComponentCLick() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	private void fillData() {
@@ -126,27 +139,5 @@ public class PreviewFavouritesPage extends AppCompatActivity {
 		progresLayout = (LinearLayout) findViewById(R.id.linearLayoutProgres);
 	}
 	
-	
-	public void inicActionBar() {
-		try{
-			ActionBar actionBar = getSupportActionBar();
-			
-			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setDisplayShowHomeEnabled(false);
-			actionBar.setDisplayShowTitleEnabled(true);
-			actionBar.setDisplayUseLogoEnabled(false);
-			
-			if(!Helper.isBlank(title)){
-				getSupportActionBar().setTitle(" " + title);
-			}else{
-				getSupportActionBar().setTitle(" " + "BACK");
-			}
-			if (!Helper.isBlank(titleUp)) {
-				getSupportActionBar().setSubtitle(" " + titleUp);
-			}
-			}catch(Exception ex){
-				Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
-			}
-	}
 
 }

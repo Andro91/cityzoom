@@ -662,7 +662,15 @@ public class PreviewItemPage extends AppCompatActivity {
 				txtTimeDate.setVisibility(View.GONE);
 			}
 			else{
-				txtTimeDate.setText(dataItem.getDate());
+				String pomDate = dataItem.getDate();
+				try{
+					String[] pomDateArray = new String[2];
+					pomDateArray = pomDate.split(" - ");
+					if(pomDateArray[0].trim().equals(pomDateArray[1].trim())){
+						pomDate = pomDateArray[0].trim();
+					}
+				}catch(Exception ex){}
+				txtTimeDate.setText(pomDate);
 			}
 			
 			if(dataItem.getTime().equalsIgnoreCase(" ")){
@@ -723,13 +731,17 @@ public class PreviewItemPage extends AppCompatActivity {
 				@Override
 				public void onClick(View v) {
 					DatabaseHandler db = new DatabaseHandler(activity);
-					Log.d("MYTAG", "check Favourite: " + db.checkFavouriteStatus(dataItem.getId()));
 					if(!db.checkFavouriteStatus(dataItem.getTitle())){
 						Log.d("MYTAG", "Add Favourite");
 						
 						dataItem.setPreviewtype("event");
 						dataItem.setId(id);
 						dataItem.setCategory(category);
+						if(dataItem.getSlider() != null){
+							dataItem.setImage(dataItem.getSlider().get(0));
+						}else if(!Helper.isBlank(dataItem.getImage())) {
+							dataItem.setImage(dataItem.getImage());
+						}
 						db.addFavourite(dataItem);
 						butFavourite.setImageResource(R.drawable.favourite_active);
 					}else{
@@ -1228,13 +1240,19 @@ public class PreviewItemPage extends AppCompatActivity {
 					@Override
 					public void onClick(View v) {
 						DatabaseHandler db = new DatabaseHandler(activity);
-						Log.d("MYTAG", "check Favourite: " + db.checkFavouriteStatus(dataItem.getId()));
 						if(!db.checkFavouriteStatus(dataItem.getTitle())){
 							Log.d("MYTAG", "Add Favourite");
 							
 							dataItem.setPreviewtype("company");
 							dataItem.setId(id);
 							dataItem.setCategory(category);
+							if (!Helper.isBlank(dataItem.getImage()) && !dataItem.getImage().contains("noimage")) {
+								dataItem.setImage(dataItem.getImage());
+							}else if(dataItem.getLogoSlider() != null){
+								dataItem.setImage(dataItem.getLogoSlider().get(0).replace(" ", "%20"));
+							}else{
+								dataItem.setImage(dataItem.getImage());
+							}
 							db.addFavourite(dataItem);
 							butFavourite.setImageResource(R.drawable.favourite_active);
 						}else{
@@ -1615,13 +1633,18 @@ public class PreviewItemPage extends AppCompatActivity {
 					@Override
 					public void onClick(View v) {
 						DatabaseHandler db = new DatabaseHandler(activity);
-						Log.d("MYTAG", "check Favourite: " + db.checkFavouriteStatus(dataItem.getId()));
 						if(!db.checkFavouriteStatus(dataItem.getTitle())){
 							Log.d("MYTAG", "Add Favourite");
-							
 							dataItem.setPreviewtype("company");
 							dataItem.setId(id);
 							dataItem.setCategory(category);
+							if (!Helper.isBlank(dataItem.getImage()) && !dataItem.getImage().contains("noimage")) {
+								dataItem.setImage(dataItem.getImage());
+							}else if(dataItem.getLogoSlider() != null){
+								dataItem.setImage(dataItem.getLogoSlider().get(0).replace(" ", "%20"));
+							}else{
+								dataItem.setImage(dataItem.getImage());
+							}
 							db.addFavourite(dataItem);
 							butFavourite.setImageResource(R.drawable.favourite_active);
 						}else{
@@ -1999,13 +2022,19 @@ public class PreviewItemPage extends AppCompatActivity {
 					@Override
 					public void onClick(View v) {
 						DatabaseHandler db = new DatabaseHandler(activity);
-						Log.d("MYTAG", "check Favourite: " + db.checkFavouriteStatus(dataItem.getId()));
 						if(!db.checkFavouriteStatus(dataItem.getTitle())){
 							Log.d("MYTAG", "Add Favourite");
 							
 							dataItem.setPreviewtype("company");
 							dataItem.setId(id);
 							dataItem.setCategory(category);
+							if (!Helper.isBlank(dataItem.getImage()) && !dataItem.getImage().contains("noimage")) {
+								dataItem.setImage(dataItem.getImage());
+							}else if(dataItem.getLogoSlider() != null){
+								dataItem.setImage(dataItem.getLogoSlider().get(0).replace(" ", "%20"));
+							}else{
+								dataItem.setImage(dataItem.getImage());
+							}
 							db.addFavourite(dataItem);
 							butFavourite.setImageResource(R.drawable.favourite_active);
 						}else{
