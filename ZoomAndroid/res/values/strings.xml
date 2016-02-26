@@ -12,5 +12,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="test_string_short">Lorem ipsum</string>
+    <string name="test_string_long">Lorem ipsum sedare dolomit ipsum text sedare</string>
 
 </resources>

@@ -18,6 +18,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -30,7 +31,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -123,7 +126,34 @@ public class MainPage extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
-		
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder( this, R.style.Theme_AppCompat_Light_Dialog_Alert );
+        AlertDialog aDialog;
+        LayoutInflater inflater = this.getLayoutInflater();
+        
+        builder.setView(inflater.inflate(R.layout.dialog, null));
+
+//        builder.setMessage(R.string.test_string_long)
+//        .setTitle(R.string.test_string_short);
+        
+        builder.setTitle("Dialog Title");
+        
+        builder.setPositiveButton(R.string.abc_capital_on, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            	//aDialog.hide();
+            }
+        });
+        builder.setNegativeButton(R.string.abc_capital_off, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            	
+            	dialog.cancel();
+            }
+        });
+
+        aDialog = builder.create();
+        
+        aDialog.show();
+        
 		sendGoogleAnaliticsData("Main - screen");
 
 	}
