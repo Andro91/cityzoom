@@ -79,7 +79,9 @@ public class MainPage extends AppCompatActivity {
 	
 	GoogleAnalytics mGa;
 	Tracker mTracker;
-
+	AlertDialog.Builder builder;
+	AlertDialog aDialog;
+	
 	private CharSequence mTitle;
 
 	@Override
@@ -127,8 +129,8 @@ public class MainPage extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         
-        AlertDialog.Builder builder = new AlertDialog.Builder( this, R.style.Theme_AppCompat_Light_Dialog_Alert );
-        AlertDialog aDialog;
+        builder = new AlertDialog.Builder( this, R.style.Theme_AppCompat_Light_Dialog_Alert );
+
         LayoutInflater inflater = this.getLayoutInflater();
         
         builder.setView(inflater.inflate(R.layout.dialog, null));
@@ -136,7 +138,7 @@ public class MainPage extends AppCompatActivity {
 //        builder.setMessage(R.string.test_string_long)
 //        .setTitle(R.string.test_string_short);
         
-        builder.setTitle("Dialog Title");
+        //builder.setTitle("Dialog Title");
         
         builder.setPositiveButton(R.string.abc_capital_on, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -150,9 +152,10 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
-        aDialog = builder.create();
         
-        aDialog.show();
+        
+        //aDialog.show();
+        new JSONParseNotification().execute();
         
 		sendGoogleAnaliticsData("Main - screen");
 
@@ -282,6 +285,50 @@ public class MainPage extends AppCompatActivity {
 			}
     	   }
 	    	super.onPostExecute(result);
+    	}
+   }
+    
+    private class JSONParseNotification extends AsyncTask<String, String, JSONArray> {
+        @Override
+        	protected void onPreExecute() {
+        		// TODO Auto-generated method stub
+        		super.onPreExecute();
+        	}
+
+       @Override
+       protected JSONArray doInBackground(String... args) {
+           JsonParser jParser = new JsonParser();
+
+           // Getting JSON from URL
+           JSONObject json = jParser.getJSONFromUrl(Constant.MAIN_URL
+   				+ "service/notification?seckey=zoom"
+        		+ "&country=" + myPrefs.getString("drzavaId", "0") 
+   				+ "&city=" + myPrefs.getString("gradId", "0") 
+   				+ "&date=" + "2016-02-27" 
+   				+ "&language=" + myPrefs.getString("jezikId", "0"));
+           
+           JSONArray notification = null;
+           
+           try {
+        	   notification = json.getJSONArray("data");
+        	   String notifyImage = notification.getJSONObject(0).getString("image");
+        	   String notifyTitle = notification.getJSONObject(0).getString("title");
+        	   String notifyLink = notification.getJSONObject(0).getString("link");
+        	   String notifyText = notification.getJSONObject(0).getString("text");
+        	   Log.d("NOTIFY JSON", notifyTitle + " " + notifyText);
+        	   builder.setTitle(notifyTitle);
+            }catch (JSONException e) {
+           		e.printStackTrace();
+           		Log.d("MYTAG", "114: "+e.getMessage());
+           	}
+           return notification;
+       }
+       
+       @Override
+    	protected void onPostExecute(JSONArray result) {
+	    	super.onPostExecute(result);
+	    	aDialog = builder.create();
+	    	aDialog.show();
     	}
    }
 
