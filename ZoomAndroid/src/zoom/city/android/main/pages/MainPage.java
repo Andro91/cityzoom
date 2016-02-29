@@ -1,5 +1,8 @@
 package zoom.city.android.main.pages;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +19,7 @@ import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
+import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -24,6 +28,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -82,6 +87,11 @@ public class MainPage extends AppCompatActivity {
 	AlertDialog.Builder builder;
 	AlertDialog aDialog;
 	
+	TextView alertDialogText;
+	ImageView alertDialogImage;
+	
+	String notifyLink;
+	
 	private CharSequence mTitle;
 
 	@Override
@@ -128,32 +138,12 @@ public class MainPage extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
-        
-        builder = new AlertDialog.Builder( this, R.style.Theme_AppCompat_Light_Dialog_Alert );
-
-        LayoutInflater inflater = this.getLayoutInflater();
-        
-        builder.setView(inflater.inflate(R.layout.dialog, null));
 
 //        builder.setMessage(R.string.test_string_long)
 //        .setTitle(R.string.test_string_short);
         
         //builder.setTitle("Dialog Title");
-        
-        builder.setPositiveButton(R.string.abc_capital_on, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-            	//aDialog.hide();
-            }
-        });
-        builder.setNegativeButton(R.string.abc_capital_off, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-            	
-            	dialog.cancel();
-            }
-        });
-
-        
-        
+       
         //aDialog.show();
         new JSONParseNotification().execute();
         
@@ -288,49 +278,131 @@ public class MainPage extends AppCompatActivity {
     	}
    }
     
-    private class JSONParseNotification extends AsyncTask<String, String, JSONArray> {
-        @Override
-        	protected void onPreExecute() {
-        		// TODO Auto-generated method stub
-        		super.onPreExecute();
-        	}
+	private class JSONParseNotification extends AsyncTask<String, String, JSONArray> {
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+		}
 
-       @Override
-       protected JSONArray doInBackground(String... args) {
-           JsonParser jParser = new JsonParser();
+		@Override
+		protected JSONArray doInBackground(String... args) {
+			JsonParser jParser = new JsonParser();
 
-           // Getting JSON from URL
-           JSONObject json = jParser.getJSONFromUrl(Constant.MAIN_URL
-   				+ "service/notification?seckey=zoom"
-        		+ "&country=" + myPrefs.getString("drzavaId", "0") 
-   				+ "&city=" + myPrefs.getString("gradId", "0") 
-   				+ "&date=" + "2016-02-27" 
-   				+ "&language=" + myPrefs.getString("jezikId", "0"));
-           
-           JSONArray notification = null;
-           
-           try {
-        	   notification = json.getJSONArray("data");
-        	   String notifyImage = notification.getJSONObject(0).getString("image");
-        	   String notifyTitle = notification.getJSONObject(0).getString("title");
-        	   String notifyLink = notification.getJSONObject(0).getString("link");
-        	   String notifyText = notification.getJSONObject(0).getString("text");
-        	   Log.d("NOTIFY JSON", notifyTitle + " " + notifyText);
-        	   builder.setTitle(notifyTitle);
-            }catch (JSONException e) {
-           		e.printStackTrace();
-           		Log.d("MYTAG", "114: "+e.getMessage());
-           	}
-           return notification;
-       }
-       
-       @Override
-    	protected void onPostExecute(JSONArray result) {
-	    	super.onPostExecute(result);
-	    	aDialog = builder.create();
-	    	aDialog.show();
-    	}
-   }
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String formatted = simpleDateFormat.format(cal.getTime());
+			
+			Log.d("MYTAG",formatted);
+			
+			// Getting JSON from URL
+			JSONObject json = jParser.getJSONFromUrl(Constant.MAIN_URL + "service/notification?seckey=zoom"
+					+ "&country=" + myPrefs.getString("drzavaId", "0") 
+					+ "&city=" + myPrefs.getString("gradId", "0")
+					+ "&date=" + formatted
+					+ "&language=" + myPrefs.getString("jezikId", "0"));
+
+			JSONArray notification = null;
+
+			try {
+				notification = json.getJSONArray("data");
+			} catch (JSONException e) {
+				e.printStackTrace();
+				Log.d("MYTAG", "321: " + e.getMessage());
+			}
+			
+			try {
+				Thread.sleep(4000);
+			} catch (InterruptedException e) {
+				return notification;
+			}
+			
+			return notification;
+		}
+
+		@Override
+		protected void onPostExecute(JSONArray result) {
+			super.onPostExecute(result);
+			for (int i = 0; i < result.length(); i++) {
+				
+//				try {
+//					Thread.sleep(4000);
+//				} catch (InterruptedException e) {
+//					return;
+//				}
+
+				if (aDialog != null) {
+					aDialog.hide();
+				}
+				
+				JSONObject jsonObject;
+
+				try {
+					jsonObject = result.getJSONObject(i);
+				} catch (JSONException e) {
+					continue;
+				}
+
+				String notifyImage = null;
+				String notifyTitle = null;
+				notifyLink = null;
+				String notifyText = null;
+
+				try {
+					notifyImage = jsonObject.getString("image");
+					notifyTitle = jsonObject.getString("title");
+					notifyLink = jsonObject.getString("link");
+					notifyText = jsonObject.getString("text");
+				} catch (JSONException ex) {
+					Log.d("MYTAG", "JSON");
+					continue;
+				}
+				
+				builder = new AlertDialog.Builder(MainPage.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
+
+		        LayoutInflater inflater = MainPage.this.getLayoutInflater();
+		        
+		        View alertDialogView = inflater.inflate(R.layout.dialog, null);
+		        
+		        alertDialogText = (TextView) alertDialogView.findViewById(R.id.dialog_text);
+		        alertDialogImage = (ImageView) alertDialogView.findViewById(R.id.dialog_image);
+		        
+				builder.setPositiveButton("MORE", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						if (!Helper.isBlank(notifyLink)) {
+							Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notifyLink));
+							startActivityForResult(browserIntent, 1);
+						} else {
+							dialog.cancel();
+						}
+					}
+		        });
+		        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int id) {
+		            	dialog.cancel();
+		            }
+		        });
+		        
+		        builder.setView(alertDialogView);
+				builder.setTitle(notifyTitle);
+				
+				if (!Helper.isBlank(notifyImage)) {
+					Picasso.with(MainPage.this)
+						.load(notifyImage)
+						.into(alertDialogImage);
+				} else {
+					alertDialogImage.setVisibility(View.GONE);
+				}
+				
+				alertDialogText.setText(notifyText);
+
+				aDialog = builder.create();
+
+				aDialog.show();
+
+			}
+		}
+	}
 
 	@Override
 	protected void onResume() {
