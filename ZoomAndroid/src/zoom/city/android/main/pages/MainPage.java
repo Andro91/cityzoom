@@ -1,6 +1,7 @@
 package zoom.city.android.main.pages;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.json.JSONArray;
@@ -70,6 +71,7 @@ import zoom.city.android.main.pages.rainbow.RainbowPage;
 import zoom.city.android.main.pages.taxisms.TaxiSMSPage;
 import zoom.city.android.main.pages.wellness.WellnessAndSpaPage;
 import zoom.city.android.main.parser.JsonParser;
+import zoom.city.android.main.helper.Notification;
 
 public class MainPage extends AppCompatActivity {
 
@@ -91,6 +93,8 @@ public class MainPage extends AppCompatActivity {
 	ImageView alertDialogImage;
 	
 	String notifyLink;
+	
+	ArrayList<Notification> notifications;
 	
 	private CharSequence mTitle;
 
@@ -281,7 +285,7 @@ public class MainPage extends AppCompatActivity {
 	private class JSONParseNotification extends AsyncTask<String, String, JSONArray> {
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
+			notifications = new ArrayList<Notification>();
 			super.onPreExecute();
 		}
 
@@ -299,7 +303,7 @@ public class MainPage extends AppCompatActivity {
 			JSONObject json = jParser.getJSONFromUrl(Constant.MAIN_URL + "service/notification?seckey=zoom"
 					+ "&country=" + myPrefs.getString("drzavaId", "0") 
 					+ "&city=" + myPrefs.getString("gradId", "0")
-					+ "&date=" + formatted
+					+ "&date=" + "2016-02-28"//formatted
 					+ "&language=" + myPrefs.getString("jezikId", "0"));
 
 			JSONArray notification = null;
@@ -311,26 +315,14 @@ public class MainPage extends AppCompatActivity {
 				Log.d("MYTAG", "321: " + e.getMessage());
 			}
 			
-			try {
-				Thread.sleep(4000);
-			} catch (InterruptedException e) {
-				return notification;
-			}
-			
 			return notification;
 		}
 
 		@Override
 		protected void onPostExecute(JSONArray result) {
 			super.onPostExecute(result);
-			for (int i = 0; i < result.length(); i++) {
+			for (int i = 0; i < 1; i++) {
 				
-//				try {
-//					Thread.sleep(4000);
-//				} catch (InterruptedException e) {
-//					return;
-//				}
-
 				if (aDialog != null) {
 					aDialog.hide();
 				}
@@ -353,10 +345,13 @@ public class MainPage extends AppCompatActivity {
 					notifyTitle = jsonObject.getString("title");
 					notifyLink = jsonObject.getString("link");
 					notifyText = jsonObject.getString("text");
+					notifications.add(new Notification(jsonObject.getString("title"),jsonObject.getString("text"),jsonObject.getString("image"),jsonObject.getString("link")));
 				} catch (JSONException ex) {
 					Log.d("MYTAG", "JSON");
 					continue;
 				}
+				
+				
 				
 				builder = new AlertDialog.Builder(MainPage.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
 
@@ -398,7 +393,7 @@ public class MainPage extends AppCompatActivity {
 
 				aDialog = builder.create();
 
-				aDialog.show();
+				//aDialog.show();
 
 			}
 		}
