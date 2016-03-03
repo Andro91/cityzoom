@@ -1,10 +1,10 @@
 package zoom.city.android.main.helper;
 
 public class Notification {
-	private String title;
-	private String text;
-	private String image;
-	private String link;
+	public String title;
+	public String text;
+	public String image;
+	public String link;
 	
 	public Notification(String title, String text, String image, String link) {
 		super();

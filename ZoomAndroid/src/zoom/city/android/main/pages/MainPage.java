@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -87,14 +88,17 @@ public class MainPage extends AppCompatActivity {
 	GoogleAnalytics mGa;
 	Tracker mTracker;
 	AlertDialog.Builder builder;
-	AlertDialog aDialog;
+	public AlertDialog aDialog;
 	
 	TextView alertDialogText;
 	ImageView alertDialogImage;
 	
 	String notifyLink;
+	Handler mHandler;
+	Thread mThread;
+	int notificationCounter = 0;
 	
-	ArrayList<Notification> notifications;
+	public ArrayList<Notification> notifications;
 	
 	private CharSequence mTitle;
 
@@ -151,6 +155,31 @@ public class MainPage extends AppCompatActivity {
         //aDialog.show();
         new JSONParseNotification().execute();
         
+        mHandler = new Handler();
+        mThread = 
+        new Thread(new Runnable() {
+            
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+//                for (final Notification n : notifications) {
+                    try {
+                        Thread.sleep(5000);
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                            	Notification n = notifications.get(notificationCounter);
+                            	showAlertDialog(n);
+                            	notificationCounter++;
+                            }
+                        });
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
+//                }
+            }
+        });
+        
 		sendGoogleAnaliticsData("Main - screen");
 
 	}
@@ -163,6 +192,57 @@ public class MainPage extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+    
+    public void showAlertDialog(Notification n){
+    	if (aDialog != null) {
+			aDialog.hide();
+		}
+    	
+		builder = new AlertDialog.Builder(MainPage.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
+
+        LayoutInflater inflater = MainPage.this.getLayoutInflater();
+        
+        View alertDialogView = inflater.inflate(R.layout.dialog, null);
+        
+		alertDialogText = (TextView) alertDialogView.findViewById(R.id.dialog_text);
+		alertDialogImage = (ImageView) alertDialogView.findViewById(R.id.dialog_image);
+
+		notifyLink = n.link;
+		
+		builder.setPositiveButton("MORE", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				if (!Helper.isBlank(notifyLink)) {
+					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notifyLink));
+					startActivityForResult(browserIntent, 1);
+				} else {
+					dialog.cancel();
+				}
+			}
+		});
+
+        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            	dialog.cancel();
+            }
+        });
+        
+        builder.setView(alertDialogView);
+		builder.setTitle(n.title);
+		
+		if (!Helper.isBlank(n.image)) {
+			Picasso.with(MainPage.this)
+				.load(n.image)
+				.into(alertDialogImage);
+		} else {
+			alertDialogImage.setVisibility(View.GONE);
+		}
+		
+		alertDialogText.setText(n.text);
+
+		aDialog = builder.create();
+
+		aDialog.show();
     }
 	
 //    @Override
@@ -195,31 +275,31 @@ public class MainPage extends AppCompatActivity {
         		super.onPreExecute();
         	}
 
-       @Override
-       protected JSONArray doInBackground(String... args) {
-           JsonParser jParser = new JsonParser();
+		@Override
+		protected JSONArray doInBackground(String... args) {
+			JsonParser jParser = new JsonParser();
 
-           // Getting JSON from URL
-           JSONObject json = jParser.getJSONFromUrl(Constant.MAIN_URL
-   				+ "service/banner?seckey=zoom&country=" + myPrefs.getString("drzavaId", "0") + "&city="
-   				+ myPrefs.getString("gradId", "0") + "&id=" + "homepage");
-           JSONArray banner = null;
-           try {
-        	   banner = json.getJSONArray("data").getJSONObject(0).getJSONArray("banners");
-        	   
-           	} catch (JSONException e) {
-           		e.printStackTrace();
-           		Log.d("MYTAG", "114: "+e.getMessage());
-           		if(banner == null){
-         		   try {
-					banner = json.getJSONArray("data");
-				} catch (JSONException e1) {
-					Log.d("MYTAG", "117: "+e.getMessage());
+			// Getting JSON from URL
+			JSONObject json = jParser.getJSONFromUrl(
+					Constant.MAIN_URL + "service/banner?seckey=zoom&country=" + myPrefs.getString("drzavaId", "0")
+							+ "&city=" + myPrefs.getString("gradId", "0") + "&id=" + "homepage");
+			JSONArray banner = null;
+			try {
+				banner = json.getJSONArray("data").getJSONObject(0).getJSONArray("banners");
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+				Log.d("MYTAG", "114: " + e.getMessage());
+				if (banner == null) {
+					try {
+						banner = json.getJSONArray("data");
+					} catch (JSONException e1) {
+						Log.d("MYTAG", "117: " + e.getMessage());
+					}
 				}
-         	   }
-           	}
-           return banner;
-       }
+			}
+			return banner;
+		}
        
        @Override
     	protected void onPostExecute(JSONArray result) {
@@ -303,7 +383,7 @@ public class MainPage extends AppCompatActivity {
 			JSONObject json = jParser.getJSONFromUrl(Constant.MAIN_URL + "service/notification?seckey=zoom"
 					+ "&country=" + myPrefs.getString("drzavaId", "0") 
 					+ "&city=" + myPrefs.getString("gradId", "0")
-					+ "&date=" + "2016-02-28"//formatted
+					+ "&date=" + formatted
 					+ "&language=" + myPrefs.getString("jezikId", "0"));
 
 			JSONArray notification = null;
@@ -321,81 +401,23 @@ public class MainPage extends AppCompatActivity {
 		@Override
 		protected void onPostExecute(JSONArray result) {
 			super.onPostExecute(result);
-			for (int i = 0; i < 1; i++) {
-				
-				if (aDialog != null) {
-					aDialog.hide();
-				}
+			for (int i = 0; i < result.length(); i++) {
+				Log.d("LENGTH", ""+result.length());
 				
 				JSONObject jsonObject;
-
 				try {
 					jsonObject = result.getJSONObject(i);
 				} catch (JSONException e) {
 					continue;
 				}
-
-				String notifyImage = null;
-				String notifyTitle = null;
-				notifyLink = null;
-				String notifyText = null;
-
 				try {
-					notifyImage = jsonObject.getString("image");
-					notifyTitle = jsonObject.getString("title");
-					notifyLink = jsonObject.getString("link");
-					notifyText = jsonObject.getString("text");
 					notifications.add(new Notification(jsonObject.getString("title"),jsonObject.getString("text"),jsonObject.getString("image"),jsonObject.getString("link")));
 				} catch (JSONException ex) {
 					Log.d("MYTAG", "JSON");
 					continue;
 				}
-				
-				
-				
-				builder = new AlertDialog.Builder(MainPage.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
-
-		        LayoutInflater inflater = MainPage.this.getLayoutInflater();
-		        
-		        View alertDialogView = inflater.inflate(R.layout.dialog, null);
-		        
-		        alertDialogText = (TextView) alertDialogView.findViewById(R.id.dialog_text);
-		        alertDialogImage = (ImageView) alertDialogView.findViewById(R.id.dialog_image);
-		        
-				builder.setPositiveButton("MORE", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						if (!Helper.isBlank(notifyLink)) {
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notifyLink));
-							startActivityForResult(browserIntent, 1);
-						} else {
-							dialog.cancel();
-						}
-					}
-		        });
-		        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
-		            public void onClick(DialogInterface dialog, int id) {
-		            	dialog.cancel();
-		            }
-		        });
-		        
-		        builder.setView(alertDialogView);
-				builder.setTitle(notifyTitle);
-				
-				if (!Helper.isBlank(notifyImage)) {
-					Picasso.with(MainPage.this)
-						.load(notifyImage)
-						.into(alertDialogImage);
-				} else {
-					alertDialogImage.setVisibility(View.GONE);
-				}
-				
-				alertDialogText.setText(notifyText);
-
-				aDialog = builder.create();
-
-				//aDialog.show();
-
 			}
+			mThread.start();
 		}
 	}
 
