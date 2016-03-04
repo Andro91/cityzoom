@@ -42,6 +42,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -97,10 +98,13 @@ public class MainPage extends AppCompatActivity {
 	Handler mHandler;
 	Thread mThread;
 	int notificationCounter = 0;
+	Runnable notificationRunnable;
 	
 	public ArrayList<Notification> notifications;
 	
 	private CharSequence mTitle;
+	
+	static boolean active = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -146,39 +150,23 @@ public class MainPage extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
-
-//        builder.setMessage(R.string.test_string_long)
-//        .setTitle(R.string.test_string_short);
         
-        //builder.setTitle("Dialog Title");
-       
-        //aDialog.show();
+		notificationRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				if(notifications.size() == 0 || notifications.size() == notificationCounter){
+					return;
+				}
+				Notification n = notifications.get(notificationCounter);
+				showAlertDialog(n);
+				notificationCounter++;
+			}
+		};
+        
         new JSONParseNotification().execute();
         
         mHandler = new Handler();
-        mThread = 
-        new Thread(new Runnable() {
-            
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-//                for (final Notification n : notifications) {
-                    try {
-                        Thread.sleep(5000);
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                            	Notification n = notifications.get(notificationCounter);
-                            	showAlertDialog(n);
-                            	notificationCounter++;
-                            }
-                        });
-                    } catch (Exception e) {
-                        // TODO: handle exception
-                    }
-//                }
-            }
-        });
         
 		sendGoogleAnaliticsData("Main - screen");
 
@@ -194,10 +182,14 @@ public class MainPage extends AppCompatActivity {
         }
     }
     
+
     public void showAlertDialog(Notification n){
     	if (aDialog != null) {
 			aDialog.hide();
 		}
+    	if(notificationCounter >= notifications.size()){
+    		return;
+    	}
     	
 		builder = new AlertDialog.Builder(MainPage.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
 
@@ -215,8 +207,10 @@ public class MainPage extends AppCompatActivity {
 				if (!Helper.isBlank(notifyLink)) {
 					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notifyLink));
 					startActivityForResult(browserIntent, 1);
+					mHandler.postDelayed(notificationRunnable, 5000);
 				} else {
 					dialog.cancel();
+					mHandler.postDelayed(notificationRunnable, 5000);
 				}
 			}
 		});
@@ -224,6 +218,7 @@ public class MainPage extends AppCompatActivity {
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
             	dialog.cancel();
+            	mHandler.postDelayed(notificationRunnable, 5000);
             }
         });
         
@@ -238,11 +233,12 @@ public class MainPage extends AppCompatActivity {
 			alertDialogImage.setVisibility(View.GONE);
 		}
 		
-		alertDialogText.setText(n.text);
+		alertDialogText.setText(Html.fromHtml(n.text));
 
 		aDialog = builder.create();
-
-		aDialog.show();
+		if (active) {
+			aDialog.show();
+		}
     }
 	
 //    @Override
@@ -417,7 +413,8 @@ public class MainPage extends AppCompatActivity {
 					continue;
 				}
 			}
-			mThread.start();
+			
+			mHandler.postDelayed(notificationRunnable,5000);
 		}
 	}
 
@@ -954,11 +951,16 @@ public class MainPage extends AppCompatActivity {
 	@Override
 	public void onStart() {
 		super.onStart();
+		active = true;
 		// Send a screen view when the Activity is displayed to the user.
 		mTracker.send(MapBuilder.createAppView().build());
 	}
 	
-	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		active = false;
+	}
 	
 	@Override
 	protected void onStop() {
