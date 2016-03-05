@@ -54,6 +54,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import zoom.city.android.main.PreviewFavouritesPage;
 import zoom.city.android.main.R;
 import zoom.city.android.main.adapter.FavouritesAdapter;
@@ -91,7 +92,7 @@ public class MainPage extends AppCompatActivity {
 	AlertDialog.Builder builder;
 	public AlertDialog aDialog;
 	
-	TextView alertDialogText;
+	TextView alertDialogText, alertDialogTitle;
 	ImageView alertDialogImage;
 	
 	String notifyLink;
@@ -199,15 +200,42 @@ public class MainPage extends AppCompatActivity {
         
 		alertDialogText = (TextView) alertDialogView.findViewById(R.id.dialog_text);
 		alertDialogImage = (ImageView) alertDialogView.findViewById(R.id.dialog_image);
-
+		alertDialogTitle = (TextView) alertDialogView.findViewById(R.id.dialog_title);
+		
 		notifyLink = n.link;
 		
 		builder.setPositiveButton("MORE", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				if (!Helper.isBlank(notifyLink)) {
-					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notifyLink));
-					startActivityForResult(browserIntent, 1);
-					mHandler.postDelayed(notificationRunnable, 5000);
+					switch(Helper.linkSwitch(notifyLink)){
+						case Helper.LINK_WEB_CODE: {
+							Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notifyLink));
+							startActivityForResult(browserIntent, 1);
+							mHandler.postDelayed(notificationRunnable, 5000);
+							return;
+						}
+						case Helper.LINK_PHONE_CODE: {
+							Intent intent = new Intent(Intent.ACTION_CALL, Uri
+									.parse("tel:" + notifyLink));
+							startActivityForResult(intent, 1);
+							mHandler.postDelayed(notificationRunnable, 5000);
+							return;
+						}
+						case Helper.LINK_EMAIL_CODE: {
+							Intent i = new Intent(Intent.ACTION_SEND);
+							i.setType("message/rfc822");
+							i.putExtra(Intent.EXTRA_EMAIL,
+									new String[] { notifyLink });
+							i.putExtra(Intent.EXTRA_SUBJECT, "ZOOM Android");
+							i.putExtra(Intent.EXTRA_TEXT, "");
+
+							startActivityForResult(
+									Intent.createChooser(i, "Send mail..."), 1);
+							mHandler.postDelayed(notificationRunnable, 5000);
+							return;
+						}
+					}
+					
 				} else {
 					dialog.cancel();
 					mHandler.postDelayed(notificationRunnable, 5000);
@@ -223,7 +251,9 @@ public class MainPage extends AppCompatActivity {
         });
         
         builder.setView(alertDialogView);
-		builder.setTitle(n.title);
+		//builder.setTitle(n.title);
+        
+		alertDialogTitle.setText(n.title);
 		
 		if (!Helper.isBlank(n.image)) {
 			Picasso.with(MainPage.this)

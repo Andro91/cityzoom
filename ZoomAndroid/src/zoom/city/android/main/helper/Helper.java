@@ -17,6 +17,10 @@ public class Helper {
 	
 	public static final String YOUTUBE_DEVELOPER_KEY = "AIzaSyD4QKpnCh_oWYMce6OeyZBPL-44T-480kU";
 
+	public static final int LINK_WEB_CODE = 1;
+	public static final int LINK_EMAIL_CODE = 2;
+	public static final int LINK_PHONE_CODE = 3;
+	
     public static boolean isBlank(String string) {
         if (string == null || string.length() == 0 || string.equals("null"))
             return true;
@@ -79,6 +83,26 @@ public class Helper {
 			}catch(Exception ex){
 				Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
 			}
+	}
+
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+			Pattern.CASE_INSENSITIVE);
+
+	public static boolean validateEmail(String emailStr) {
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+		return matcher.find();
+	}
+	
+	public static int linkSwitch(String link){
+		if(link.contains("http:")){
+			return LINK_WEB_CODE;
+		}else if(link.contains("@")){
+			return LINK_EMAIL_CODE;
+		}else if(link.contains("+381")){
+			return LINK_PHONE_CODE;
+		}
+	
+		return 0;
 	}
    
 	
