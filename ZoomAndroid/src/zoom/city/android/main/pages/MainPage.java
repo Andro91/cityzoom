@@ -49,6 +49,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -100,6 +102,8 @@ public class MainPage extends AppCompatActivity {
 	Thread mThread;
 	int notificationCounter = 0;
 	Runnable notificationRunnable;
+	
+	WebView alertDialogWebView;
 	
 	public ArrayList<Notification> notifications;
 	
@@ -201,6 +205,7 @@ public class MainPage extends AppCompatActivity {
 		alertDialogText = (TextView) alertDialogView.findViewById(R.id.dialog_text);
 		alertDialogImage = (ImageView) alertDialogView.findViewById(R.id.dialog_image);
 		alertDialogTitle = (TextView) alertDialogView.findViewById(R.id.dialog_title);
+		alertDialogWebView = (WebView) alertDialogView.findViewById(R.id.dialog_webview);
 		
 		notifyLink = n.link;
 		
@@ -263,9 +268,16 @@ public class MainPage extends AppCompatActivity {
 			alertDialogImage.setVisibility(View.GONE);
 		}
 		
+		String htmlContent = "<html><body><div style=\"text-align: justify; padding: 0px\">" + n.text + "</div></body></html>";
+		
+		WebSettings settings = alertDialogWebView.getSettings();
+		settings.setDefaultTextEncodingName("utf-8");
+		alertDialogWebView.loadData(htmlContent, "text/html; charset=utf-8", null);
+		
 		alertDialogText.setText(Html.fromHtml(n.text));
 
 		aDialog = builder.create();
+		aDialog.getWindow().setLayout(650, 850);
 		if (active) {
 			aDialog.show();
 		}
