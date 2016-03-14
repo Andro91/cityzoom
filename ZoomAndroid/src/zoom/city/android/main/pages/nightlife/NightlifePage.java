@@ -221,7 +221,9 @@ public class NightlifePage extends AppCompatActivity {
 							
 							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 							
-							intent.putExtra("date", sdf.format(Calendar.getInstance().getTime()));
+							//intent.putExtra("date", sdf.format(Calendar.getInstance().getTime()));
+							//intent.putExtra("date", date);
+							intent.putExtra("date", "");
 							startActivity(intent);
 						}
 					});
@@ -233,9 +235,10 @@ public class NightlifePage extends AppCompatActivity {
 					intent.putExtra("titleup", title);
 					intent.putExtra("type", "event");
 					
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-					
-					intent.putExtra("date", sdf.format(Calendar.getInstance().getTime()));
+//					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//					intent.putExtra("date", sdf.format(Calendar.getInstance().getTime()));
+					//intent.putExtra("date", date);
+					intent.putExtra("date", "");
 					startActivity(intent);
 				}
 				

@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -151,7 +150,8 @@ public class KulturniVodicPage extends AppCompatActivity {
 									ComponentInstance
 											.getTitleString(ComponentInstance.STRING_POZORISTA));
 							intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
-							intent.putExtra("date", date);
+							//intent.putExtra("date", date);
+							intent.putExtra("date", "");
 
 							// Kulturni vodicu je tipa event
 							intent.putExtra("type", "event");
@@ -166,7 +166,8 @@ public class KulturniVodicPage extends AppCompatActivity {
 					intent.putExtra("title", ComponentInstance
 							.getTitleString(ComponentInstance.STRING_POZORISTA));
 					intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
-					intent.putExtra("date", date);
+					//intent.putExtra("date", date);
+					intent.putExtra("date", "");
 
 					// Kulturni vodicu je tipa event
 					intent.putExtra("type", "event");
@@ -198,7 +199,8 @@ public class KulturniVodicPage extends AppCompatActivity {
 									ComponentInstance
 											.getTitleString(ComponentInstance.STRING_KONCERTI));
 							intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
-							intent.putExtra("date", date);
+							//intent.putExtra("date", date);
+							intent.putExtra("date", "");
 
 							// Kulturni vodicu je tipa event
 							intent.putExtra("type", "event");
@@ -213,7 +215,8 @@ public class KulturniVodicPage extends AppCompatActivity {
 					intent.putExtra("title", ComponentInstance
 							.getTitleString(ComponentInstance.STRING_KONCERTI));
 					intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
-					intent.putExtra("date", date);
+					//intent.putExtra("date", date);
+					intent.putExtra("date", "");
 
 					// Kulturni vodicu je tipa event
 					intent.putExtra("type", "event");
@@ -245,7 +248,8 @@ public class KulturniVodicPage extends AppCompatActivity {
 									ComponentInstance
 											.getTitleString(ComponentInstance.STRING_MUZEJI_GALERIJE));
 							intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
-							intent.putExtra("date", date);
+							//intent.putExtra("date", date);
+							intent.putExtra("date", "");
 
 							// Kulturni vodicu je tipa event
 							intent.putExtra("type", "event");
@@ -262,7 +266,8 @@ public class KulturniVodicPage extends AppCompatActivity {
 							ComponentInstance
 									.getTitleString(ComponentInstance.STRING_MUZEJI_GALERIJE));
 					intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
-					intent.putExtra("date", date);
+					//intent.putExtra("date", date);
+					intent.putExtra("date", "");
 
 					// Kulturni vodicu je tipa event
 					intent.putExtra("type", "event");
@@ -294,7 +299,8 @@ public class KulturniVodicPage extends AppCompatActivity {
 									ComponentInstance
 											.getTitleString(ComponentInstance.STRING_KULTURNI_CENTRI));
 							intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
-							intent.putExtra("date", date);
+							//intent.putExtra("date", date);
+							intent.putExtra("date", "");
 
 							// Kulturni vodicu je tipa event
 							intent.putExtra("type", "event");
@@ -311,7 +317,8 @@ public class KulturniVodicPage extends AppCompatActivity {
 							ComponentInstance
 									.getTitleString(ComponentInstance.STRING_KULTURNI_CENTRI));
 					intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
-					intent.putExtra("date", date);
+					//intent.putExtra("date", date);
+					intent.putExtra("date", "");
 
 					// Kulturni vodicu je tipa event
 					intent.putExtra("type", "event");
@@ -343,7 +350,8 @@ public class KulturniVodicPage extends AppCompatActivity {
 									ComponentInstance
 											.getTitleString(ComponentInstance.STRING_BIBLIOTEKE));
 							intent.putExtra("titleup", ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
-							intent.putExtra("date", date);
+							//intent.putExtra("date", date);
+							intent.putExtra("date", "");
 
 							// Kulturni vodicu je tipa event
 							intent.putExtra("type", "event");
@@ -361,7 +369,8 @@ public class KulturniVodicPage extends AppCompatActivity {
 									.getTitleString(ComponentInstance.STRING_BIBLIOTEKE));
 					intent.putExtra("titleup", ComponentInstance
 									.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
-					intent.putExtra("date", date);
+					//intent.putExtra("date", date);
+					intent.putExtra("date", "");
 
 					// Kulturni vodicu je tipa event
 					intent.putExtra("type", "event");

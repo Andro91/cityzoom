@@ -148,6 +148,8 @@ public class RainbowNightlifePage extends AppCompatActivity {
 							intent.putExtra("title", ComponentInstance
 									.getTitleString(ComponentInstance.STRING_EVENTS));
 							intent.putExtra("type", "event");
+							//intent.putExtra("date", date);
+							intent.putExtra("date", "");
 							startActivity(intent);
 						}
 					});
@@ -157,6 +159,8 @@ public class RainbowNightlifePage extends AppCompatActivity {
 					intent.putExtra("title", ComponentInstance
 							.getTitleString(ComponentInstance.STRING_EVENTS));
 					intent.putExtra("type", "event");
+					//intent.putExtra("date", date);
+					intent.putExtra("date", "");
 					startActivity(intent);
 				}
 				
