@@ -22,12 +22,17 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
 import com.squareup.picasso.Picasso;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -44,11 +49,13 @@ import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -188,7 +195,7 @@ public class MainPage extends AppCompatActivity {
     }
     
 
-    public void showAlertDialog(Notification n){
+    @SuppressLint("NewApi") public void showAlertDialog(Notification n){
     	if (aDialog != null) {
 			aDialog.hide();
 		}
@@ -202,7 +209,7 @@ public class MainPage extends AppCompatActivity {
         
         View alertDialogView = inflater.inflate(R.layout.dialog, null);
         
-		alertDialogText = (TextView) alertDialogView.findViewById(R.id.dialog_text);
+		//alertDialogText = (TextView) alertDialogView.findViewById(R.id.dialog_text);
 		alertDialogImage = (ImageView) alertDialogView.findViewById(R.id.dialog_image);
 		alertDialogTitle = (TextView) alertDialogView.findViewById(R.id.dialog_title);
 		alertDialogWebView = (WebView) alertDialogView.findViewById(R.id.dialog_webview);
@@ -274,10 +281,28 @@ public class MainPage extends AppCompatActivity {
 		settings.setDefaultTextEncodingName("utf-8");
 		alertDialogWebView.loadData(htmlContent, "text/html; charset=utf-8", null);
 		
-		alertDialogText.setText(Html.fromHtml(n.text));
+		//alertDialogText.setText(Html.fromHtml(n.text));
+		
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		
+		int width;
+		int height;
+		
+	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	    	display.getSize(size);
+	    	width = size.x;
+			height = size.y;
+	    } else {
+	    	width = display.getWidth();  // deprecated
+	    	height = display.getHeight();  // deprecated
+	    }
+
+		
+		
 
 		aDialog = builder.create();
-		aDialog.getWindow().setLayout(650, 850);
+		aDialog.getWindow().setLayout((int) Math.floor(width * 0.85), android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 		if (active) {
 			aDialog.show();
 		}
