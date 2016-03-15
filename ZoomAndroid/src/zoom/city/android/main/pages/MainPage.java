@@ -298,9 +298,6 @@ public class MainPage extends AppCompatActivity {
 	    	height = display.getHeight();  // deprecated
 	    }
 
-		
-		
-
 		aDialog = builder.create();
 		aDialog.getWindow().setLayout((int) Math.floor(width * 0.85), android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 		if (active) {

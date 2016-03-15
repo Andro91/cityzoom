@@ -201,14 +201,20 @@ public class PreviewItemPage extends AppCompatActivity {
 			startActivityForResult(intent, 1);
             return true; }
         case R.id.menu_action_share: {
-        	Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-			sharingIntent.setType("text/plain");
-			sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-					dataItem.getTitle() + ": " + dataItem.getShare());
-
-			startActivityForResult(Intent.createChooser(sharingIntent,
-					dataItem.getTitle()), 1);
-            return true; }
+//        	Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+//			sharingIntent.setType("text/plain");
+//			sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+//					dataItem.getTitle() + ": " + dataItem.getShare());
+//
+//			startActivityForResult(Intent.createChooser(sharingIntent,
+//					dataItem.getTitle()), 1);
+        	Intent i = new Intent(Intent.ACTION_SEND);
+        	i.setType("text/plain");
+        	i.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
+        	i.putExtra(Intent.EXTRA_TEXT, dataItem.getShare());
+        	startActivity(Intent.createChooser(i, "Share URL"));
+            return true; 
+            }
         default:
             return super.onOptionsItemSelected(item);
         }
