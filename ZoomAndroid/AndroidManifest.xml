@@ -218,6 +218,18 @@
             android:label="@string/title_activity_preview_favourites_page"
             android:theme="@style/MyThemeNoActionBar" >
         </activity>
+        
+        <activity android:name="com.facebook.FacebookActivity"
+          android:configChanges=
+                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+          android:theme="@android:style/Theme.Translucent.NoTitleBar"
+          android:label="@string/app_name" />
+        
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1706893512890810"
+          android:name="com.facebook.FacebookContentProvider"
+          android:exported="true"/>
     </application>
 
 </manifest>

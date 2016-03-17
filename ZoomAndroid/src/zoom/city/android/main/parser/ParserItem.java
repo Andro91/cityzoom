@@ -294,7 +294,9 @@ public class ParserItem {
 					dataItem.setShare(pom.getString("official_facebook"));
 				}
 				else{
-					dataItem.setShare("");
+					if (pom.has("facebook")) {
+						dataItem.setShare(pom.getString("facebook"));
+					}
 				}
 			}
 

@@ -14,5 +14,6 @@
     <string name="action_settings">Settings</string>
     <string name="test_string_short">Lorem ipsum</string>
     <string name="test_string_long">Lorem ipsum sedare dolomit ipsum text sedare</string>
+    <string name="facebook_app_id">1706893512890810</string>
 
 </resources>

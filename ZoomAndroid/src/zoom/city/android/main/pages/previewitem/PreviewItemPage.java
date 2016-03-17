@@ -6,6 +6,11 @@ import java.util.TimerTask;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.ShareApi;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -52,6 +57,7 @@ import zoom.city.android.main.data.DataItem;
 import zoom.city.android.main.database.DatabaseHandler;
 import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.imageview.DinamicImageView;
+import zoom.city.android.main.pages.MainPage;
 import zoom.city.android.main.parser.ParserDistance;
 import zoom.city.android.main.parser.ParserItem;
 import zoom.city.android.main.service.LocationService;
@@ -88,6 +94,9 @@ public class PreviewItemPage extends AppCompatActivity {
 	public Timer swipeTimer;
 	//AndroSlider items
 	
+	//Facebook SDK items
+	CallbackManager callbackManager;
+	ShareDialog shareDialog;
 
 
 	@Override
@@ -99,7 +108,11 @@ public class PreviewItemPage extends AppCompatActivity {
 		locationService = new LocationService(PreviewItemPage.this);
 		locationService.getLocation();
 		
-		myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+		
+        myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		//AndroSlider initialization
 		DataContainer.androSliderUrlList.clear();
@@ -176,16 +189,17 @@ public class PreviewItemPage extends AppCompatActivity {
     }
 
 	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            activity.finish();
-            return true;
-        case R.id.menu_action_directions: {
-        	if(!locationService.canGetLocation()){
-				Toast.makeText(PreviewItemPage.this, "No GPS signal!", Toast.LENGTH_LONG).show();
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			activity.finish();
+			return true;
+		case R.id.menu_action_directions: {
+			if (!locationService.canGetLocation()) {
+				Toast.makeText(PreviewItemPage.this, "No GPS signal!",
+						Toast.LENGTH_LONG).show();
 			}
-			
+
 			String longMy, latMy, longTo, latTo;
 
 			longMy = Double.toString(locationService.getLongitude());
@@ -196,29 +210,33 @@ public class PreviewItemPage extends AppCompatActivity {
 
 			Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
 					Uri.parse("http://maps.google.com/maps?saddr=" + latMy
-							+ "," + longMy + "&daddr=" + latTo + ","
-							+ longTo));
+							+ "," + longMy + "&daddr=" + latTo + "," + longTo));
 			startActivityForResult(intent, 1);
-            return true; }
-        case R.id.menu_action_share: {
-//        	Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-//			sharingIntent.setType("text/plain");
-//			sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-//					dataItem.getTitle() + ": " + dataItem.getShare());
-//
-//			startActivityForResult(Intent.createChooser(sharingIntent,
-//					dataItem.getTitle()), 1);
-        	Intent i = new Intent(Intent.ACTION_SEND);
-        	i.setType("text/plain");
-        	i.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
-        	i.putExtra(Intent.EXTRA_TEXT, dataItem.getShare());
-        	startActivity(Intent.createChooser(i, "Share URL"));
-            return true; 
-            }
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }	
+			return true;
+		}
+		case R.id.menu_action_share: {
+			// Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+			// sharingIntent.setType("text/plain");
+			// sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+			// dataItem.getTitle() + ": " + dataItem.getShare());
+			//
+			// startActivityForResult(Intent.createChooser(sharingIntent,
+			// dataItem.getTitle()), 1);
+
+			if (ShareDialog.canShow(ShareLinkContent.class)) {
+				ShareLinkContent linkContent = new ShareLinkContent.Builder()
+						.setContentTitle(dataItem.getTitle())
+						.setContentDescription(dataItem.getDescription())
+						.setContentUrl(Uri.parse(dataItem.getShare())).build();
+
+				shareDialog.show(linkContent);
+			}
+			return true;
+		}
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 
 	private void getData() {
 		// TODO Auto-generated method stub

@@ -76,7 +76,7 @@ public class StringContainer {
 		iconTextLocal.add("Hostels");
 		iconTextLocal.add("Rooms");
 		iconTextLocal.add("Camps");
-		iconTextLocal.add("Rent A Local");
+		iconTextLocal.add("Real estate");
 		iconTextLocal.add("Long Term Rental");
 		iconTextLocal.add("Bus");
 		iconTextLocal.add("Taxi");
@@ -165,7 +165,7 @@ public class StringContainer {
 		iconTextEnglish.add("Hostels");
 		iconTextEnglish.add("Rooms");
 		iconTextEnglish.add("Camps");
-		iconTextEnglish.add("Rent A Local");
+		iconTextEnglish.add("Real estate");
 		iconTextEnglish.add("Long Term Rental");
 		iconTextEnglish.add("Bus");
 		iconTextEnglish.add("Taxi");
@@ -254,7 +254,7 @@ public class StringContainer {
 		iconTextGerman.add("Hostels");
 		iconTextGerman.add("Zimmer");
 		iconTextGerman.add("Camps");
-		iconTextGerman.add("Mieten Sie Einen Lokalen");
+		iconTextGerman.add("Grundeigentum");
 		iconTextGerman.add("Langzeitvermietung");
 		iconTextGerman.add("Bus");
 		iconTextGerman.add("Taxi");
@@ -343,7 +343,7 @@ public class StringContainer {
 		iconTextFrench.add("Auberges De Jeunesse");
 		iconTextFrench.add("Chambre");
 		iconTextFrench.add("Camps");
-		iconTextFrench.add("Louer Une Locale");
+		iconTextFrench.add("Immobiliers");
 		iconTextFrench.add("Location À Long Terme");
 		iconTextFrench.add("Bus");
 		iconTextFrench.add("Taxi");
@@ -432,7 +432,7 @@ public class StringContainer {
 		iconTextItalian.add("Ostelli");
 		iconTextItalian.add("Camere");
 		iconTextItalian.add("Camps");
-		iconTextItalian.add("Noleggia Locale");
+		iconTextItalian.add("Immobili");
 		iconTextItalian.add("Noleggia Lungo Termine");
 		iconTextItalian.add("Autobus");
 		iconTextItalian.add("Taxi");
@@ -521,7 +521,7 @@ public class StringContainer {
 		iconTextEspanola.add("Hostales");
 		iconTextEspanola.add("Habitaciones");
 		iconTextEspanola.add("Campamentos");
-		iconTextEspanola.add("Alquiler de Locales");
+		iconTextEspanola.add("Inmobiliaria");
 		iconTextEspanola.add("Alquiler a Largo Plazo");
 		iconTextEspanola.add("Autobuses");
 		iconTextEspanola.add("Taxis");
@@ -610,7 +610,7 @@ public class StringContainer {
 		iconTextRuski.add("Хостелы");
 		iconTextRuski.add("Номера");
 		iconTextRuski.add("Лагеря");
-		iconTextRuski.add("Аренда Часовой");
+		iconTextRuski.add("Недвижимость");
 		iconTextRuski.add("Долгосрочная аренда");
 		iconTextRuski.add("Автобус");
 		iconTextRuski.add("Такси");
