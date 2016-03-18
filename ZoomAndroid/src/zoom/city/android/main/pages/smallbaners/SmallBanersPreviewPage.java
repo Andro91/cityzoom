@@ -79,7 +79,11 @@ public class SmallBanersPreviewPage extends AppCompatActivity {
 
 				try {
 					pomDataItems = Parser.parseItems(Constant.MAIN_URL
-							+ "service/events?seckey=zoom&country="+drzavaId+"&city="+gradId+"&language="+jezikId+"&id="+id+"&date="+date);
+							+ "service/events?seckey=zoom&country=" + drzavaId 
+							+ "&city=" + gradId
+							+ "&language=" + jezikId
+							+ "&id=" + id
+							+ "&date="+ date );
 				} catch (Exception e) {
 					// TODO: handle exception
 				} finally {
@@ -118,9 +122,11 @@ public class SmallBanersPreviewPage extends AppCompatActivity {
 			id = extras.getString("id");
 			title = extras.getString("title");
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");			
-			date = sdf.format(Calendar.getInstance().getTime());
-
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");			
+//			date = sdf.format(Calendar.getInstance().getTime());
+			
+			date = extras.getString("date");
+			
 			type ="event";
 			
 		

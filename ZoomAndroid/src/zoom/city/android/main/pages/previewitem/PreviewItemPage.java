@@ -1,5 +1,7 @@
 package zoom.city.android.main.pages.previewitem;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,11 +29,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -62,7 +66,6 @@ import zoom.city.android.main.parser.ParserDistance;
 import zoom.city.android.main.parser.ParserItem;
 import zoom.city.android.main.service.LocationService;
 
-
 //@SuppressLint("NewApi")
 public class PreviewItemPage extends AppCompatActivity {
 
@@ -73,8 +76,9 @@ public class PreviewItemPage extends AppCompatActivity {
 	LocationService locationService;
 
 	TextView txtTitle, txtGenre, txtAuthor, txtDescription, txtTime,
-			txtCompany, txtMicrolocation, txtCategory, txtWeb, txtPhone1, txtPhone2, txtFax, txtAdrress, txtStreet,
-			txtCity, txtEmail, txtDistance, txtFacebook, txtTimeDate;
+			txtCompany, txtMicrolocation, txtCategory, txtWeb, txtPhone1,
+			txtPhone2, txtFax, txtAdrress, txtStreet, txtCity, txtEmail,
+			txtDistance, txtFacebook, txtTimeDate;
 	DinamicImageView imageView, imageView2;
 	ImageView buttonDirection, buttonShare, buttonLike, buttonUp, butPhone,
 			butFacebook, butWebSite, butMail, butFavourite, butPlus;
@@ -88,16 +92,15 @@ public class PreviewItemPage extends AppCompatActivity {
 	SharedPreferences myPrefs;
 	FrameLayout flphone, flmail, flfacebook, flwebsite;
 	String dist = "No GPS!";
-	//AndroSlider items
+	// AndroSlider items
 	AndroSliderAdapter androSliderAdapter;
 	int currentPage;
 	public Timer swipeTimer;
-	//AndroSlider items
-	
-	//Facebook SDK items
+	// AndroSlider items
+
+	// Facebook SDK items
 	CallbackManager callbackManager;
 	ShareDialog shareDialog;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,27 +110,27 @@ public class PreviewItemPage extends AppCompatActivity {
 		activity = this;
 		locationService = new LocationService(PreviewItemPage.this);
 		locationService.getLocation();
-		
-		FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-        shareDialog = new ShareDialog(this);
-		
-        myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-		//AndroSlider initialization
+		FacebookSdk.sdkInitialize(getApplicationContext());
+		callbackManager = CallbackManager.Factory.create();
+		shareDialog = new ShareDialog(this);
+
+		myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+		// AndroSlider initialization
 		DataContainer.androSliderUrlList.clear();
 		androSliderAdapter = new AndroSliderAdapter(this);
-		
+
 		Log.d("MYTAG", "PreviewItemPage");
-		
+
 		getData();
-		
+
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		if (myPrefs == null) {
 			myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		}
@@ -135,58 +138,58 @@ public class PreviewItemPage extends AppCompatActivity {
 			ComponentInstance.setMyPrefs(myPrefs);
 		}
 	}
-	
+
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-	    super.onConfigurationChanged(newConfig);
+		super.onConfigurationChanged(newConfig);
 
-	    // Checks the orientation of the screen
-	    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-	    	
-	    } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-	    	
-	    }
+		// Checks the orientation of the screen
+		if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+		} else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+
+		}
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-	    try {
-//	    	WebView webView = (WebView) this.findViewById(R.id.webview);
-//	        Class.forName("android.webkit.WebView")
-//	                .getMethod("onPause", (Class[]) null)
-//	                            .invoke(webView, (Object[]) null);
-//	        DataContainer.androSliderUrlList.clear();
-//			androSliderAdapter.fetchData();
-	    } catch(Exception e) {
-	    	e.printStackTrace();
-	    }
+		try {
+			// WebView webView = (WebView) this.findViewById(R.id.webview);
+			// Class.forName("android.webkit.WebView")
+			// .getMethod("onPause", (Class[]) null)
+			// .invoke(webView, (Object[]) null);
+			// DataContainer.androSliderUrlList.clear();
+			// androSliderAdapter.fetchData();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-    @Override
+
+	@Override
 	protected void onStop() {
 		super.onStop();
 	}
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-    	super.onCreateOptionsMenu(menu);
-    	MenuInflater inflater = getMenuInflater();
-    	if (type.equalsIgnoreCase("company")) {
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		if (type.equalsIgnoreCase("company")) {
 			if (dataItem.getPreviewtype().equalsIgnoreCase("0")) {
-//				Log.d("MENU", "1");
+				// Log.d("MENU", "1");
 				inflater.inflate(R.menu.item_list_menu, menu);
-			}else{
-//				Log.d("MENU", "2");
-//				Log.d("MENU", "2 " + dataItem.getPreviewtype());
+			} else {
+				// Log.d("MENU", "2");
+				// Log.d("MENU", "2 " + dataItem.getPreviewtype());
 				inflater.inflate(R.menu.action_menu, menu);
 			}
-    	}else{
-//    		Log.d("MENU", "3");
+		} else {
+			// Log.d("MENU", "3");
 			inflater.inflate(R.menu.action_menu, menu);
 		}
-        return true;
-    }
+		return true;
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -215,26 +218,71 @@ public class PreviewItemPage extends AppCompatActivity {
 			return true;
 		}
 		case R.id.menu_action_share: {
-			// Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-			// sharingIntent.setType("text/plain");
-			// sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-			// dataItem.getTitle() + ": " + dataItem.getShare());
+			Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+			sharingIntent.setType("text/plain");
+			sharingIntent.putExtra(Intent.EXTRA_TEXT, dataItem.getShare());
+
+			startActivityForResult(Intent.createChooser(sharingIntent, dataItem.getTitle()), 1);
+			//intentChooserMethod();
+			// if (ShareDialog.canShow(ShareLinkContent.class)) {
+			// ShareLinkContent linkContent = new ShareLinkContent.Builder()
+			// .setContentTitle(dataItem.getTitle())
+			// .setContentDescription(dataItem.getDescription())
+			// .setContentUrl(Uri.parse(dataItem.getShare())).build();
 			//
-			// startActivityForResult(Intent.createChooser(sharingIntent,
-			// dataItem.getTitle()), 1);
-
-			if (ShareDialog.canShow(ShareLinkContent.class)) {
-				ShareLinkContent linkContent = new ShareLinkContent.Builder()
-						.setContentTitle(dataItem.getTitle())
-						.setContentDescription(dataItem.getDescription())
-						.setContentUrl(Uri.parse(dataItem.getShare())).build();
-
-				shareDialog.show(linkContent);
-			}
+			// shareDialog.show(linkContent);
+			// }
 			return true;
 		}
 		default:
 			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		callbackManager.onActivityResult(requestCode, resultCode, data);
+	}
+
+	private void intentChooserMethod() {
+		List<Intent> targetShareIntents = new ArrayList<Intent>();
+		Intent shareIntent = new Intent();
+		shareIntent.setAction(Intent.ACTION_SEND);
+		shareIntent.setType("text/*");
+
+		List<ResolveInfo> resInfos = PreviewItemPage.this.getPackageManager()
+				.queryIntentActivities(shareIntent, 0);
+
+		if (!resInfos.isEmpty()) {
+			for (ResolveInfo resInfo : resInfos) {
+				String packageName = resInfo.activityInfo.packageName;
+
+				if (packageName.contains("com.facebook.katana")) {
+
+					if (ShareDialog.canShow(ShareLinkContent.class)) {
+						ShareLinkContent linkContent = new ShareLinkContent.Builder()
+								.setContentTitle(dataItem.getTitle())
+								.setContentDescription(
+										dataItem.getDescription())
+								.setContentUrl(Uri.parse(dataItem.getShare()))
+								.build();
+
+						shareDialog.show(linkContent);
+					}
+				}
+
+			}
+
+			if (!targetShareIntents.isEmpty()) {
+				Intent chooserIntent = Intent.createChooser(
+						targetShareIntents.remove(0), "Choose app to share");
+				chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
+						targetShareIntents.toArray(new Parcelable[] {}));
+				PreviewItemPage.this.startActivity(chooserIntent);
+			} else {
+			}
 		}
 	}
 
@@ -309,9 +357,12 @@ public class PreviewItemPage extends AppCompatActivity {
 				try {
 					Log.d("MYTAG", "Thread");
 					dataItem = ParserItem.parseSendData(id, language, type);
-					dist = ParserDistance.uzmiDistancu(Double.toString(locationService.getLatitude()),
-							Double.toString(locationService.getLongitude()),dataItem.getX(),dataItem.getY());
-					if ((dist=="")||(dist == null)) dist = "No GPS!";
+					dist = ParserDistance.uzmiDistancu(
+							Double.toString(locationService.getLatitude()),
+							Double.toString(locationService.getLongitude()),
+							dataItem.getX(), dataItem.getY());
+					if ((dist == "") || (dist == null))
+						dist = "No GPS!";
 
 				} catch (Exception e) {
 					Log.d("ERROR", "Line 290 " + e.getMessage());
@@ -331,9 +382,9 @@ public class PreviewItemPage extends AppCompatActivity {
 
 			txtTitle = (TextView) findViewById(R.id.textViewTitle);
 			txtDistance = (TextView) findViewById(R.id.textDistanca);
-			//imageView = (DinamicImageView) findViewById(R.id.imageView);
+			// imageView = (DinamicImageView) findViewById(R.id.imageView);
 			txtGenre = (TextView) findViewById(R.id.textViewGenre);
-			//txtAuthor = (TextView) findViewById(R.id.textViewAuthor);
+			// txtAuthor = (TextView) findViewById(R.id.textViewAuthor);
 			txtCategory = (TextView) findViewById(R.id.textViewCategory);
 			txtDescription = (TextView) findViewById(R.id.textViewDescription);
 			txtTime = (TextView) findViewById(R.id.textViewTime);
@@ -344,13 +395,13 @@ public class PreviewItemPage extends AppCompatActivity {
 			butFavourite = (ImageView) findViewById(R.id.favourite_button);
 			butPlus = (ImageView) findViewById(R.id.plus_button);
 			DatabaseHandler db = new DatabaseHandler(activity);
-			if(db.checkFavouriteStatus(dataItem.getTitle())){
+			if (db.checkFavouriteStatus(dataItem.getTitle())) {
 				butFavourite.setImageResource(R.drawable.favourite_active);
-			}else{
+			} else {
 				butFavourite.setImageResource(R.drawable.favourite_inactive);
 			}
 
-			//inicBottomButton();
+			// inicBottomButton();
 		}
 
 		else if (type.equalsIgnoreCase("company")) {
@@ -358,22 +409,26 @@ public class PreviewItemPage extends AppCompatActivity {
 			if (previewType.equalsIgnoreCase("0")) {
 
 				Log.d("MYTAG", "previewType: 0");
-				
+
 				txtTitle = (TextView) findViewById(R.id.textViewTitle);
 				txtPhone1 = (TextView) findViewById(R.id.textViewPhone1);
-				txtPhone1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phone_icon_red, 0, 0, 0);
+				txtPhone1.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.phone_icon_red, 0, 0, 0);
 				txtPhone1.setCompoundDrawablePadding(20);
 				separatorPhone = findViewById(R.id.separatorPhone);
 				txtEmail = (TextView) findViewById(R.id.textViewEmail);
-				txtEmail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.mail_icon_red, 0, 0, 0);
+				txtEmail.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.mail_icon_red, 0, 0, 0);
 				txtEmail.setCompoundDrawablePadding(20);
 				separatorEmail = findViewById(R.id.separatorEmail);
 				txtWeb = (TextView) findViewById(R.id.textViewWeb);
-				txtWeb.setCompoundDrawablesWithIntrinsicBounds(R.drawable.website_icon_red, 0, 0, 0);
+				txtWeb.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.website_icon_red, 0, 0, 0);
 				txtWeb.setCompoundDrawablePadding(20);
 				separatorWeb = findViewById(R.id.separatorWeb);
 				txtAdrress = (TextView) findViewById(R.id.textViewAdrress);
-				txtAdrress.setCompoundDrawablesWithIntrinsicBounds(R.drawable.distance_icon_red, 0, 0, 0);
+				txtAdrress.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.distance_icon_red, 0, 0, 0);
 				txtAdrress.setCompoundDrawablePadding(20);
 				separatorAddress = findViewById(R.id.separatorAddress);
 				txtCity = (TextView) findViewById(R.id.textViewCity);
@@ -382,30 +437,36 @@ public class PreviewItemPage extends AppCompatActivity {
 			} else if (previewType.equalsIgnoreCase("1")) {
 
 				Log.d("MYTAG", "previewType: 1");
-				
+
 				txtTitle = (TextView) findViewById(R.id.textViewTitle);
 				txtDistance = (TextView) findViewById(R.id.textDistanca);
 				txtPhone1 = (TextView) findViewById(R.id.textViewPhone1);
-				txtPhone1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phone_icon_red, 0, 0, 0);
+				txtPhone1.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.phone_icon_red, 0, 0, 0);
 				txtPhone1.setCompoundDrawablePadding(20);
 				txtPhone2 = (TextView) findViewById(R.id.textViewPhone2);
-//				txtPhone2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phone, 0, 0, 0);
+				// txtPhone2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phone,
+				// 0, 0, 0);
 				txtPhone2.setCompoundDrawablePadding(20);
 				txtFax = (TextView) findViewById(R.id.textViewFax);
 				txtFax.setCompoundDrawablePadding(20);
 				txtEmail = (TextView) findViewById(R.id.textViewEmail);
-				txtEmail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.mail_icon_red, 0, 0, 0);
+				txtEmail.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.mail_icon_red, 0, 0, 0);
 				txtEmail.setCompoundDrawablePadding(20);
 				txtWeb = (TextView) findViewById(R.id.textViewWeb);
-				txtWeb.setCompoundDrawablesWithIntrinsicBounds(R.drawable.website_icon_red, 0, 0, 0);
+				txtWeb.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.website_icon_red, 0, 0, 0);
 				txtWeb.setCompoundDrawablePadding(20);
 				txtAdrress = (TextView) findViewById(R.id.textViewAdrress);
-				txtAdrress.setCompoundDrawablesWithIntrinsicBounds(R.drawable.distance_icon_red, 0, 0, 0);
+				txtAdrress.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.distance_icon_red, 0, 0, 0);
 				txtAdrress.setCompoundDrawablePadding(20);
 				txtCity = (TextView) findViewById(R.id.textViewCity);
 				txtCity.setVisibility(View.GONE);
 				txtFacebook = (TextView) findViewById(R.id.textViewFacebook);
-				txtFacebook.setCompoundDrawablesWithIntrinsicBounds(R.drawable.facebook_icon_red, 0, 0, 0);
+				txtFacebook.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.facebook_icon_red, 0, 0, 0);
 				txtFacebook.setCompoundDrawablePadding(20);
 				butPhone = (ImageView) findViewById(R.id.phone_button);
 				butFacebook = (ImageView) findViewById(R.id.facebook_button);
@@ -419,52 +480,59 @@ public class PreviewItemPage extends AppCompatActivity {
 				separatorPhone = findViewById(R.id.separatorPhone);
 				separatorEmail = findViewById(R.id.separatorEmail);
 				separatorWeb = findViewById(R.id.separatorWeb);
-				
+
 				mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 				mDemoSlider.setDuration(7000);
-				
+
 				butFavourite = (ImageView) findViewById(R.id.favourite_button);
 				DatabaseHandler db = new DatabaseHandler(activity);
-				if(db.checkFavouriteStatus(dataItem.getTitle())){
+				if (db.checkFavouriteStatus(dataItem.getTitle())) {
 					butFavourite.setImageResource(R.drawable.favourite_active);
-				}else{
-					butFavourite.setImageResource(R.drawable.favourite_inactive);
+				} else {
+					butFavourite
+							.setImageResource(R.drawable.favourite_inactive);
 				}
-				
+
 				mapButton = (Button) findViewById(R.id.buttonMap);
 
 				mapView = ((MapFragment) getFragmentManager().findFragmentById(
 						R.id.map)).getMap();
 
-				//inicBottomButton();
+				// inicBottomButton();
 
 			} else if (previewType.equalsIgnoreCase("2")) {
 
 				Log.d("MYTAG", "previewType: 2");
-				
+
 				txtTitle = (TextView) findViewById(R.id.textViewTitle);
 				txtDistance = (TextView) findViewById(R.id.textDistanca);
 				txtPhone1 = (TextView) findViewById(R.id.textViewPhone1);
-				txtPhone1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phone_icon_red, 0, 0, 0);
+				txtPhone1.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.phone_icon_red, 0, 0, 0);
 				txtPhone1.setCompoundDrawablePadding(20);
 				txtPhone2 = (TextView) findViewById(R.id.textViewPhone2);
-//				txtPhone2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phone, 0, 0, 0);
+				// txtPhone2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phone,
+				// 0, 0, 0);
 				txtPhone2.setCompoundDrawablePadding(20);
 				txtFax = (TextView) findViewById(R.id.textViewFax);
 				txtFax.setCompoundDrawablePadding(20);
 				txtEmail = (TextView) findViewById(R.id.textViewEmail);
-				txtEmail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.mail_icon_red, 0, 0, 0);
+				txtEmail.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.mail_icon_red, 0, 0, 0);
 				txtEmail.setCompoundDrawablePadding(20);
 				txtWeb = (TextView) findViewById(R.id.textViewWeb);
-				txtWeb.setCompoundDrawablesWithIntrinsicBounds(R.drawable.website_icon_red, 0, 0, 0);
+				txtWeb.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.website_icon_red, 0, 0, 0);
 				txtWeb.setCompoundDrawablePadding(20);
 				txtAdrress = (TextView) findViewById(R.id.textViewAdrress);
-				txtAdrress.setCompoundDrawablesWithIntrinsicBounds(R.drawable.distance_icon_red, 0, 0, 0);
+				txtAdrress.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.distance_icon_red, 0, 0, 0);
 				txtAdrress.setCompoundDrawablePadding(20);
 				txtCity = (TextView) findViewById(R.id.textViewCity);
 				txtCity.setVisibility(View.GONE);
 				txtFacebook = (TextView) findViewById(R.id.textViewFacebook);
-				txtFacebook.setCompoundDrawablesWithIntrinsicBounds(R.drawable.facebook_icon_red, 0, 0, 0);
+				txtFacebook.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.facebook_icon_red, 0, 0, 0);
 				txtFacebook.setCompoundDrawablePadding(20);
 				butPhone = (ImageView) findViewById(R.id.phone_button);
 				butFacebook = (ImageView) findViewById(R.id.facebook_button);
@@ -479,16 +547,17 @@ public class PreviewItemPage extends AppCompatActivity {
 				separatorPhone = findViewById(R.id.separatorPhone);
 				separatorEmail = findViewById(R.id.separatorEmail);
 				separatorWeb = findViewById(R.id.separatorWeb);
-				
+
 				mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 				mDemoSlider.setDuration(7000);
-				
+
 				butFavourite = (ImageView) findViewById(R.id.favourite_button);
 				DatabaseHandler db = new DatabaseHandler(activity);
-				if(db.checkFavouriteStatus(dataItem.getTitle())){
+				if (db.checkFavouriteStatus(dataItem.getTitle())) {
 					butFavourite.setImageResource(R.drawable.favourite_active);
-				}else{
-					butFavourite.setImageResource(R.drawable.favourite_inactive);
+				} else {
+					butFavourite
+							.setImageResource(R.drawable.favourite_inactive);
 				}
 
 				imageView = (DinamicImageView) findViewById(R.id.imageView1);
@@ -500,35 +569,41 @@ public class PreviewItemPage extends AppCompatActivity {
 				mapView = ((MapFragment) getFragmentManager().findFragmentById(
 						R.id.map)).getMap();
 
-				//inicBottomButton();
+				// inicBottomButton();
 
 			} else if (previewType.equalsIgnoreCase("3")) {
 
 				Log.d("MYTAG", "previewType: 3");
-				
+
 				txtTitle = (TextView) findViewById(R.id.textViewTitle);
 				txtDistance = (TextView) findViewById(R.id.textDistanca);
 				txtPhone1 = (TextView) findViewById(R.id.textViewPhone1);
-				txtPhone1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phone_icon_red, 0, 0, 0);
+				txtPhone1.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.phone_icon_red, 0, 0, 0);
 				txtPhone1.setCompoundDrawablePadding(20);
 				txtPhone2 = (TextView) findViewById(R.id.textViewPhone2);
-//				txtPhone2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phone, 0, 0, 0);
+				// txtPhone2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phone,
+				// 0, 0, 0);
 				txtPhone2.setCompoundDrawablePadding(20);
 				txtFax = (TextView) findViewById(R.id.textViewFax);
 				txtFax.setCompoundDrawablePadding(20);
 				txtEmail = (TextView) findViewById(R.id.textViewEmail);
-				txtEmail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.mail_icon_red, 0, 0, 0);
+				txtEmail.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.mail_icon_red, 0, 0, 0);
 				txtEmail.setCompoundDrawablePadding(20);
 				txtWeb = (TextView) findViewById(R.id.textViewWeb);
-				txtWeb.setCompoundDrawablesWithIntrinsicBounds(R.drawable.website_icon_red, 0, 0, 0);
+				txtWeb.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.website_icon_red, 0, 0, 0);
 				txtWeb.setCompoundDrawablePadding(20);
 				txtAdrress = (TextView) findViewById(R.id.textViewAdrress);
-				txtAdrress.setCompoundDrawablesWithIntrinsicBounds(R.drawable.distance_icon_red, 0, 0, 0);
+				txtAdrress.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.distance_icon_red, 0, 0, 0);
 				txtAdrress.setCompoundDrawablePadding(20);
 				txtCity = (TextView) findViewById(R.id.textViewCity);
 				txtCity.setVisibility(View.GONE);
 				txtFacebook = (TextView) findViewById(R.id.textViewFacebook);
-				txtFacebook.setCompoundDrawablesWithIntrinsicBounds(R.drawable.facebook_icon_red, 0, 0, 0);
+				txtFacebook.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.facebook_icon_red, 0, 0, 0);
 				txtFacebook.setCompoundDrawablePadding(20);
 				butPhone = (ImageView) findViewById(R.id.phone_button);
 				butFacebook = (ImageView) findViewById(R.id.facebook_button);
@@ -543,18 +618,19 @@ public class PreviewItemPage extends AppCompatActivity {
 				separatorPhone = findViewById(R.id.separatorPhone);
 				separatorEmail = findViewById(R.id.separatorEmail);
 				separatorWeb = findViewById(R.id.separatorWeb);
-				
+
 				mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 				mDemoSlider.setDuration(7000);
-				
+
 				butFavourite = (ImageView) findViewById(R.id.favourite_button);
 				DatabaseHandler db = new DatabaseHandler(activity);
-				if(db.checkFavouriteStatus(dataItem.getTitle())){
+				if (db.checkFavouriteStatus(dataItem.getTitle())) {
 					butFavourite.setImageResource(R.drawable.favourite_active);
-				}else{
-					butFavourite.setImageResource(R.drawable.favourite_inactive);
+				} else {
+					butFavourite
+							.setImageResource(R.drawable.favourite_inactive);
 				}
-						
+
 				imageView = (DinamicImageView) findViewById(R.id.imageView1);
 				imageView2 = (DinamicImageView) findViewById(R.id.imageView2);
 
@@ -565,7 +641,7 @@ public class PreviewItemPage extends AppCompatActivity {
 				mapView = ((MapFragment) getFragmentManager().findFragmentById(
 						R.id.map)).getMap();
 
-				//inicBottomButton();
+				// inicBottomButton();
 
 			}
 
@@ -573,47 +649,47 @@ public class PreviewItemPage extends AppCompatActivity {
 
 	}
 
-//	public void inicActionBar() {
-//		Toolbar toolbar = null;
-//		if(findViewById(R.id.toolbar) != null){
-//			toolbar = (Toolbar) findViewById(R.id.toolbar); 
-//			if(!Helper.isBlank(title)){
-//				((TextView)toolbar.findViewById(R.id.toolbar_title)).setText(title);
-//			}else{
-//				((TextView)toolbar.findViewById(R.id.toolbar_title)).setText("");
-//			}
-//			
-//		}else{
-//			Log.d("MYTAG","Null toolbar");
-//		}
-//		setSupportActionBar(toolbar); 
-//		
-//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//		getSupportActionBar().setDisplayShowTitleEnabled(false);
-//		try{
-//			ActionBar actionBar = getSupportActionBar();
-//			
-//			actionBar.setDisplayHomeAsUpEnabled(true);
-//			actionBar.setDisplayShowHomeEnabled(false);
-//			actionBar.setDisplayShowTitleEnabled(true);
-//			actionBar.setDisplayUseLogoEnabled(false);
-//			if(!Helper.isBlank(title)){
-//				getSupportActionBar().setTitle(title);
-//			}else{
-//				getSupportActionBar().setTitle("BACK");
-//			}
-//		}catch(Exception ex){
-//			Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
-//		}
-//	}
-	
-	public void inicAndroSlider(final AndroSliderAdapter androSliderAdapter){
-		//androSliderAdapter.notifyDataSetChanged();
+	// public void inicActionBar() {
+	// Toolbar toolbar = null;
+	// if(findViewById(R.id.toolbar) != null){
+	// toolbar = (Toolbar) findViewById(R.id.toolbar);
+	// if(!Helper.isBlank(title)){
+	// ((TextView)toolbar.findViewById(R.id.toolbar_title)).setText(title);
+	// }else{
+	// ((TextView)toolbar.findViewById(R.id.toolbar_title)).setText("");
+	// }
+	//
+	// }else{
+	// Log.d("MYTAG","Null toolbar");
+	// }
+	// setSupportActionBar(toolbar);
+	//
+	// getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	// getSupportActionBar().setDisplayShowTitleEnabled(false);
+	// try{
+	// ActionBar actionBar = getSupportActionBar();
+	//
+	// actionBar.setDisplayHomeAsUpEnabled(true);
+	// actionBar.setDisplayShowHomeEnabled(false);
+	// actionBar.setDisplayShowTitleEnabled(true);
+	// actionBar.setDisplayUseLogoEnabled(false);
+	// if(!Helper.isBlank(title)){
+	// getSupportActionBar().setTitle(title);
+	// }else{
+	// getSupportActionBar().setTitle("BACK");
+	// }
+	// }catch(Exception ex){
+	// Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
+	// }
+	// }
+
+	public void inicAndroSlider(final AndroSliderAdapter androSliderAdapter) {
+		// androSliderAdapter.notifyDataSetChanged();
 		final ViewPager viewPager = (ViewPager) findViewById(R.id.andro_slider_viewPager);
-        viewPager.setAdapter(androSliderAdapter);
-        viewPager.setOffscreenPageLimit(5);
-        
-		CirclePageIndicator indicator = (CirclePageIndicator)findViewById(R.id.circle_page_indicator);
+		viewPager.setAdapter(androSliderAdapter);
+		viewPager.setOffscreenPageLimit(5);
+
+		CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.circle_page_indicator);
 		indicator.setViewPager(viewPager);
 
 		final float density = getResources().getDisplayMetrics().density;
@@ -622,8 +698,8 @@ public class PreviewItemPage extends AppCompatActivity {
 		indicator.setPageColor(0x00000000);
 		indicator.setFillColor(0xFFFFFFFF);
 		indicator.setStrokeColor(0x22000000);
-		//indicator.setStrokeWidth(1.3f * density);
-		
+		// indicator.setStrokeWidth(1.3f * density);
+
 		final Handler handler234 = new Handler();
 
 		final Runnable Update = new Runnable() {
@@ -635,7 +711,7 @@ public class PreviewItemPage extends AppCompatActivity {
 				viewPager.setCurrentItem(currentPage++, true);
 			}
 		};
-		
+
 		swipeTimer = new Timer();
 		swipeTimer.schedule(new TimerTask() {
 
@@ -645,151 +721,151 @@ public class PreviewItemPage extends AppCompatActivity {
 			}
 		}, 7000, 10000);
 	}
-	
+
 	public void fillData(String type, String previewType) {
 
 		if (type.equalsIgnoreCase("event")) {
 
 			txtTitle.setText(dataItem.getTitle());
 			txtDistance.setText(dist);
-//			ImageContainer.getInstance().getImageDownloader()
-//					.download(dataItem.getImage(), imageView);
-			
-			if(!Helper.isBlank(dataItem.getGenre()) && !Helper.isBlank(dataItem.getAuthor())){
-				//txtGenre.setVisibility(View.GONE);
-				txtGenre.setText(dataItem.getGenre() + " / " + dataItem.getAuthor());
-			}
-			else if(!Helper.isBlank(dataItem.getGenre())){
+			// ImageContainer.getInstance().getImageDownloader()
+			// .download(dataItem.getImage(), imageView);
+
+			if (!Helper.isBlank(dataItem.getGenre())
+					&& !Helper.isBlank(dataItem.getAuthor())) {
+				// txtGenre.setVisibility(View.GONE);
+				txtGenre.setText(dataItem.getGenre() + " / "
+						+ dataItem.getAuthor());
+			} else if (!Helper.isBlank(dataItem.getGenre())) {
 				txtGenre.setText(dataItem.getGenre());
-			}else if(!Helper.isBlank(dataItem.getAuthor())){
+			} else if (!Helper.isBlank(dataItem.getAuthor())) {
 				txtGenre.setText(dataItem.getAuthor());
-			}else{
+			} else {
 				txtGenre.setVisibility(View.GONE);
 			}
-			
-			Log.d("MYTAG", "getCategory() " + getIntent().getStringExtra("category"));
-			if(getIntent().getStringExtra("category") == null){
+
+			Log.d("MYTAG",
+					"getCategory() " + getIntent().getStringExtra("category"));
+			if (getIntent().getStringExtra("category") == null) {
 				txtCategory.setVisibility(View.GONE);
-			}
-			else{
+			} else {
 				txtCategory.setText(getIntent().getStringExtra("category"));
 			}
-			
-			if(dataItem.getDescription().equalsIgnoreCase(" ")){
+
+			if (dataItem.getDescription().equalsIgnoreCase(" ")) {
 				txtDescription.setVisibility(View.GONE);
-			}
-			else{
+			} else {
 				txtDescription.setText(dataItem.getDescription());
 			}
-			
-			if(Helper.isBlank(dataItem.getDate())){
+
+			if (Helper.isBlank(dataItem.getDate())) {
 				txtTimeDate.setVisibility(View.GONE);
-			}
-			else{
+			} else {
 				String pomDate = dataItem.getDate();
-				try{
+				try {
 					String[] pomDateArray = new String[2];
 					pomDateArray = pomDate.split(" - ");
-					if(pomDateArray[0].trim().equals(pomDateArray[1].trim())){
+					if (pomDateArray[0].trim().equals(pomDateArray[1].trim())) {
 						pomDate = pomDateArray[0].trim();
 					}
-				}catch(Exception ex){}
+				} catch (Exception ex) {
+				}
 				txtTimeDate.setText(pomDate);
 			}
-			
-			if(dataItem.getTime().equalsIgnoreCase(" ")){
+
+			if (dataItem.getTime().equalsIgnoreCase(" ")) {
 				txtTime.setVisibility(View.GONE);
-			}
-			else{
+			} else {
 				txtTime.setText(dataItem.getTime());
 			}
-			
-			if(dataItem.getCompany().equalsIgnoreCase(" ")){
+
+			if (dataItem.getCompany().equalsIgnoreCase(" ")) {
 				txtCompany.setVisibility(View.GONE);
-			}
-			else{
+			} else {
 				txtCompany.setText(dataItem.getCompany());
 			}
-			
-			if(Helper.isBlank(dataItem.getCompanyId())){
+
+			if (Helper.isBlank(dataItem.getCompanyId())) {
 				webButton.setVisibility(View.GONE);
 			}
-			
-			if(Helper.isBlank(dataItem.getMicrolocation())){
+
+			if (Helper.isBlank(dataItem.getMicrolocation())) {
 				txtMicrolocation.setVisibility(View.GONE);
-			}else{
+			} else {
 				txtMicrolocation.setText(dataItem.getMicrolocation());
 			}
-			
+
 			DataContainer.androSliderUrlList.clear();
-			
-//			if(!dataItem.getImage2().equalsIgnoreCase(" ")){
-//				DataContainer.androSliderUrlList.add(dataItem.getImage2());
-//			} 
-			
-			if(dataItem.getSlider() != null){
+
+			// if(!dataItem.getImage2().equalsIgnoreCase(" ")){
+			// DataContainer.androSliderUrlList.add(dataItem.getImage2());
+			// }
+
+			if (dataItem.getSlider() != null) {
 				for (String s : dataItem.getSlider()) {
 					DataContainer.androSliderUrlList.add(s);
 				}
 			}
-			if(!Helper.isBlank(dataItem.getImage())){
-				if(!DataContainer.androSliderUrlList.contains(dataItem.getImage())){
+			if (!Helper.isBlank(dataItem.getImage())) {
+				if (!DataContainer.androSliderUrlList.contains(dataItem
+						.getImage())) {
 					DataContainer.androSliderUrlList.add(dataItem.getImage());
 				}
 			}
-			if(!Helper.isBlank(dataItem.getWeb())){
-				Log.d("MYTAG",dataItem.getWeb());
+			if (!Helper.isBlank(dataItem.getWeb())) {
+				Log.d("MYTAG", dataItem.getWeb());
 				DataContainer.androSliderUrlList.add(dataItem.getWeb());
 			}
-			
-			if(Helper.isBlank(dataItem.getOfficialWebpage())){
+
+			if (Helper.isBlank(dataItem.getOfficialWebpage())) {
 				butPlus.setVisibility(View.GONE);
 			}
-			
-			
+
 			androSliderAdapter.fetchData();
 			inicAndroSlider(androSliderAdapter);
-			
+
 			butFavourite.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					DatabaseHandler db = new DatabaseHandler(activity);
-					if(!db.checkFavouriteStatus(dataItem.getTitle())){
+					if (!db.checkFavouriteStatus(dataItem.getTitle())) {
 						Log.d("MYTAG", "Add Favourite");
-						
+
 						dataItem.setPreviewtype("event");
 						dataItem.setId(id);
 						dataItem.setCategory(category);
-						if(dataItem.getSlider() != null){
+						if (dataItem.getSlider() != null) {
 							dataItem.setImage(dataItem.getSlider().get(0));
-						}else if(!Helper.isBlank(dataItem.getImage())) {
+						} else if (!Helper.isBlank(dataItem.getImage())) {
 							dataItem.setImage(dataItem.getImage());
 						}
 						db.addFavourite(dataItem);
-						butFavourite.setImageResource(R.drawable.favourite_active);
-					}else{
-						butFavourite.setImageResource(R.drawable.favourite_inactive);
+						butFavourite
+								.setImageResource(R.drawable.favourite_active);
+					} else {
+						butFavourite
+								.setImageResource(R.drawable.favourite_inactive);
 						Log.d("MYTAG", "Delete Favourite");
 						db.deleteFavourite(dataItem);
 					}
-					
+
 					Log.d("MYTAG", "ALL Favourites");
-					
-					for(DataItem item : db.getAllFavourites()){
+
+					for (DataItem item : db.getAllFavourites()) {
 						Log.d("MYTAG", "Favourite Record: " + item.getTitle());
 					}
 				}
 			});
-			
+
 			// Active txtView
 			webButton.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-//					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
-//							.parse(dataItem.getWeb()));
-//					startActivityForResult(browserIntent, 1);
+					// Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
+					// .parse(dataItem.getWeb()));
+					// startActivityForResult(browserIntent, 1);
 					Intent intent = new Intent(v.getContext(),
 							PreviewItemPage.class);
 
@@ -808,9 +884,9 @@ public class PreviewItemPage extends AppCompatActivity {
 					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
 							.parse(dataItem.getOfficialWebpage()));
 					startActivityForResult(browserIntent, 1);
-					}
+				}
 			});
-			
+
 			txtCompany.setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -826,8 +902,6 @@ public class PreviewItemPage extends AppCompatActivity {
 					startActivity(intent);
 				}
 			});
-			
-			
 
 		}
 
@@ -836,16 +910,14 @@ public class PreviewItemPage extends AppCompatActivity {
 			if (previewType.equalsIgnoreCase("0")) {
 
 				txtTitle.setText(dataItem.getTitle());
-				//flfacebook.setVisibility(View.GONE);
-				
-				
-				if(dataItem.getPhone1().equalsIgnoreCase(" ")){
+				// flfacebook.setVisibility(View.GONE);
+
+				if (dataItem.getPhone1().equalsIgnoreCase(" ")) {
 					txtPhone1.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtPhone1.setText(dataItem.getPhone1());
 					txtPhone1.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -854,19 +926,18 @@ public class PreviewItemPage extends AppCompatActivity {
 						}
 					});
 				}
-				
-				if(dataItem.getEmail().equalsIgnoreCase(" ")){
+
+				if (dataItem.getEmail().equalsIgnoreCase(" ")) {
 					txtEmail.setVisibility(View.GONE);
-//					flmail.setVisibility(View.GONE);
-//					separatorEmail.setVisibility(View.GONE);
-				}
-				else{
+					// flmail.setVisibility(View.GONE);
+					// separatorEmail.setVisibility(View.GONE);
+				} else {
 					txtEmail.setText(dataItem.getEmail());
 					txtEmail.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							
+
 							Intent i = new Intent(Intent.ACTION_SEND);
 							i.setType("message/rfc822");
 							i.putExtra(Intent.EXTRA_EMAIL,
@@ -876,43 +947,42 @@ public class PreviewItemPage extends AppCompatActivity {
 
 							startActivityForResult(
 									Intent.createChooser(i, "Send mail..."), 1);
-							
+
 						}
 					});
 				}
-				
-				if(dataItem.getWeb().equalsIgnoreCase(" ")){
+
+				if (dataItem.getWeb().equalsIgnoreCase(" ")) {
 					txtWeb.setVisibility(View.GONE);
-//					flwebsite.setVisibility(View.GONE);
-				}
-				else{
+					// flwebsite.setVisibility(View.GONE);
+				} else {
 					txtWeb.setText(dataItem.getWeb());
 					txtWeb.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getWeb()));
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getWeb()));
 							startActivityForResult(browserIntent, 1);
 						}
 					});
 				}
-				
+
 				Log.d("MYTAG", "Zona: " + dataItem.getZona());
-				
-				if(dataItem.getStreet().equalsIgnoreCase(" ")){
+
+				if (dataItem.getStreet().equalsIgnoreCase(" ")) {
 					txtAdrress.setVisibility(View.GONE);
-				}
-				else if(!Helper.isBlank(dataItem.getZona())){
-					txtAdrress.setText(dataItem.getZona() + ", " + dataItem.getStreet());
-				}else{
+				} else if (!Helper.isBlank(dataItem.getZona())) {
+					txtAdrress.setText(dataItem.getZona() + ", "
+							+ dataItem.getStreet());
+				} else {
 					txtAdrress.setText(dataItem.getStreet());
 				}
-				
-				if(dataItem.getCity().equalsIgnoreCase(" ")){
+
+				if (dataItem.getCity().equalsIgnoreCase(" ")) {
 					txtCity.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtCity.setText(dataItem.getCity());
 				}
 
@@ -920,17 +990,15 @@ public class PreviewItemPage extends AppCompatActivity {
 
 				txtTitle.setText(dataItem.getTitle());
 				txtDistance.setText(dist);
-				
-				
-				if(dataItem.getPhone1().equalsIgnoreCase(" ")){
+
+				if (dataItem.getPhone1().equalsIgnoreCase(" ")) {
 					txtPhone1.setVisibility(View.GONE);
 					flphone.setVisibility(View.GONE);
 					separatorPhone.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtPhone1.setText(dataItem.getPhone1());
 					txtPhone1.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -939,52 +1007,59 @@ public class PreviewItemPage extends AppCompatActivity {
 						}
 					});
 					butPhone.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
-							final Dialog dialog = new Dialog(PreviewItemPage.this);
-						    dialog.setContentView(R.layout.custom_dialog);
-						    dialog.setTitle("Call");
-						    dialog.setCancelable(true);
-						    // set up radiobutton
-						    Button rd1 = (Button) dialog.findViewById(R.id.rd_1);
-						    Button rd2 = (Button) dialog.findViewById(R.id.rd_2);
-						    Button bCancel = (Button) dialog.findViewById(R.id.b_cancel);
-						    
-						    rd1.setText(txtPhone1.getText());
-						    
-						    if(dataItem.getPhone2().equalsIgnoreCase(" ")){
+							final Dialog dialog = new Dialog(
+									PreviewItemPage.this);
+							dialog.setContentView(R.layout.custom_dialog);
+							dialog.setTitle("Call");
+							dialog.setCancelable(true);
+							// set up radiobutton
+							Button rd1 = (Button) dialog
+									.findViewById(R.id.rd_1);
+							Button rd2 = (Button) dialog
+									.findViewById(R.id.rd_2);
+							Button bCancel = (Button) dialog
+									.findViewById(R.id.b_cancel);
+
+							rd1.setText(txtPhone1.getText());
+
+							if (dataItem.getPhone2().equalsIgnoreCase(" ")) {
 								rd2.setVisibility(View.GONE);
-							}
-							else{
+							} else {
 								rd2.setText(txtPhone2.getText());
-								
+
 								rd2.setOnClickListener(new View.OnClickListener() {
-									
+
 									@Override
 									public void onClick(View v) {
-										Intent intent = new Intent(Intent.ACTION_CALL, Uri
-												.parse("tel:" + dataItem.getPhone2()));
+										Intent intent = new Intent(
+												Intent.ACTION_CALL,
+												Uri.parse("tel:"
+														+ dataItem.getPhone2()));
 										startActivityForResult(intent, 1);
 										dialog.cancel();
 									}
 								});
-							}	
-						    
-						    rd1.setOnClickListener(new View.OnClickListener() {
-								
+							}
+
+							rd1.setOnClickListener(new View.OnClickListener() {
+
 								@Override
 								public void onClick(View v) {
-									Intent intent = new Intent(Intent.ACTION_CALL, Uri
-											.parse("tel:" + dataItem.getPhone1()));
+									Intent intent = new Intent(
+											Intent.ACTION_CALL,
+											Uri.parse("tel:"
+													+ dataItem.getPhone1()));
 									startActivityForResult(intent, 1);
 									dialog.cancel();
 								}
 							});
-						    
-						    bCancel.setOnClickListener(new View.OnClickListener() {
-								
+
+							bCancel.setOnClickListener(new View.OnClickListener() {
+
 								@Override
 								public void onClick(View v) {
 									// TODO Auto-generated method stub
@@ -992,20 +1067,20 @@ public class PreviewItemPage extends AppCompatActivity {
 								}
 							});
 
-						    // now that the dialog is set up, it's time to show it
-						    dialog.show();
-							
+							// now that the dialog is set up, it's time to show
+							// it
+							dialog.show();
+
 						}
 					});
 				}
-				
-				if(dataItem.getPhone2().equalsIgnoreCase(" ")){
+
+				if (dataItem.getPhone2().equalsIgnoreCase(" ")) {
 					txtPhone2.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtPhone2.setText(dataItem.getPhone2());
 					txtPhone2.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -1014,13 +1089,13 @@ public class PreviewItemPage extends AppCompatActivity {
 						}
 					});
 				}
-				
-				if(Helper.isBlank(dataItem.getFax())){
+
+				if (Helper.isBlank(dataItem.getFax())) {
 					txtFax.setVisibility(View.GONE);
-				}else{
+				} else {
 					txtFax.setText(dataItem.getFax());
 					txtFax.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -1029,19 +1104,18 @@ public class PreviewItemPage extends AppCompatActivity {
 						}
 					});
 				}
-				
-				if(dataItem.getEmail().equalsIgnoreCase(" ")){
+
+				if (dataItem.getEmail().equalsIgnoreCase(" ")) {
 					txtEmail.setVisibility(View.GONE);
 					flmail.setVisibility(View.GONE);
 					separatorEmail.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtEmail.setText(dataItem.getEmail());
 					txtEmail.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							
+
 							Intent i = new Intent(Intent.ACTION_SEND);
 							i.setType("message/rfc822");
 							i.putExtra(Intent.EXTRA_EMAIL,
@@ -1051,14 +1125,14 @@ public class PreviewItemPage extends AppCompatActivity {
 
 							startActivityForResult(
 									Intent.createChooser(i, "Send mail..."), 1);
-							
+
 						}
 					});
 					butMail.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							
+
 							Intent i = new Intent(Intent.ACTION_SEND);
 							i.setType("message/rfc822");
 							i.putExtra(Intent.EXTRA_EMAIL,
@@ -1068,182 +1142,191 @@ public class PreviewItemPage extends AppCompatActivity {
 
 							startActivityForResult(
 									Intent.createChooser(i, "Send mail..."), 1);
-							
+
 						}
 					});
 				}
-				
-				if(dataItem.getWeb().equalsIgnoreCase(" ")){
+
+				if (dataItem.getWeb().equalsIgnoreCase(" ")) {
 					txtWeb.setVisibility(View.GONE);
 					flwebsite.setVisibility(View.GONE);
 					separatorWeb.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtWeb.setText(dataItem.getWeb());
 					txtWeb.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getWeb()));
+
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getWeb()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 					butWebSite.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getWeb()));
+
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getWeb()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 				}
-				
-				if(Helper.isBlank(dataItem.getShare())){
+
+				if (Helper.isBlank(dataItem.getShare())) {
 					txtFacebook.setVisibility(View.GONE);
 					flfacebook.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtFacebook.setText(dataItem.getShare());
 					txtFacebook.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-//							TODO Solve facebook intent
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getShare()));
+							// TODO Solve facebook intent
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getShare()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 					butFacebook.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-//							TODO Solve facebook intent
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getShare()));
+							// TODO Solve facebook intent
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getShare()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 				}
-				
-				if(dataItem.getStreet().equalsIgnoreCase(" ")){
+
+				if (dataItem.getStreet().equalsIgnoreCase(" ")) {
 					txtAdrress.setVisibility(View.GONE);
 					separatorAddress.setVisibility(View.GONE);
-				}
-				else if(!Helper.isBlank(dataItem.getZona())){
-					txtAdrress.setText(dataItem.getZona() + ", " + dataItem.getStreet());
-				}else{
+				} else if (!Helper.isBlank(dataItem.getZona())) {
+					txtAdrress.setText(dataItem.getZona() + ", "
+							+ dataItem.getStreet());
+				} else {
 					txtAdrress.setText(dataItem.getStreet());
 				}
-				
-				
-				if(dataItem.getCity().equalsIgnoreCase(" ")){
+
+				if (dataItem.getCity().equalsIgnoreCase(" ")) {
 					txtCity.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtCity.setText(dataItem.getCity());
 				}
-				
-				DataContainer.bigBanerUrlList.clear();
-				
 
-				if(dataItem.getLogoSlider() != null){
+				DataContainer.bigBanerUrlList.clear();
+
+				if (dataItem.getLogoSlider() != null) {
 					for (String s : dataItem.getLogoSlider()) {
-						DataContainer.bigBanerUrlList.add(s.replace(" ", "%20"));
+						DataContainer.bigBanerUrlList
+								.add(s.replace(" ", "%20"));
 					}
 				}
-				if(!Helper.isBlank(dataItem.getLogo())){
-					if(!DataContainer.bigBanerUrlList.contains(dataItem.getLogo()) && !dataItem.getLogo().contains("noimage")){
+				if (!Helper.isBlank(dataItem.getLogo())) {
+					if (!DataContainer.bigBanerUrlList.contains(dataItem
+							.getLogo())
+							&& !dataItem.getLogo().contains("noimage")) {
 						DataContainer.bigBanerUrlList.add(dataItem.getLogo());
 					}
 				}
-				
-				if(DataContainer.bigBanerUrlList.size() == 1){
+
+				if (DataContainer.bigBanerUrlList.size() == 1) {
 					ImageView bigImage = (ImageView) findViewById(R.id.ImageViewBigBanner);
 					bigImage.setVisibility(View.VISIBLE);
 					SliderLayout sl = (SliderLayout) findViewById(R.id.slider);
 					sl.setLayoutParams(new LayoutParams(0, 0));
 					sl.setVisibility(View.GONE);
-					Picasso.with(activity).load(DataContainer.bigBanerUrlList.get(0)).into(bigImage);
-				}else{
-					for(int i = 0; i < DataContainer.bigBanerUrlList.size(); i++){
-				         // initialize a SliderLayout BigBaner Slider
-				         if(!Helper.isBlank(DataContainer.bigBanerUrlList.get(i))){
-				        	 TextSliderView textSliderView = new TextSliderView(getBaseContext());
-					         String pom = DataContainer.bigBanerUrlList.get(i);
-					         textSliderView
-					                 .image(pom)
-					                 .setScaleType(BaseSliderView.ScaleType.CenterInside);
-				        
-					         mDemoSlider.addSlider(textSliderView);
-				         }
+					Picasso.with(activity)
+							.load(DataContainer.bigBanerUrlList.get(0))
+							.into(bigImage);
+				} else {
+					for (int i = 0; i < DataContainer.bigBanerUrlList.size(); i++) {
+						// initialize a SliderLayout BigBaner Slider
+						if (!Helper.isBlank(DataContainer.bigBanerUrlList
+								.get(i))) {
+							TextSliderView textSliderView = new TextSliderView(
+									getBaseContext());
+							String pom = DataContainer.bigBanerUrlList.get(i);
+							textSliderView.image(pom).setScaleType(
+									BaseSliderView.ScaleType.CenterInside);
+
+							mDemoSlider.addSlider(textSliderView);
+						}
 					}
 				}
-				
+
 				DataContainer.androSliderUrlList.clear();
-				
-//				if(!Helper.isBlank(dataItem.getImage())){
-//					DataContainer.androSliderUrlList.add(dataItem.getImage());
-//				}
-				if(dataItem.getSlider() != null){
+
+				// if(!Helper.isBlank(dataItem.getImage())){
+				// DataContainer.androSliderUrlList.add(dataItem.getImage());
+				// }
+				if (dataItem.getSlider() != null) {
 					for (String s : dataItem.getSlider()) {
 						DataContainer.androSliderUrlList.add(s);
 					}
 				}
-				if(!Helper.isBlank(dataItem.getVideo())){
+				if (!Helper.isBlank(dataItem.getVideo())) {
 					DataContainer.androSliderUrlList.add(dataItem.getVideo());
 				}
-				if(!Helper.isBlank(dataItem.getImage())){
-					if(!DataContainer.androSliderUrlList.contains(dataItem.getImage())){
-						DataContainer.androSliderUrlList.add(dataItem.getImage());
+				if (!Helper.isBlank(dataItem.getImage())) {
+					if (!DataContainer.androSliderUrlList.contains(dataItem
+							.getImage())) {
+						DataContainer.androSliderUrlList.add(dataItem
+								.getImage());
 					}
 				}
-				
-				if(findViewById(R.id.andro_slider_viewPager) != null){
+
+				if (findViewById(R.id.andro_slider_viewPager) != null) {
 					Log.d("MYTAG", "AndroSLider - YES");
 					androSliderAdapter.fetchData();
-					//androSliderAdapter.notifyDataSetChanged();
+					// androSliderAdapter.notifyDataSetChanged();
 					inicAndroSlider(androSliderAdapter);
-				 }
-				
+				}
 
-//				mapButton
-//						.setText(ComponentInstance
-//								.getTitleString(ComponentInstance.STRING_POGLEDAJ_NA_MAPI));
-//				mapButton.setOnClickListener(new View.OnClickListener() {
-//
-//					@Override
-//					public void onClick(View v) {
-//						// TODO Auto-generated method stub
-//						Intent intent = new Intent(v.getContext(),
-//								PreviewItemOnMap.class);
-//
-//						intent.putExtra("x", dataItem.getX());
-//						intent.putExtra("y", dataItem.getY());
-//						intent.putExtra("title", dataItem.getTitle());
-//
-//						startActivity(intent);
-//					}
-//				});
-				
+				// mapButton
+				// .setText(ComponentInstance
+				// .getTitleString(ComponentInstance.STRING_POGLEDAJ_NA_MAPI));
+				// mapButton.setOnClickListener(new View.OnClickListener() {
+				//
+				// @Override
+				// public void onClick(View v) {
+				// // TODO Auto-generated method stub
+				// Intent intent = new Intent(v.getContext(),
+				// PreviewItemOnMap.class);
+				//
+				// intent.putExtra("x", dataItem.getX());
+				// intent.putExtra("y", dataItem.getY());
+				// intent.putExtra("title", dataItem.getTitle());
+				//
+				// startActivity(intent);
+				// }
+				// });
+
 				txtAdrress.setOnClickListener(new View.OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						Double lat, lng;
 						lat = Double.parseDouble(dataItem.getX());
 						lng = Double.parseDouble(dataItem.getY());
-						String geoUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + dataItem.getTitle() + ")";
-						Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-								Uri.parse(geoUri));
+						String geoUri = "http://maps.google.com/maps?q=loc:"
+								+ lat + "," + lng + " (" + dataItem.getTitle()
+								+ ")";
+						Intent intent = new Intent(
+								android.content.Intent.ACTION_VIEW, Uri
+										.parse(geoUri));
 						activity.startActivity(intent);
 					}
 				});
@@ -1256,59 +1339,62 @@ public class PreviewItemPage extends AppCompatActivity {
 				mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(
 						(new LatLng(Double.parseDouble(dataItem.getX()), Double
 								.parseDouble(dataItem.getY()))), 12.0f));
-				
+
 				inicMapView(mapView);
-				
+
 				butFavourite.setOnClickListener(new View.OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						DatabaseHandler db = new DatabaseHandler(activity);
-						if(!db.checkFavouriteStatus(dataItem.getTitle())){
+						if (!db.checkFavouriteStatus(dataItem.getTitle())) {
 							Log.d("MYTAG", "Add Favourite");
-							
+
 							dataItem.setPreviewtype("company");
 							dataItem.setId(id);
 							dataItem.setCategory(category);
-							if (!Helper.isBlank(dataItem.getImage()) && !dataItem.getImage().contains("noimage")) {
+							if (!Helper.isBlank(dataItem.getImage())
+									&& !dataItem.getImage().contains("noimage")) {
 								dataItem.setImage(dataItem.getImage());
-							}else if(dataItem.getLogoSlider() != null){
-								dataItem.setImage(dataItem.getLogoSlider().get(0).replace(" ", "%20"));
-							}else{
+							} else if (dataItem.getLogoSlider() != null) {
+								dataItem.setImage(dataItem.getLogoSlider()
+										.get(0).replace(" ", "%20"));
+							} else {
 								dataItem.setImage(dataItem.getImage());
 							}
 							db.addFavourite(dataItem);
-							butFavourite.setImageResource(R.drawable.favourite_active);
-						}else{
-							butFavourite.setImageResource(R.drawable.favourite_inactive);
+							butFavourite
+									.setImageResource(R.drawable.favourite_active);
+						} else {
+							butFavourite
+									.setImageResource(R.drawable.favourite_inactive);
 							Log.d("MYTAG", "Delete Favourite");
 							db.deleteFavourite(dataItem);
 						}
-						
+
 						Log.d("MYTAG", "ALL Favourites");
-						
-						for(DataItem item : db.getAllFavourites()){
-							Log.d("MYTAG", "Favourite Record: " + item.getTitle());
+
+						for (DataItem item : db.getAllFavourites()) {
+							Log.d("MYTAG",
+									"Favourite Record: " + item.getTitle());
 						}
 					}
 				});
-				
 
 			} else if (previewType.equalsIgnoreCase("2")) {
 
 				txtTitle.setText(dataItem.getTitle());
 				txtDistance.setText(dist);
-				//flfacebook.setVisibility(View.GONE);
-				
-				if(dataItem.getPhone1().equalsIgnoreCase(" ")){
+				// flfacebook.setVisibility(View.GONE);
+
+				if (dataItem.getPhone1().equalsIgnoreCase(" ")) {
 					txtPhone1.setVisibility(View.GONE);
 					flphone.setVisibility(View.GONE);
 					separatorPhone.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtPhone1.setText(dataItem.getPhone1());
 					txtPhone1.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -1317,52 +1403,59 @@ public class PreviewItemPage extends AppCompatActivity {
 						}
 					});
 					butPhone.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
-							final Dialog dialog = new Dialog(PreviewItemPage.this);
-						    dialog.setContentView(R.layout.custom_dialog);
-						    dialog.setTitle("Call");
-						    dialog.setCancelable(true);
-						    // set up radiobutton
-						    Button rd1 = (Button) dialog.findViewById(R.id.rd_1);
-						    Button rd2 = (Button) dialog.findViewById(R.id.rd_2);
-						    Button bCancel = (Button) dialog.findViewById(R.id.b_cancel);
-						    
-						    rd1.setText(txtPhone1.getText());
-						    
-						    if(dataItem.getPhone2().equalsIgnoreCase(" ")){
+							final Dialog dialog = new Dialog(
+									PreviewItemPage.this);
+							dialog.setContentView(R.layout.custom_dialog);
+							dialog.setTitle("Call");
+							dialog.setCancelable(true);
+							// set up radiobutton
+							Button rd1 = (Button) dialog
+									.findViewById(R.id.rd_1);
+							Button rd2 = (Button) dialog
+									.findViewById(R.id.rd_2);
+							Button bCancel = (Button) dialog
+									.findViewById(R.id.b_cancel);
+
+							rd1.setText(txtPhone1.getText());
+
+							if (dataItem.getPhone2().equalsIgnoreCase(" ")) {
 								rd2.setVisibility(View.GONE);
-							}
-							else{
+							} else {
 								rd2.setText(txtPhone2.getText());
-								
+
 								rd2.setOnClickListener(new View.OnClickListener() {
-									
+
 									@Override
 									public void onClick(View v) {
-										Intent intent = new Intent(Intent.ACTION_CALL, Uri
-												.parse("tel:" + dataItem.getPhone2()));
+										Intent intent = new Intent(
+												Intent.ACTION_CALL,
+												Uri.parse("tel:"
+														+ dataItem.getPhone2()));
 										startActivityForResult(intent, 1);
 										dialog.cancel();
 									}
 								});
-							}	
-						    
-						    rd1.setOnClickListener(new View.OnClickListener() {
-								
+							}
+
+							rd1.setOnClickListener(new View.OnClickListener() {
+
 								@Override
 								public void onClick(View v) {
-									Intent intent = new Intent(Intent.ACTION_CALL, Uri
-											.parse("tel:" + dataItem.getPhone1()));
+									Intent intent = new Intent(
+											Intent.ACTION_CALL,
+											Uri.parse("tel:"
+													+ dataItem.getPhone1()));
 									startActivityForResult(intent, 1);
 									dialog.cancel();
 								}
 							});
-						    
-						    bCancel.setOnClickListener(new View.OnClickListener() {
-								
+
+							bCancel.setOnClickListener(new View.OnClickListener() {
+
 								@Override
 								public void onClick(View v) {
 									// TODO Auto-generated method stub
@@ -1370,20 +1463,20 @@ public class PreviewItemPage extends AppCompatActivity {
 								}
 							});
 
-						    // now that the dialog is set up, it's time to show it
-						    dialog.show();
-							
+							// now that the dialog is set up, it's time to show
+							// it
+							dialog.show();
+
 						}
 					});
 				}
-				
-				if(dataItem.getPhone2().equalsIgnoreCase(" ")){
+
+				if (dataItem.getPhone2().equalsIgnoreCase(" ")) {
 					txtPhone2.setVisibility(View.GONE);
-				}
-				else{
-					txtPhone2.setText(dataItem.getPhone2());					
+				} else {
+					txtPhone2.setText(dataItem.getPhone2());
 					txtPhone2.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -1392,13 +1485,13 @@ public class PreviewItemPage extends AppCompatActivity {
 						}
 					});
 				}
-				
-				if(Helper.isBlank(dataItem.getFax())){
+
+				if (Helper.isBlank(dataItem.getFax())) {
 					txtFax.setVisibility(View.GONE);
-				}else{
+				} else {
 					txtFax.setText(dataItem.getFax());
 					txtFax.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -1407,19 +1500,18 @@ public class PreviewItemPage extends AppCompatActivity {
 						}
 					});
 				}
-				
-				if(dataItem.getEmail().equalsIgnoreCase(" ")){
+
+				if (dataItem.getEmail().equalsIgnoreCase(" ")) {
 					txtEmail.setVisibility(View.GONE);
 					flmail.setVisibility(View.GONE);
 					separatorEmail.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtEmail.setText(dataItem.getEmail());
 					txtEmail.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							
+
 							Intent i = new Intent(Intent.ACTION_SEND);
 							i.setType("message/rfc822");
 							i.putExtra(Intent.EXTRA_EMAIL,
@@ -1429,11 +1521,11 @@ public class PreviewItemPage extends AppCompatActivity {
 
 							startActivityForResult(
 									Intent.createChooser(i, "Send mail..."), 1);
-							
+
 						}
 					});
 					butMail.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent i = new Intent(Intent.ACTION_SEND);
@@ -1445,197 +1537,208 @@ public class PreviewItemPage extends AppCompatActivity {
 
 							startActivityForResult(
 									Intent.createChooser(i, "Send mail..."), 1);
-							
+
 						}
 					});
 				}
-				
-				if(dataItem.getWeb().equalsIgnoreCase(" ")){
+
+				if (dataItem.getWeb().equalsIgnoreCase(" ")) {
 					txtWeb.setVisibility(View.GONE);
 					flwebsite.setVisibility(View.GONE);
 					separatorWeb.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtWeb.setText(dataItem.getWeb());
 					txtWeb.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getWeb()));
+
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getWeb()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 					butWebSite.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getWeb()));
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getWeb()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 				}
-				
-				if(Helper.isBlank(dataItem.getShare())){
+
+				if (Helper.isBlank(dataItem.getShare())) {
 					txtFacebook.setVisibility(View.GONE);
 					flfacebook.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtFacebook.setText(dataItem.getShare());
 					txtFacebook.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-//							TODO Solve facebook intent
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getShare()));
+							// TODO Solve facebook intent
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getShare()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 					butFacebook.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-//							TODO Solve facebook intent
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getShare()));
+							// TODO Solve facebook intent
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getShare()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 				}
-				
-//				Log.d("MYTAG", "Street: " + dataItem.getStreet());
-//				Log.d("MYTAG", "City: " + dataItem.getCity());
-//				Log.d("MYTAG", "Zona: " + dataItem.getZona());
-				
-				if(Helper.isBlank(dataItem.getStreet())){
+
+				// Log.d("MYTAG", "Street: " + dataItem.getStreet());
+				// Log.d("MYTAG", "City: " + dataItem.getCity());
+				// Log.d("MYTAG", "Zona: " + dataItem.getZona());
+
+				if (Helper.isBlank(dataItem.getStreet())) {
 					txtAdrress.setVisibility(View.GONE);
 					separatorAddress.setVisibility(View.GONE);
-				}
-				else if(!Helper.isBlank(dataItem.getZona())){
-					txtAdrress.setText(dataItem.getZona() + ", " + dataItem.getStreet());
-				}else{
+				} else if (!Helper.isBlank(dataItem.getZona())) {
+					txtAdrress.setText(dataItem.getZona() + ", "
+							+ dataItem.getStreet());
+				} else {
 					txtAdrress.setText(dataItem.getStreet());
 				}
-				
-				if(dataItem.getCity().equalsIgnoreCase(" ")){
+
+				if (dataItem.getCity().equalsIgnoreCase(" ")) {
 					txtCity.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtCity.setText(dataItem.getCity());
 				}
-			
-				if(dataItem.getDescription().equalsIgnoreCase(" ")){
+
+				if (dataItem.getDescription().equalsIgnoreCase(" ")) {
 					txtDescription.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtDescription.setText(dataItem.getDescription());
 				}
-			
-				if(dataItem.getImage().equalsIgnoreCase(" ")){
+
+				if (dataItem.getImage().equalsIgnoreCase(" ")) {
 					imageView.setVisibility(View.GONE);
-				}else{
+				} else {
 					ImageContainer.getInstance().getImageDownloader()
 							.download(dataItem.getImage(), imageView);
 				}
-				
+
 				DataContainer.bigBanerUrlList.clear();
-				
-//				if(!Helper.isBlank(dataItem.getLogo())){
-//					DataContainer.bigBanerUrlList.add(dataItem.getLogo());
-//				}
-				if(dataItem.getLogoSlider() != null){
+
+				// if(!Helper.isBlank(dataItem.getLogo())){
+				// DataContainer.bigBanerUrlList.add(dataItem.getLogo());
+				// }
+				if (dataItem.getLogoSlider() != null) {
 					for (String s : dataItem.getLogoSlider()) {
-						DataContainer.bigBanerUrlList.add(s.replace(" ", "%20"));
+						DataContainer.bigBanerUrlList
+								.add(s.replace(" ", "%20"));
 					}
 				}
-				if(!Helper.isBlank(dataItem.getLogo())){
-					if(!DataContainer.bigBanerUrlList.contains(dataItem.getLogo()) && !dataItem.getLogo().contains("noimage")){
+				if (!Helper.isBlank(dataItem.getLogo())) {
+					if (!DataContainer.bigBanerUrlList.contains(dataItem
+							.getLogo())
+							&& !dataItem.getLogo().contains("noimage")) {
 						DataContainer.bigBanerUrlList.add(dataItem.getLogo());
 					}
 				}
-				
-				if(DataContainer.bigBanerUrlList.size() == 1){
+
+				if (DataContainer.bigBanerUrlList.size() == 1) {
 					ImageView bigImage = (ImageView) findViewById(R.id.ImageViewBigBanner);
 					bigImage.setVisibility(View.VISIBLE);
 					SliderLayout sl = (SliderLayout) findViewById(R.id.slider);
 					sl.setLayoutParams(new LayoutParams(0, 0));
 					sl.setVisibility(View.GONE);
-					Picasso.with(activity).load(DataContainer.bigBanerUrlList.get(0)).into(bigImage);
-				}else{
-					for(int i = 0; i < DataContainer.bigBanerUrlList.size(); i++){
-				         // initialize a SliderLayout BigBaner Slider
-				         if(!Helper.isBlank(DataContainer.bigBanerUrlList.get(i))){
-				        	 TextSliderView textSliderView = new TextSliderView(getBaseContext());
-					         String pom = DataContainer.bigBanerUrlList.get(i);
-					         textSliderView
-					                 .image(pom)
-					                 .setScaleType(BaseSliderView.ScaleType.CenterInside);
-				        
-					         mDemoSlider.addSlider(textSliderView);
-				         }
+					Picasso.with(activity)
+							.load(DataContainer.bigBanerUrlList.get(0))
+							.into(bigImage);
+				} else {
+					for (int i = 0; i < DataContainer.bigBanerUrlList.size(); i++) {
+						// initialize a SliderLayout BigBaner Slider
+						if (!Helper.isBlank(DataContainer.bigBanerUrlList
+								.get(i))) {
+							TextSliderView textSliderView = new TextSliderView(
+									getBaseContext());
+							String pom = DataContainer.bigBanerUrlList.get(i);
+							textSliderView.image(pom).setScaleType(
+									BaseSliderView.ScaleType.CenterInside);
+
+							mDemoSlider.addSlider(textSliderView);
+						}
 					}
 				}
 				DataContainer.androSliderUrlList.clear();
-				
-//				if(!Helper.isBlank(dataItem.getImage())){
-//					DataContainer.androSliderUrlList.add(dataItem.getImage());
-//				}
-				if(dataItem.getSlider() != null){
+
+				// if(!Helper.isBlank(dataItem.getImage())){
+				// DataContainer.androSliderUrlList.add(dataItem.getImage());
+				// }
+				if (dataItem.getSlider() != null) {
 					for (String s : dataItem.getSlider()) {
 						DataContainer.androSliderUrlList.add(s);
 					}
 				}
-				if(!Helper.isBlank(dataItem.getVideo())){
+				if (!Helper.isBlank(dataItem.getVideo())) {
 					DataContainer.androSliderUrlList.add(dataItem.getVideo());
 				}
-				if(!Helper.isBlank(dataItem.getImage())){
-					if(!DataContainer.androSliderUrlList.contains(dataItem.getImage())){
-						DataContainer.androSliderUrlList.add(dataItem.getImage());
+				if (!Helper.isBlank(dataItem.getImage())) {
+					if (!DataContainer.androSliderUrlList.contains(dataItem
+							.getImage())) {
+						DataContainer.androSliderUrlList.add(dataItem
+								.getImage());
 					}
 				}
-				
-				if(findViewById(R.id.andro_slider_viewPager) != null){
+
+				if (findViewById(R.id.andro_slider_viewPager) != null) {
 					Log.d("MYTAG", "AndroSLider - YES");
 					androSliderAdapter.fetchData();
-					//androSliderAdapter.notifyDataSetChanged();
+					// androSliderAdapter.notifyDataSetChanged();
 					inicAndroSlider(androSliderAdapter);
-				 }
-				
-//				mapButton
-//						.setText(ComponentInstance
-//								.getTitleString(ComponentInstance.STRING_POGLEDAJ_NA_MAPI));
-//				txtAdrress.setOnClickListener(new View.OnClickListener() {
-//
-//					@Override
-//					public void onClick(View v) {
-//						// TODO Auto-generated method stub
-//						Intent intent = new Intent(v.getContext(),
-//								PreviewItemOnMap.class);
-//
-//						intent.putExtra("x", dataItem.getX());
-//						intent.putExtra("y", dataItem.getY());
-//						intent.putExtra("title", dataItem.getTitle());
-//
-//						startActivity(intent);
-//					}
-//				});
+				}
+
+				// mapButton
+				// .setText(ComponentInstance
+				// .getTitleString(ComponentInstance.STRING_POGLEDAJ_NA_MAPI));
+				// txtAdrress.setOnClickListener(new View.OnClickListener() {
+				//
+				// @Override
+				// public void onClick(View v) {
+				// // TODO Auto-generated method stub
+				// Intent intent = new Intent(v.getContext(),
+				// PreviewItemOnMap.class);
+				//
+				// intent.putExtra("x", dataItem.getX());
+				// intent.putExtra("y", dataItem.getY());
+				// intent.putExtra("title", dataItem.getTitle());
+				//
+				// startActivity(intent);
+				// }
+				// });
 				txtAdrress.setOnClickListener(new View.OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						Double lat, lng;
 						lat = Double.parseDouble(dataItem.getX());
 						lng = Double.parseDouble(dataItem.getY());
-						String geoUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + dataItem.getTitle() + ")";
-						Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-								Uri.parse(geoUri));
+						String geoUri = "http://maps.google.com/maps?q=loc:"
+								+ lat + "," + lng + " (" + dataItem.getTitle()
+								+ ")";
+						Intent intent = new Intent(
+								android.content.Intent.ACTION_VIEW, Uri
+										.parse(geoUri));
 						activity.startActivity(intent);
 					}
 				});
@@ -1649,58 +1752,61 @@ public class PreviewItemPage extends AppCompatActivity {
 				mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(
 						(new LatLng(Double.parseDouble(dataItem.getX()), Double
 								.parseDouble(dataItem.getY()))), 12.0f));
-				
+
 				inicMapView(mapView);
-				
+
 				butFavourite.setOnClickListener(new View.OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						DatabaseHandler db = new DatabaseHandler(activity);
-						if(!db.checkFavouriteStatus(dataItem.getTitle())){
+						if (!db.checkFavouriteStatus(dataItem.getTitle())) {
 							Log.d("MYTAG", "Add Favourite");
 							dataItem.setPreviewtype("company");
 							dataItem.setId(id);
 							dataItem.setCategory(category);
-							if (!Helper.isBlank(dataItem.getImage()) && !dataItem.getImage().contains("noimage")) {
+							if (!Helper.isBlank(dataItem.getImage())
+									&& !dataItem.getImage().contains("noimage")) {
 								dataItem.setImage(dataItem.getImage());
-							}else if(dataItem.getLogoSlider() != null){
-								dataItem.setImage(dataItem.getLogoSlider().get(0).replace(" ", "%20"));
-							}else{
+							} else if (dataItem.getLogoSlider() != null) {
+								dataItem.setImage(dataItem.getLogoSlider()
+										.get(0).replace(" ", "%20"));
+							} else {
 								dataItem.setImage(dataItem.getImage());
 							}
 							db.addFavourite(dataItem);
-							butFavourite.setImageResource(R.drawable.favourite_active);
-						}else{
-							butFavourite.setImageResource(R.drawable.favourite_inactive);
+							butFavourite
+									.setImageResource(R.drawable.favourite_active);
+						} else {
+							butFavourite
+									.setImageResource(R.drawable.favourite_inactive);
 							Log.d("MYTAG", "Delete Favourite");
 							db.deleteFavourite(dataItem);
 						}
-						
+
 						Log.d("MYTAG", "ALL Favourites");
-						
-						for(DataItem item : db.getAllFavourites()){
-							Log.d("MYTAG", "Favourite Record: " + item.getTitle());
+
+						for (DataItem item : db.getAllFavourites()) {
+							Log.d("MYTAG",
+									"Favourite Record: " + item.getTitle());
 						}
 					}
 				});
-				
 
 			} else if (previewType.equalsIgnoreCase("3")) {
 
 				txtTitle.setText(dataItem.getTitle());
 				txtDistance.setText(dist);
-				//flfacebook.setVisibility(View.GONE);
-				
-				if(dataItem.getPhone1().equalsIgnoreCase(" ")){
+				// flfacebook.setVisibility(View.GONE);
+
+				if (dataItem.getPhone1().equalsIgnoreCase(" ")) {
 					txtPhone1.setVisibility(View.GONE);
 					flphone.setVisibility(View.GONE);
 					separatorPhone.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtPhone1.setText(dataItem.getPhone1());
 					txtPhone1.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -1709,52 +1815,59 @@ public class PreviewItemPage extends AppCompatActivity {
 						}
 					});
 					butPhone.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
-							final Dialog dialog = new Dialog(PreviewItemPage.this);
-						    dialog.setContentView(R.layout.custom_dialog);
-						    dialog.setTitle("Call");
-						    dialog.setCancelable(true);
-						    // set up radiobutton
-						    Button rd1 = (Button) dialog.findViewById(R.id.rd_1);
-						    Button rd2 = (Button) dialog.findViewById(R.id.rd_2);
-						    Button bCancel = (Button) dialog.findViewById(R.id.b_cancel);
-						    
-						    rd1.setText(txtPhone1.getText());
-						    
-						    if(dataItem.getPhone2().equalsIgnoreCase(" ")){
+							final Dialog dialog = new Dialog(
+									PreviewItemPage.this);
+							dialog.setContentView(R.layout.custom_dialog);
+							dialog.setTitle("Call");
+							dialog.setCancelable(true);
+							// set up radiobutton
+							Button rd1 = (Button) dialog
+									.findViewById(R.id.rd_1);
+							Button rd2 = (Button) dialog
+									.findViewById(R.id.rd_2);
+							Button bCancel = (Button) dialog
+									.findViewById(R.id.b_cancel);
+
+							rd1.setText(txtPhone1.getText());
+
+							if (dataItem.getPhone2().equalsIgnoreCase(" ")) {
 								rd2.setVisibility(View.GONE);
-							}
-							else{
+							} else {
 								rd2.setText(txtPhone2.getText());
-								
+
 								rd2.setOnClickListener(new View.OnClickListener() {
-									
+
 									@Override
 									public void onClick(View v) {
-										Intent intent = new Intent(Intent.ACTION_CALL, Uri
-												.parse("tel:" + dataItem.getPhone2()));
+										Intent intent = new Intent(
+												Intent.ACTION_CALL,
+												Uri.parse("tel:"
+														+ dataItem.getPhone2()));
 										startActivityForResult(intent, 1);
 										dialog.cancel();
 									}
 								});
-							}	
-						    
-						    rd1.setOnClickListener(new View.OnClickListener() {
-								
+							}
+
+							rd1.setOnClickListener(new View.OnClickListener() {
+
 								@Override
 								public void onClick(View v) {
-									Intent intent = new Intent(Intent.ACTION_CALL, Uri
-											.parse("tel:" + dataItem.getPhone1()));
+									Intent intent = new Intent(
+											Intent.ACTION_CALL,
+											Uri.parse("tel:"
+													+ dataItem.getPhone1()));
 									startActivityForResult(intent, 1);
 									dialog.cancel();
 								}
 							});
-						    
-						    bCancel.setOnClickListener(new View.OnClickListener() {
-								
+
+							bCancel.setOnClickListener(new View.OnClickListener() {
+
 								@Override
 								public void onClick(View v) {
 									// TODO Auto-generated method stub
@@ -1762,20 +1875,20 @@ public class PreviewItemPage extends AppCompatActivity {
 								}
 							});
 
-						    // now that the dialog is set up, it's time to show it
-						    dialog.show();
-							
+							// now that the dialog is set up, it's time to show
+							// it
+							dialog.show();
+
 						}
 					});
 				}
-				
-				if(dataItem.getPhone2().equalsIgnoreCase(" ")){
+
+				if (dataItem.getPhone2().equalsIgnoreCase(" ")) {
 					txtPhone2.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtPhone2.setText(dataItem.getPhone2());
 					txtPhone2.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -1784,13 +1897,13 @@ public class PreviewItemPage extends AppCompatActivity {
 						}
 					});
 				}
-				
-				if(Helper.isBlank(dataItem.getFax())){
+
+				if (Helper.isBlank(dataItem.getFax())) {
 					txtFax.setVisibility(View.GONE);
-				}else{
+				} else {
 					txtFax.setText(dataItem.getFax());
 					txtFax.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -1799,19 +1912,18 @@ public class PreviewItemPage extends AppCompatActivity {
 						}
 					});
 				}
-				
-				if(dataItem.getEmail().equalsIgnoreCase(" ")){
+
+				if (dataItem.getEmail().equalsIgnoreCase(" ")) {
 					txtEmail.setVisibility(View.GONE);
 					flmail.setVisibility(View.GONE);
 					separatorEmail.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtEmail.setText(dataItem.getEmail());
 					txtEmail.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							
+
 							Intent i = new Intent(Intent.ACTION_SEND);
 							i.setType("message/rfc822");
 							i.putExtra(Intent.EXTRA_EMAIL,
@@ -1821,11 +1933,11 @@ public class PreviewItemPage extends AppCompatActivity {
 
 							startActivityForResult(
 									Intent.createChooser(i, "Send mail..."), 1);
-							
+
 						}
 					});
 					butMail.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							Intent i = new Intent(Intent.ACTION_SEND);
@@ -1837,276 +1949,291 @@ public class PreviewItemPage extends AppCompatActivity {
 
 							startActivityForResult(
 									Intent.createChooser(i, "Send mail..."), 1);
-							
+
 						}
 					});
 				}
-				
-				if(dataItem.getWeb().equalsIgnoreCase(" ")){
+
+				if (dataItem.getWeb().equalsIgnoreCase(" ")) {
 					txtWeb.setVisibility(View.GONE);
 					flwebsite.setVisibility(View.GONE);
 					separatorWeb.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtWeb.setText(dataItem.getWeb());
 					txtWeb.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getWeb()));
+
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getWeb()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 					butWebSite.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getWeb()));
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getWeb()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 				}
-				
-				if(Helper.isBlank(dataItem.getShare())){
+
+				if (Helper.isBlank(dataItem.getShare())) {
 					txtFacebook.setVisibility(View.GONE);
 					flfacebook.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtFacebook.setText(dataItem.getShare());
 					txtFacebook.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-//							TODO Solve facebook intent
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getShare()));
+							// TODO Solve facebook intent
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getShare()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 					butFacebook.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-//							TODO Solve facebook intent
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse(dataItem.getShare()));
+							// TODO Solve facebook intent
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW, Uri.parse(dataItem
+											.getShare()));
 							startActivityForResult(browserIntent, 1);
-							
+
 						}
 					});
 				}
-				
-				if(dataItem.getStreet().equalsIgnoreCase(" ")){
+
+				if (dataItem.getStreet().equalsIgnoreCase(" ")) {
 					txtAdrress.setVisibility(View.GONE);
 					separatorAddress.setVisibility(View.GONE);
-				}
-				else if(!Helper.isBlank(dataItem.getZona())){
-					txtAdrress.setText(dataItem.getZona() + ", " + dataItem.getStreet());
-				}else{
+				} else if (!Helper.isBlank(dataItem.getZona())) {
+					txtAdrress.setText(dataItem.getZona() + ", "
+							+ dataItem.getStreet());
+				} else {
 					txtAdrress.setText(dataItem.getStreet());
 				}
-				
-				if(dataItem.getCity().equalsIgnoreCase(" ")){
+
+				if (dataItem.getCity().equalsIgnoreCase(" ")) {
 					txtCity.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtCity.setText(dataItem.getCity());
 				}
-			
-				if(dataItem.getDescription().equalsIgnoreCase(" ")){
+
+				if (dataItem.getDescription().equalsIgnoreCase(" ")) {
 					txtDescription.setVisibility(View.GONE);
-				}
-				else{
+				} else {
 					txtDescription.setText(dataItem.getDescription());
 				}
-				
-				if(dataItem.getImage().equalsIgnoreCase(" ")){
+
+				if (dataItem.getImage().equalsIgnoreCase(" ")) {
 					imageView.setVisibility(View.GONE);
+				} else {
+					ImageContainer.getInstance().getImageDownloader()
+							.download(dataItem.getImage(), imageView);
 				}
-				else{
-				ImageContainer.getInstance().getImageDownloader()
-						.download(dataItem.getImage(), imageView);
-				}
-				if(dataItem.getImage2().equalsIgnoreCase(" ")){
+				if (dataItem.getImage2().equalsIgnoreCase(" ")) {
 					imageView.setVisibility(View.GONE);
-				}
-				else{
-				ImageContainer.getInstance().getImageDownloader()
-						.download(dataItem.getImage2(), imageView2);
+				} else {
+					ImageContainer.getInstance().getImageDownloader()
+							.download(dataItem.getImage2(), imageView2);
 				}
 
 				DataContainer.bigBanerUrlList.clear();
-				
-//				if(!Helper.isBlank(dataItem.getLogo())){
-//					DataContainer.bigBanerUrlList.add(dataItem.getLogo());
-//				}
-				if(dataItem.getLogoSlider() != null){
+
+				// if(!Helper.isBlank(dataItem.getLogo())){
+				// DataContainer.bigBanerUrlList.add(dataItem.getLogo());
+				// }
+				if (dataItem.getLogoSlider() != null) {
 					for (String s : dataItem.getLogoSlider()) {
-						DataContainer.bigBanerUrlList.add(s.replace(" ", "%20"));
+						DataContainer.bigBanerUrlList
+								.add(s.replace(" ", "%20"));
 					}
 				}
-				if(!Helper.isBlank(dataItem.getLogo())){
-					if(!DataContainer.bigBanerUrlList.contains(dataItem.getLogo()) && !dataItem.getLogo().contains("noimage")){
+				if (!Helper.isBlank(dataItem.getLogo())) {
+					if (!DataContainer.bigBanerUrlList.contains(dataItem
+							.getLogo())
+							&& !dataItem.getLogo().contains("noimage")) {
 						DataContainer.bigBanerUrlList.add(dataItem.getLogo());
 					}
 				}
-				
-				if(DataContainer.bigBanerUrlList.size() == 1){
+
+				if (DataContainer.bigBanerUrlList.size() == 1) {
 					ImageView bigImage = (ImageView) findViewById(R.id.ImageViewBigBanner);
 					bigImage.setVisibility(View.VISIBLE);
 					SliderLayout sl = (SliderLayout) findViewById(R.id.slider);
 					sl.setLayoutParams(new LayoutParams(0, 0));
 					sl.setVisibility(View.GONE);
-					Picasso.with(activity).load(DataContainer.bigBanerUrlList.get(0)).into(bigImage);
-				}else{
-					for(int i = 0; i < DataContainer.bigBanerUrlList.size(); i++){
-				         // initialize a SliderLayout BigBaner Slider
-				         if(!Helper.isBlank(DataContainer.bigBanerUrlList.get(i))){
-				        	 TextSliderView textSliderView = new TextSliderView(getBaseContext());
-					         String pom = DataContainer.bigBanerUrlList.get(i);
-					         textSliderView
-					                 .image(pom)
-					                 .setScaleType(BaseSliderView.ScaleType.CenterInside);
-				        
-					         mDemoSlider.addSlider(textSliderView);
-				         }
+					Picasso.with(activity)
+							.load(DataContainer.bigBanerUrlList.get(0))
+							.into(bigImage);
+				} else {
+					for (int i = 0; i < DataContainer.bigBanerUrlList.size(); i++) {
+						// initialize a SliderLayout BigBaner Slider
+						if (!Helper.isBlank(DataContainer.bigBanerUrlList
+								.get(i))) {
+							TextSliderView textSliderView = new TextSliderView(
+									getBaseContext());
+							String pom = DataContainer.bigBanerUrlList.get(i);
+							textSliderView.image(pom).setScaleType(
+									BaseSliderView.ScaleType.CenterInside);
+
+							mDemoSlider.addSlider(textSliderView);
+						}
 					}
 				}
-				
+
 				DataContainer.androSliderUrlList.clear();
-				
-//				if(!Helper.isBlank(dataItem.getImage())){
-//					DataContainer.androSliderUrlList.add(dataItem.getImage());
-//				}
-				if(dataItem.getSlider() != null){
+
+				// if(!Helper.isBlank(dataItem.getImage())){
+				// DataContainer.androSliderUrlList.add(dataItem.getImage());
+				// }
+				if (dataItem.getSlider() != null) {
 					for (String s : dataItem.getSlider()) {
 						DataContainer.androSliderUrlList.add(s);
 					}
 				}
-				if(!Helper.isBlank(dataItem.getVideo())){
+				if (!Helper.isBlank(dataItem.getVideo())) {
 					DataContainer.androSliderUrlList.add(dataItem.getVideo());
 				}
-				if(!Helper.isBlank(dataItem.getImage())){
-					if(!DataContainer.androSliderUrlList.contains(dataItem.getImage())){
-						DataContainer.androSliderUrlList.add(dataItem.getImage());
+				if (!Helper.isBlank(dataItem.getImage())) {
+					if (!DataContainer.androSliderUrlList.contains(dataItem
+							.getImage())) {
+						DataContainer.androSliderUrlList.add(dataItem
+								.getImage());
 					}
 				}
-				
-				if(findViewById(R.id.andro_slider_viewPager) != null){
+
+				if (findViewById(R.id.andro_slider_viewPager) != null) {
 					Log.d("MYTAG", "AndroSLider - YES");
 					androSliderAdapter.fetchData();
-					//androSliderAdapter.notifyDataSetChanged();
+					// androSliderAdapter.notifyDataSetChanged();
 					inicAndroSlider(androSliderAdapter);
-				 }
-				
-				
-//				mapButton
-//						.setText(ComponentInstance
-//								.getTitleString(ComponentInstance.STRING_POGLEDAJ_NA_MAPI));
-//				mapButton.setOnClickListener(new View.OnClickListener() {
-//
-//					@Override
-//					public void onClick(View v) {
-//						// TODO Auto-generated method stub
-//						Intent intent = new Intent(v.getContext(),
-//								PreviewItemOnMap.class);
-//
-//						intent.putExtra("x", dataItem.getX());
-//						intent.putExtra("y", dataItem.getY());
-//						intent.putExtra("title", dataItem.getTitle());
-//
-//						startActivity(intent);
-//					}
-//				});
-				
+				}
+
+				// mapButton
+				// .setText(ComponentInstance
+				// .getTitleString(ComponentInstance.STRING_POGLEDAJ_NA_MAPI));
+				// mapButton.setOnClickListener(new View.OnClickListener() {
+				//
+				// @Override
+				// public void onClick(View v) {
+				// // TODO Auto-generated method stub
+				// Intent intent = new Intent(v.getContext(),
+				// PreviewItemOnMap.class);
+				//
+				// intent.putExtra("x", dataItem.getX());
+				// intent.putExtra("y", dataItem.getY());
+				// intent.putExtra("title", dataItem.getTitle());
+				//
+				// startActivity(intent);
+				// }
+				// });
+
 				txtAdrress.setOnClickListener(new View.OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						Double lat, lng;
 						lat = Double.parseDouble(dataItem.getX());
 						lng = Double.parseDouble(dataItem.getY());
-						String geoUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + dataItem.getTitle() + ")";
-						Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-								Uri.parse(geoUri));
+						String geoUri = "http://maps.google.com/maps?q=loc:"
+								+ lat + "," + lng + " (" + dataItem.getTitle()
+								+ ")";
+						Intent intent = new Intent(
+								android.content.Intent.ACTION_VIEW, Uri
+										.parse(geoUri));
 						activity.startActivity(intent);
 					}
 				});
 
 				inicMapView(mapView);
-				
+
 				butFavourite.setOnClickListener(new View.OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						DatabaseHandler db = new DatabaseHandler(activity);
-						if(!db.checkFavouriteStatus(dataItem.getTitle())){
+						if (!db.checkFavouriteStatus(dataItem.getTitle())) {
 							Log.d("MYTAG", "Add Favourite");
-							
+
 							dataItem.setPreviewtype("company");
 							dataItem.setId(id);
 							dataItem.setCategory(category);
-							if (!Helper.isBlank(dataItem.getImage()) && !dataItem.getImage().contains("noimage")) {
+							if (!Helper.isBlank(dataItem.getImage())
+									&& !dataItem.getImage().contains("noimage")) {
 								dataItem.setImage(dataItem.getImage());
-							}else if(dataItem.getLogoSlider() != null){
-								dataItem.setImage(dataItem.getLogoSlider().get(0).replace(" ", "%20"));
-							}else{
+							} else if (dataItem.getLogoSlider() != null) {
+								dataItem.setImage(dataItem.getLogoSlider()
+										.get(0).replace(" ", "%20"));
+							} else {
 								dataItem.setImage(dataItem.getImage());
 							}
 							db.addFavourite(dataItem);
-							butFavourite.setImageResource(R.drawable.favourite_active);
-						}else{
-							butFavourite.setImageResource(R.drawable.favourite_inactive);
+							butFavourite
+									.setImageResource(R.drawable.favourite_active);
+						} else {
+							butFavourite
+									.setImageResource(R.drawable.favourite_inactive);
 							Log.d("MYTAG", "Delete Favourite");
 							db.deleteFavourite(dataItem);
 						}
-						
+
 						Log.d("MYTAG", "ALL Favourites");
-						
-						for(DataItem item : db.getAllFavourites()){
-							Log.d("MYTAG", "Favourite Record: " + item.getTitle());
+
+						for (DataItem item : db.getAllFavourites()) {
+							Log.d("MYTAG",
+									"Favourite Record: " + item.getTitle());
 						}
 					}
 				});
-				
-//				mapView.addMarker(new MarkerOptions().position(
-//						new LatLng(Double.parseDouble(dataItem.getX()), Double
-//								.parseDouble(dataItem.getY()))).title(
-//						dataItem.getTitle()));
-//
-//				mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(
-//						(new LatLng(Double.parseDouble(dataItem.getX()), Double
-//								.parseDouble(dataItem.getY()))), 12.0f));
-//				
-//				mapView.getUiSettings().setAllGesturesEnabled(false);
-//				mapView.getUiSettings().setZoomControlsEnabled(false);
-//				mapView.setOnMapClickListener(new OnMapClickListener() {
-//					
-//					@Override
-//					public void onMapClick(LatLng arg0) {
-//						Double lat, lng;
-//						lat = Double.parseDouble(dataItem.getX());
-//						lng = Double.parseDouble(dataItem.getY());
-//						String geoUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + dataItem.getTitle() + ")";
-//						Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-//								Uri.parse(geoUri));
-//						activity.startActivity(intent);
-//					}
-//				});
+
+				// mapView.addMarker(new MarkerOptions().position(
+				// new LatLng(Double.parseDouble(dataItem.getX()), Double
+				// .parseDouble(dataItem.getY()))).title(
+				// dataItem.getTitle()));
+				//
+				// mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(
+				// (new LatLng(Double.parseDouble(dataItem.getX()), Double
+				// .parseDouble(dataItem.getY()))), 12.0f));
+				//
+				// mapView.getUiSettings().setAllGesturesEnabled(false);
+				// mapView.getUiSettings().setZoomControlsEnabled(false);
+				// mapView.setOnMapClickListener(new OnMapClickListener() {
+				//
+				// @Override
+				// public void onMapClick(LatLng arg0) {
+				// Double lat, lng;
+				// lat = Double.parseDouble(dataItem.getX());
+				// lng = Double.parseDouble(dataItem.getY());
+				// String geoUri = "http://maps.google.com/maps?q=loc:" + lat +
+				// "," + lng + " (" + dataItem.getTitle() + ")";
+				// Intent intent = new
+				// Intent(android.content.Intent.ACTION_VIEW,
+				// Uri.parse(geoUri));
+				// activity.startActivity(intent);
+				// }
+				// });
 			}
 
 		}
 
 	}
-	
-	public void inicMapView(GoogleMap mapView){
-		
+
+	public void inicMapView(GoogleMap mapView) {
+
 		mapView.addMarker(new MarkerOptions().position(
 				new LatLng(Double.parseDouble(dataItem.getX()), Double
 						.parseDouble(dataItem.getY()))).title(
@@ -2115,31 +2242,33 @@ public class PreviewItemPage extends AppCompatActivity {
 		mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(
 				(new LatLng(Double.parseDouble(dataItem.getX()), Double
 						.parseDouble(dataItem.getY()))), 12.0f));
-		
+
 		mapView.getUiSettings().setAllGesturesEnabled(false);
 		mapView.getUiSettings().setZoomControlsEnabled(false);
 		mapView.setOnMapClickListener(new OnMapClickListener() {
-			
+
 			@Override
 			public void onMapClick(LatLng arg0) {
 				Double lat, lng;
 				lat = Double.parseDouble(dataItem.getX());
 				lng = Double.parseDouble(dataItem.getY());
-				String geoUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + dataItem.getTitle() + ")";
+				String geoUri = "http://maps.google.com/maps?q=loc:" + lat
+						+ "," + lng + " (" + dataItem.getTitle() + ")";
 				Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
 						Uri.parse(geoUri));
 				activity.startActivity(intent);
 			}
 		});
-		
+
 		mapView.setOnMarkerClickListener(new OnMarkerClickListener() {
-			
+
 			@Override
 			public boolean onMarkerClick(Marker arg0) {
 				Double lat, lng;
 				lat = Double.parseDouble(dataItem.getX());
 				lng = Double.parseDouble(dataItem.getY());
-				String geoUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + dataItem.getTitle() + ")";
+				String geoUri = "http://maps.google.com/maps?q=loc:" + lat
+						+ "," + lng + " (" + dataItem.getTitle() + ")";
 				Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
 						Uri.parse(geoUri));
 				activity.startActivity(intent);
@@ -2152,11 +2281,11 @@ public class PreviewItemPage extends AppCompatActivity {
 		buttonDirection = (ImageView) findViewById(R.id.imageViewDirection);
 		buttonShare = (ImageView) findViewById(R.id.imageViewShare);
 		buttonUp = (ImageView) findViewById(R.id.imageViewUp);
-		
+
 		ComponentInstance.inicTitleBar(this, title);
-		
+
 		buttonUp.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -2170,10 +2299,11 @@ public class PreviewItemPage extends AppCompatActivity {
 			public void onClick(View view) {
 				// TODO Auto-generated method stub
 
-				if(!locationService.canGetLocation()){
-					Toast.makeText(PreviewItemPage.this, "No GPS signal!", Toast.LENGTH_LONG).show();
+				if (!locationService.canGetLocation()) {
+					Toast.makeText(PreviewItemPage.this, "No GPS signal!",
+							Toast.LENGTH_LONG).show();
 				}
-				
+
 				String longMy, latMy, longTo, latTo;
 
 				longMy = Double.toString(locationService.getLongitude());
@@ -2191,16 +2321,16 @@ public class PreviewItemPage extends AppCompatActivity {
 			}
 		});
 
-//		buttonLike.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View view) {
-//				// TODO Auto-generated method stub
-//				startActivityForResult(
-//						new Intent(Intent.ACTION_VIEW, Uri.parse(dataItem
-//								.getShare())), 1);
-//			}
-//		});
+		// buttonLike.setOnClickListener(new View.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View view) {
+		// // TODO Auto-generated method stub
+		// startActivityForResult(
+		// new Intent(Intent.ACTION_VIEW, Uri.parse(dataItem
+		// .getShare())), 1);
+		// }
+		// });
 
 		buttonShare.setOnClickListener(new View.OnClickListener() {
 

@@ -261,6 +261,8 @@ public class ComponentInstance {
 											.getSmallBanerItemList().get(title)
 											.get(0).getCategory());
 							intent.putExtra("id", "5");
+							intent.putExtra("date", "");
+							
 							((Activity) context).startActivity(intent);
 						}
 					});
@@ -295,6 +297,8 @@ public class ComponentInstance {
 											.getSmallBanerItemList().get(title)
 											.get(1).getCategory());
 							intent.putExtra("id", "10");
+							intent.putExtra("date", "");
+							
 							((Activity) context).startActivity(intent);
 						}
 					});
