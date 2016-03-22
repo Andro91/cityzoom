@@ -173,12 +173,9 @@ public class ListViewAdapter extends ArrayAdapter<DataItem> {
 				
 				if (dataItem.getCategory().equalsIgnoreCase("") || dataItem.getCategory() == null){
 					//Company
-					
 					row = inflater.inflate(layoutResourceId, parent, false);
-					//mainThread.start();
 				}else {
 					//Event
-					
 					row = inflater.inflate(R.layout.andro_list_item_event, parent, false);
 					holder.txtSubTitle = (TextView) row
 							.findViewById(R.id.textViewItemSubTitle);
@@ -208,6 +205,19 @@ public class ListViewAdapter extends ArrayAdapter<DataItem> {
 				holder.txtTitle.setText(dataItem.getTitle());
 			} else {
 				holder.txtTitle.setText("");
+			}
+			
+			if (dataItem.getCategory().equalsIgnoreCase("") || dataItem.getCategory() == null){
+				//Company
+			}else {
+				//Event
+				holder.txtSubTitle = (TextView) row
+						.findViewById(R.id.textViewItemSubTitle);
+				if (dataItem.getCategory() != null) {
+					holder.txtSubTitle.setText(dataItem.getCategory());
+				} else {
+					holder.txtSubTitle.setText("");
+				}
 			}
 			
 			while(mainThread.isAlive());
