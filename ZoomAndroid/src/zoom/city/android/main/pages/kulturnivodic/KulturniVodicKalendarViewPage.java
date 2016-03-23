@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -31,24 +32,28 @@ public class KulturniVodicKalendarViewPage extends AppCompatActivity {
 
 		myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-		// inicijalizacija malih banera
-		ComponentInstance.inicSmallBaner(this, "kulturnivodic",
-				myPrefs.getString("drzavaId", "0"),
-				myPrefs.getString("gradId", "0"),
-				myPrefs.getString("jezikId", "0"));
-
-		inicComponent();
-		fillData();
-		onComponentClick();
-
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
 			title = extras.getString("title");
 			date = extras.getString("date");
 			dateTitle = extras.getString("dateTitle");
+			Log.d("DATELOG","KVKalendarViewPage --date: " + date);
 		}
+		
+		
 
+		inicComponent();
+		fillData();
+		onComponentClick();
+
+		
+		// inicijalizacija malih banera
+				ComponentInstance.inicSmallBaner(this, "kulturnivodic",
+						myPrefs.getString("drzavaId", "0"),
+						myPrefs.getString("gradId", "0"),
+						myPrefs.getString("jezikId", "0"),
+						date);
 		//ComponentInstance.inicTitleBar(this, dateTitle);
 		Helper.inicActionBar(KulturniVodicKalendarViewPage.this, dateTitle);
 		

@@ -290,12 +290,12 @@ public class ParserItem {
 					dataItem.setVideo("");
 				}
 				
-				if (pom.has("official_facebook")) {
-					dataItem.setShare(pom.getString("official_facebook"));
+				if (pom.has("facebook")) {
+					dataItem.setShare(pom.getString("facebook"));
 				}
 				else{
-					if (pom.has("facebook")) {
-						dataItem.setShare(pom.getString("facebook"));
+					if (pom.has("official_facebook")) {
+						dataItem.setShare(pom.getString("official_facebook"));
 					}
 				}
 			}

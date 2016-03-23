@@ -54,14 +54,11 @@ public class KulturniVodicPage extends AppCompatActivity {
 //		ComponentInstance.inicTitleBar(this, ComponentInstance
 //				.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
 
-		// inicijalizacija malih banera
-		ComponentInstance.inicSmallBaner(this, "kulturnivodic",
-				myPrefs.getString("drzavaId", "0"),
-				myPrefs.getString("gradId", "0"),
-				myPrefs.getString("jezikId", "0"));
+		
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		date = sdf.format(Calendar.getInstance().getTime());
+		//date = sdf.format(Calendar.getInstance().getTime());
+		//date = "";
 
 		inicComponent();
 		fillData();
@@ -69,6 +66,13 @@ public class KulturniVodicPage extends AppCompatActivity {
 		
 		Helper.inicActionBar(KulturniVodicPage.this, ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC));
 
+		// inicijalizacija malih banera
+				ComponentInstance.inicSmallBaner(this, "kulturnivodic",
+						myPrefs.getString("drzavaId", "0"),
+						myPrefs.getString("gradId", "0"),
+						myPrefs.getString("jezikId", "0"),
+						"");
+		
 		ComponentInstance.inicGoogleBaner(this,
 				myPrefs.getString("nazivGrada", ""),"ca-app-pub-1530516813542398/7330128266");
 		
@@ -94,12 +98,10 @@ public class KulturniVodicPage extends AppCompatActivity {
 	
 
 	private void onComponentClick() {
-		// TODO Auto-generated method stub
 		layout1.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				// Kalendar
 				if (interstitial.isLoaded()) {
 					interstitial.show();
@@ -107,7 +109,6 @@ public class KulturniVodicPage extends AppCompatActivity {
 
 						@Override
 						public void onAdClosed() {
-							// TODO Auto-generated method stub
 							super.onAdClosed();
 
 							Intent intent = new Intent(KulturniVodicPage.this,

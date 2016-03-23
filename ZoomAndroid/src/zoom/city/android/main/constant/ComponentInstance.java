@@ -208,7 +208,7 @@ public class ComponentInstance {
 	// DVA MALA BANERA
 	public static void inicSmallBaner(final Context context,
 			final String title, final String country, final String city,
-			final String language) {
+			final String language, final String date) {
 		final Handler handler;
 		Thread thread;
 
@@ -261,7 +261,7 @@ public class ComponentInstance {
 											.getSmallBanerItemList().get(title)
 											.get(0).getCategory());
 							intent.putExtra("id", "5");
-							intent.putExtra("date", "");
+							intent.putExtra("date", date);
 							
 							((Activity) context).startActivity(intent);
 						}
@@ -297,7 +297,7 @@ public class ComponentInstance {
 											.getSmallBanerItemList().get(title)
 											.get(1).getCategory());
 							intent.putExtra("id", "10");
-							intent.putExtra("date", "");
+							intent.putExtra("date", date);
 							
 							((Activity) context).startActivity(intent);
 						}

@@ -76,10 +76,10 @@ public class SmallBanersPreviewPage extends AppCompatActivity {
 			public void run() {
 				// TODO Auto-generated method stub
 				super.run();
-
+				
 				try {
 					pomDataItems = Parser.parseItems(Constant.MAIN_URL
-							+ "service/events?seckey=zoom&country=" + drzavaId 
+							+ "service/kulturnivodic?seckey=zoom&country=" + drzavaId 
 							+ "&city=" + gradId
 							+ "&language=" + jezikId
 							+ "&id=" + id
@@ -127,6 +127,8 @@ public class SmallBanersPreviewPage extends AppCompatActivity {
 			
 			date = extras.getString("date");
 			
+			Log.d("DATELOG","SmallBanersPreviewPage - date: " + date);
+			
 			type ="event";
 			
 		
@@ -139,23 +141,4 @@ public class SmallBanersPreviewPage extends AppCompatActivity {
 		progresLayout = (LinearLayout) findViewById(R.id.linearLayoutProgres);
 	}
 	
-	public void inicActionBar() {
-		try{
-			ActionBar actionBar = getSupportActionBar();
-			
-			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setDisplayShowHomeEnabled(false);
-			actionBar.setDisplayShowTitleEnabled(true);
-			actionBar.setDisplayUseLogoEnabled(false);
-			if(!Helper.isBlank(title)){
-				getSupportActionBar().setTitle(" " + title);
-			}else{
-				getSupportActionBar().setTitle(" " + "BACK");
-			}
-//			getSupportActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-			}catch(Exception ex){
-				Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
-			}
-	}
-
 }
