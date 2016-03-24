@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -16,9 +18,10 @@ import zoom.city.android.main.R;
 import zoom.city.android.main.adapter.ListViewAdapter;
 import zoom.city.android.main.constant.ComponentInstance;
 import zoom.city.android.main.data.DataItem;
+import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.parser.Parser;
 
-public class NightlifeKalendarViewPage extends Activity {
+public class NightlifeKalendarViewPage extends AppCompatActivity {
 
 	String title, dateTitle;
 	String jezikId, drzavaId, gradId, date;
@@ -61,7 +64,9 @@ public class NightlifeKalendarViewPage extends Activity {
 			dateTitle = extras.getString("dateTitle");
 		}
 
-		ComponentInstance.inicTitleBar(this, dateTitle);
+		//ComponentInstance.inicTitleBar(this, dateTitle);
+		
+		Helper.inicActionBar(NightlifeKalendarViewPage.this, dateTitle);
 
 		handler = new Handler() {
 
@@ -99,6 +104,16 @@ public class NightlifeKalendarViewPage extends Activity {
 
 		progresLayout.setVisibility(View.VISIBLE);
 
+	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            finish();
+            return true;
+        }
+        return true;
 	}
 
 	private void onComponentClick() {
