@@ -37,8 +37,18 @@ public class DataItem implements Comparable<DataItem>, Serializable {
 	private String share;
 	private ArrayList<String> slider;
 	private String officialWebpage;
+	private String officialFacebook;
 	private ArrayList<String> logoSlider;
 	private String video;
+	
+	
+	public String getOfficialFacebook() {
+		return officialFacebook;
+	}
+
+	public void setOfficialFacebook(String officialFacebook) {
+		this.officialFacebook = officialFacebook;
+	}
 	
 	public String getVideo() {
 		return video;

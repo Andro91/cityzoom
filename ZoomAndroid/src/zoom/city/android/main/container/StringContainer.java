@@ -137,7 +137,7 @@ public class StringContainer {
 		
 		iconTextEnglish.add("Must 2 Do");
 		iconTextEnglish.add("Culture");
-		iconTextEnglish.add("City Zoom");
+		iconTextEnglish.add("City Explore");
 		iconTextEnglish.add("Business Directory");
 		iconTextEnglish.add("Drink & Food");
 		iconTextEnglish.add("Night Life");

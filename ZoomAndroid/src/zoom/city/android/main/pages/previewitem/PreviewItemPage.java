@@ -1179,11 +1179,11 @@ public class PreviewItemPage extends AppCompatActivity {
 					});
 				}
 
-				if (Helper.isBlank(dataItem.getShare())) {
+				if (Helper.isBlank(dataItem.getOfficialFacebook())) {
 					txtFacebook.setVisibility(View.GONE);
 					flfacebook.setVisibility(View.GONE);
 				} else {
-					txtFacebook.setText(dataItem.getShare());
+					txtFacebook.setText(dataItem.getOfficialFacebook());
 					txtFacebook.setOnClickListener(new View.OnClickListener() {
 
 						@Override
@@ -1191,7 +1191,7 @@ public class PreviewItemPage extends AppCompatActivity {
 							// TODO Solve facebook intent
 							Intent browserIntent = new Intent(
 									Intent.ACTION_VIEW, Uri.parse(dataItem
-											.getShare()));
+											.getOfficialFacebook()));
 							startActivityForResult(browserIntent, 1);
 
 						}
@@ -1203,7 +1203,7 @@ public class PreviewItemPage extends AppCompatActivity {
 							// TODO Solve facebook intent
 							Intent browserIntent = new Intent(
 									Intent.ACTION_VIEW, Uri.parse(dataItem
-											.getShare()));
+											.getOfficialFacebook()));
 							startActivityForResult(browserIntent, 1);
 
 						}
@@ -1573,11 +1573,11 @@ public class PreviewItemPage extends AppCompatActivity {
 					});
 				}
 
-				if (Helper.isBlank(dataItem.getShare())) {
+				if (Helper.isBlank(dataItem.getOfficialFacebook())) {
 					txtFacebook.setVisibility(View.GONE);
 					flfacebook.setVisibility(View.GONE);
 				} else {
-					txtFacebook.setText(dataItem.getShare());
+					txtFacebook.setText(dataItem.getOfficialFacebook());
 					txtFacebook.setOnClickListener(new View.OnClickListener() {
 
 						@Override
@@ -1585,7 +1585,7 @@ public class PreviewItemPage extends AppCompatActivity {
 							// TODO Solve facebook intent
 							Intent browserIntent = new Intent(
 									Intent.ACTION_VIEW, Uri.parse(dataItem
-											.getShare()));
+											.getOfficialFacebook()));
 							startActivityForResult(browserIntent, 1);
 
 						}
@@ -1597,7 +1597,7 @@ public class PreviewItemPage extends AppCompatActivity {
 							// TODO Solve facebook intent
 							Intent browserIntent = new Intent(
 									Intent.ACTION_VIEW, Uri.parse(dataItem
-											.getShare()));
+											.getOfficialFacebook()));
 							startActivityForResult(browserIntent, 1);
 
 						}
@@ -1985,11 +1985,11 @@ public class PreviewItemPage extends AppCompatActivity {
 					});
 				}
 
-				if (Helper.isBlank(dataItem.getShare())) {
+				if (Helper.isBlank(dataItem.getOfficialFacebook())) {
 					txtFacebook.setVisibility(View.GONE);
 					flfacebook.setVisibility(View.GONE);
 				} else {
-					txtFacebook.setText(dataItem.getShare());
+					txtFacebook.setText(dataItem.getOfficialFacebook());
 					txtFacebook.setOnClickListener(new View.OnClickListener() {
 
 						@Override
@@ -1997,7 +1997,7 @@ public class PreviewItemPage extends AppCompatActivity {
 							// TODO Solve facebook intent
 							Intent browserIntent = new Intent(
 									Intent.ACTION_VIEW, Uri.parse(dataItem
-											.getShare()));
+											.getOfficialFacebook()));
 							startActivityForResult(browserIntent, 1);
 
 						}
@@ -2009,7 +2009,7 @@ public class PreviewItemPage extends AppCompatActivity {
 							// TODO Solve facebook intent
 							Intent browserIntent = new Intent(
 									Intent.ACTION_VIEW, Uri.parse(dataItem
-											.getShare()));
+											.getOfficialFacebook()));
 							startActivityForResult(browserIntent, 1);
 
 						}
