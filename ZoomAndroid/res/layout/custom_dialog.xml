@@ -7,7 +7,6 @@
 	        android:id="@+id/rd_1"
 	        android:layout_width="match_parent"
 	        android:layout_height="40dp"
-	        android:layout_below="@+id/text_1"
 	        android:background="@drawable/button_dugmici_drawable"
 	        android:textColor="#ffffffff"
 	        android:textSize="20dp"
