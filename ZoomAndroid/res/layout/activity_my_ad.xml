@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="zoom.city.android.main.MyAdActivity" >
+
+    <Button 
+        android:id="@+id/button_close"
+        android:layout_height="35dp"
+        android:layout_width="35dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="X"/>
+    
+    <ImageView 
+        android:id="@+id/image_view_my_ad"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:contentDescription="@string/abc_action_bar_home_description"
+        android:src="@drawable/city_zoom_256"
+        />
+
+</RelativeLayout>
