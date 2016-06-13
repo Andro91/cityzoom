@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.graphics.Bitmap;
+
 import zoom.city.android.main.data.DataItem;
 
 public class DataContainer {
@@ -23,6 +25,9 @@ public class DataContainer {
 	private List<DataItem> taxiSmsList = new ArrayList<DataItem>();
 	
 	public static ArrayList<String> androSliderUrlList = new ArrayList<String>();
+	
+	public static HashMap<String, String> androTransitUrlList = new HashMap<String, String>();
+	public static HashMap<String, Bitmap> androTransitImageList = new HashMap<String, Bitmap>();
 	
 	public static ArrayList<String> bigBanerUrlList = new ArrayList<String>();
 

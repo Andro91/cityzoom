@@ -3,6 +3,7 @@ package zoom.city.android.main.pages;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +30,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -69,6 +71,7 @@ import zoom.city.android.main.R;
 import zoom.city.android.main.adapter.FavouritesAdapter;
 import zoom.city.android.main.constant.ComponentInstance;
 import zoom.city.android.main.constant.Constant;
+import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.container.ImageContainer;
 import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.adresar.AdresarPage;
@@ -177,6 +180,8 @@ public class MainPage extends AppCompatActivity {
 		};
         
         new JSONParseNotification().execute();
+        
+        new JSONParseTransit().execute();
         
         mHandler = new Handler();
         
@@ -481,6 +486,54 @@ public class MainPage extends AppCompatActivity {
 			mHandler.postDelayed(notificationRunnable,5000);
 		}
 	}
+	
+	private class JSONParseTransit extends AsyncTask<String, String, JSONObject> {
+        @Override
+        	protected void onPreExecute() {
+        		// TODO Auto-generated method stub
+        		super.onPreExecute();
+        	}
+
+		@Override
+		protected JSONObject doInBackground(String... args) {
+			JsonParser jParser = new JsonParser();
+
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String formatted = simpleDateFormat.format(cal.getTime());
+			
+			if(DataContainer.androTransitImageList == null){
+				DataContainer.androTransitImageList = new HashMap<String, Bitmap>();
+			}
+			
+			JSONObject transitPage = null;
+			
+			for(int i = 1; i <= 14; i++){
+				JSONObject json = jParser.getJSONFromUrl(
+						Constant.MAIN_URL + "service/transit?seckey=zoom" 
+								+ "&country=" + myPrefs.getString("drzavaId", "0")
+								+ "&city=" + myPrefs.getString("gradId", "0") 
+								+ "&date=" + formatted 
+								+ "&page=" + i);
+				
+				try {
+					transitPage = json.getJSONArray("data").getJSONObject(0);
+					Log.d("MYTAG", "Image: " + transitPage.getString("image"));
+					Log.d("MYTAG", "URL: " + transitPage.getString("link_android"));
+					DataContainer.androTransitImageList.put("" + i,Helper.getBitmapFromURL(transitPage.getString("image")));
+				} catch (JSONException e) {
+					e.printStackTrace();
+					Log.d("MYTAG", "526: " + "index " + i + " " + e.getMessage());
+				}
+			}
+			return transitPage;
+		}
+       
+       @Override
+    	protected void onPostExecute(JSONObject result) {
+	    	super.onPostExecute(result);
+    	}
+   }
 
 	@Override
 	protected void onResume() {
@@ -534,6 +587,8 @@ public class MainPage extends AppCompatActivity {
 
 		fillData();
 
+		
+		
 		super.onResume();
 	}
 
