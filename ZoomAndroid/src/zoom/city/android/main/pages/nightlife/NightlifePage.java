@@ -12,6 +12,7 @@ import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,10 +24,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import zoom.city.android.main.MyAdActivity;
 import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
+import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.PreviewListItemPage;
+import zoom.city.android.main.pages.cityzoom.CityZoomPage;
 import zoom.city.android.main.pages.kalendar.KalendarPickerPage;
 
 public class NightlifePage extends AppCompatActivity {
@@ -47,6 +51,13 @@ public class NightlifePage extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.page_nightlife);
 
+		//Generisanje tranzit strane
+		if(DataContainer.androTransitImageList.get("8") != null){
+			Intent i = new Intent(NightlifePage.this, MyAdActivity.class);
+			i.putExtra("activity_code", 8);
+			startActivity(i);
+		}
+		
 		inicComponent();
 		onCOmponentClick();
 		fillData();
@@ -344,12 +355,27 @@ public class NightlifePage extends AppCompatActivity {
 	}
 	
 
+	public void finishActivity(){
+		Intent data = new Intent();
+        data.putExtra("activity_code", 3);
+        setResult(Activity.RESULT_OK, data);
+	}
+
+    @Override
+    public void onBackPressed() {
+       finishActivity();
+       super.onBackPressed();
+    }
+	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
-            finish(); break;
+        case android.R.id.home: {
+        	finishActivity();
+            finish(); 
+            break;
             }
+        }
         return true;
     }
 

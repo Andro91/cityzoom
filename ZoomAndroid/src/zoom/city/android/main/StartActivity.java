@@ -35,20 +35,20 @@ public class StartActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splashscreen);
 
-		try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "zoom.city.android.main", 
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("MYTAG", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-                }
-        } catch (NameNotFoundException e) {
-        	Log.d("KeyHash:", "NameNitFound");
-        } catch (NoSuchAlgorithmException e) {
-        	Log.d("KeyHash:", "NoSuch");
-        }
+//		try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    "zoom.city.android.main", 
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+////                Log.d("MYTAG", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//                }
+//        } catch (NameNotFoundException e) {
+////        	Log.d("KeyHash:", "NameNitFound");
+//        } catch (NoSuchAlgorithmException e) {
+////        	Log.d("KeyHash:", "NoSuch");
+//        }
 		
 		myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		

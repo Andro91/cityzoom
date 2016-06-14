@@ -1,16 +1,60 @@
 package zoom.city.android.main;
 
-import android.support.v7.app.ActionBarActivity;
+import zoom.city.android.main.container.DataContainer;
+import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
-public class MyAdActivity extends ActionBarActivity {
+public class MyAdActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_ad);
+		
+		ImageView button = (ImageView) findViewById(R.id.new_id_for_image_view_close);
+		final int activityCode = getIntent().getIntExtra("activity_code", 1);
+		
+		
+		ImageView adImage = (ImageView) findViewById(R.id.image_view_my_ad);
+		Bitmap bitmap = DataContainer.androTransitImageList.get(Integer.toString(activityCode));
+		
+		if(bitmap == null){
+			finish();
+		}
+		
+		adImage.setImageBitmap(bitmap);
+		
+		adImage.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent browserIntent = new Intent(
+						Intent.ACTION_VIEW, Uri.parse(
+								DataContainer.androTransitUrlList.get(Integer.toString(activityCode))));
+				startActivityForResult(browserIntent, 1);
+			}
+		});
+		
+		button.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+	}
+	
+	@Override
+	protected void onPause() {
+		//finish();
+		super.onPause();
 	}
 
 	@Override

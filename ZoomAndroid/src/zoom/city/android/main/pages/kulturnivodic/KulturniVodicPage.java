@@ -12,6 +12,7 @@ import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,10 +24,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import zoom.city.android.main.MyAdActivity;
 import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
+import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.PreviewListItemPage;
+import zoom.city.android.main.pages.cityzoom.CityZoomPage;
 import zoom.city.android.main.pages.kalendar.KalendarPickerPage;
 
 public class KulturniVodicPage extends AppCompatActivity {
@@ -49,6 +53,13 @@ public class KulturniVodicPage extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.page_kulturni_vodic);
 
+		//Generisanje tranzit strane
+		if(DataContainer.androTransitImageList.get("2") != null){
+			Intent i = new Intent(KulturniVodicPage.this, MyAdActivity.class);
+			i.putExtra("activity_code", 4);
+			startActivity(i);
+		}
+		
 		myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 //		ComponentInstance.inicTitleBar(this, ComponentInstance
@@ -87,14 +98,7 @@ public class KulturniVodicPage extends AppCompatActivity {
 		super.onResume();
 	}
 	
-	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            finish(); break;
-            }
-            return true;
-    }
+
 	
 
 	private void onComponentClick() {
@@ -506,6 +510,24 @@ public class KulturniVodicPage extends AppCompatActivity {
 		//mTracker.send(null);
 	}
 	
+    @Override
+    public void onBackPressed() {
+       finishActivity();
+       super.onBackPressed();
+    }
+    
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home: {
+        	finishActivity();
+        	finish();
+        	break;
+        	}
+        }
+            return true;
+    }
+	
 	public void inicActionBar() {
 		try{
 			String title = ComponentInstance.getTitleString(ComponentInstance.STRING_KULTURNI_VODIC);
@@ -527,6 +549,12 @@ public class KulturniVodicPage extends AppCompatActivity {
 			}catch(Exception ex){
 				Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
 			}
+	}
+	
+	public void finishActivity(){
+		Intent data = new Intent();
+        data.putExtra("activity_code", 4);
+        setResult(Activity.RESULT_OK, data);
 	}
 	
 

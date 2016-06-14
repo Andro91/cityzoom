@@ -9,6 +9,7 @@ import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,8 +21,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import zoom.city.android.main.MyAdActivity;
 import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
+import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.PreviewListItemPage;
 
@@ -42,6 +45,13 @@ public class SmestajPage extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.page_smestaj);
 
+		//Generisanje tranzit strane
+		if(DataContainer.androTransitImageList.get("2") != null){
+			Intent i = new Intent(SmestajPage.this, MyAdActivity.class);
+			i.putExtra("activity_code", 2);
+			startActivity(i);
+		}
+		
 		inicComponent();
 		fillData();
 		onComponentClick();
@@ -463,14 +473,28 @@ public class SmestajPage extends AppCompatActivity {
 		mTracker.send(MapBuilder.createAppView().build());
 		//mTracker.send(null);
 	}
+	
+	public void finishActivity(){
+		Intent data = new Intent();
+        data.putExtra("activity_code", 2);
+        setResult(Activity.RESULT_OK, data);
+	}
 
+    @Override
+    public void onBackPressed() {
+       finishActivity();
+       super.onBackPressed();
+    }
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
-            finish(); break;
+        case android.R.id.home: {
+        	finishActivity();
+            finish(); 
+            break;
             }
+        }
         return true;
     }
 	

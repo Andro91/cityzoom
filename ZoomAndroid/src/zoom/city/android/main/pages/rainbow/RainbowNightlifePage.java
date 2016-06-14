@@ -9,6 +9,7 @@ import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,9 +21,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import zoom.city.android.main.MyAdActivity;
 import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
+import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.helper.Helper;
+import zoom.city.android.main.pages.cityzoom.CityZoomPage;
 
 public class RainbowNightlifePage extends AppCompatActivity {
 
@@ -40,6 +44,13 @@ public class RainbowNightlifePage extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.page_rainbow_nightlife);
 
+		//Generisanje tranzit strane
+		if(DataContainer.androTransitImageList.get("11") != null){
+			Intent i = new Intent(RainbowNightlifePage.this, MyAdActivity.class);
+			i.putExtra("activity_code", 11);
+			startActivity(i);
+		}
+		
 		inicComponent();
 		fillData();
 		onCOmponentClick();
@@ -268,12 +279,27 @@ public class RainbowNightlifePage extends AppCompatActivity {
 		//mTracker.send(null);
 	}
 	
+	public void finishActivity(){
+		Intent data = new Intent();
+        data.putExtra("activity_code", 11);
+        setResult(Activity.RESULT_OK, data);
+	}
+
+    @Override
+    public void onBackPressed() {
+       finishActivity();
+       super.onBackPressed();
+    }
+	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
-            finish(); break;
+        case android.R.id.home: {
+        	finishActivity();
+            finish(); 
+            break;
             }
+        }
         return true;
     }
 	

@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
@@ -66,6 +67,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import zoom.city.android.main.MyAdActivity;
 import zoom.city.android.main.PreviewFavouritesPage;
 import zoom.city.android.main.R;
 import zoom.city.android.main.adapter.FavouritesAdapter;
@@ -490,7 +492,9 @@ public class MainPage extends AppCompatActivity {
 	private class JSONParseTransit extends AsyncTask<String, String, JSONObject> {
         @Override
         	protected void onPreExecute() {
-        		// TODO Auto-generated method stub
+        	    if(!myPrefs.getBoolean("MainPageFirstTime", true)){
+        	    	this.cancel(true);
+        	    }
         		super.onPreExecute();
         	}
 
@@ -508,7 +512,8 @@ public class MainPage extends AppCompatActivity {
 			
 			JSONObject transitPage = null;
 			
-			for(int i = 1; i <= 14; i++){
+			int[] transitArray = {1,2,3,4,5,8,9,14};
+			for(int i : transitArray){
 				JSONObject json = jParser.getJSONFromUrl(
 						Constant.MAIN_URL + "service/transit?seckey=zoom" 
 								+ "&country=" + myPrefs.getString("drzavaId", "0")
@@ -521,6 +526,7 @@ public class MainPage extends AppCompatActivity {
 					Log.d("MYTAG", "Image: " + transitPage.getString("image"));
 					Log.d("MYTAG", "URL: " + transitPage.getString("link_android"));
 					DataContainer.androTransitImageList.put("" + i,Helper.getBitmapFromURL(transitPage.getString("image")));
+					DataContainer.androTransitUrlList.put("" + i, transitPage.getString("link_android"));
 				} catch (JSONException e) {
 					e.printStackTrace();
 					Log.d("MYTAG", "526: " + "index " + i + " " + e.getMessage());
@@ -531,7 +537,10 @@ public class MainPage extends AppCompatActivity {
        
        @Override
     	protected void onPostExecute(JSONObject result) {
-	    	super.onPostExecute(result);
+    	   Editor editor = myPrefs.edit();
+    	   editor.putBoolean("MainPageFirstTime", false);
+    	   editor.commit();
+    	   super.onPostExecute(result);
     	}
    }
 
@@ -665,7 +674,7 @@ public class MainPage extends AppCompatActivity {
 
 					Intent intent = new Intent(MainPage.this,
 							KulturniVodicPage.class);
-					startActivity(intent);
+					startActivityForResult(intent, 1);
 
 				}
 
@@ -695,7 +704,7 @@ public class MainPage extends AppCompatActivity {
 
 					Intent intent = new Intent(MainPage.this,
 							CityZoomPage.class);
-					startActivity(intent);
+					startActivityForResult(intent, 1);
 
 				}
 
@@ -753,7 +762,7 @@ public class MainPage extends AppCompatActivity {
 				} else {
 					Intent intent = new Intent(view.getContext(),
 							PicePage.class);
-					startActivity(intent);
+					startActivityForResult(intent, 1);
 
 				}
 
@@ -783,7 +792,7 @@ public class MainPage extends AppCompatActivity {
 				} else {
 					Intent intent = new Intent(view.getContext(),
 							NightlifePage.class);
-					startActivity(intent);
+					startActivityForResult(intent, 1);
 
 				}
 			}
@@ -879,7 +888,7 @@ public class MainPage extends AppCompatActivity {
 				} else {
 					Intent intent = new Intent(view.getContext(),
 							SmestajPage.class);
-					startActivity(intent);
+					startActivityForResult(intent, 1);
 				}
 
 			}
@@ -906,7 +915,7 @@ public class MainPage extends AppCompatActivity {
 				} else {
 					Intent intent = new Intent(view.getContext(),
 							WellnessAndSpaPage.class);
-					startActivity(intent);
+					startActivityForResult(intent, 1);
 				}
 
 			}
@@ -933,7 +942,7 @@ public class MainPage extends AppCompatActivity {
 				} else {
 					Intent intent = new Intent(view.getContext(),
 							RainbowPage.class);
-					startActivity(intent);
+					startActivityForResult(intent, 1);
 				}
 
 			}
@@ -1095,6 +1104,32 @@ public class MainPage extends AppCompatActivity {
 		//mTracker.set(Fields.SCREEN_NAME, "Home Screen");
 		mTracker.send(MapBuilder.createAppView().build());
 		//mTracker.send(null);
+		Editor editor = myPrefs.edit();
+ 	   	editor.putBoolean("MainPageFirstTime", true);
+ 	   	editor.putBoolean("CityZoomPageFirstTime", true);
+ 	   	editor.putBoolean("RainbowPageFirstTime", true);
+ 	   	editor.commit();
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    // Check which request we're responding to
+	    if (requestCode == 1) {
+	        // Make sure the request was successful
+	        if (resultCode == RESULT_OK) {
+	        	int activityCode = data.getIntExtra("activity_code", 0);
+
+	        	if(activityCode == 0) {
+	        		return;
+	        	}
+	        	
+    			Intent i = new Intent(MainPage.this, MyAdActivity.class);
+    			i.putExtra("activityCode", 1);
+    			if(DataContainer.androTransitImageList.get("1") != null){
+    				startActivity(i);
+    			}
+	        }
+	    }
 	}
 
 	private void inicMainDrawer(){
@@ -1179,6 +1214,8 @@ public class MainPage extends AppCompatActivity {
 				startActivity(browserIntent);
 			}
 		});
+		
+		
 		
 	}
 

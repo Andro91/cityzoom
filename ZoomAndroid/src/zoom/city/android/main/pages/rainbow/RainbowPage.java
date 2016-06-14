@@ -1,5 +1,12 @@
 package zoom.city.android.main.pages.rainbow;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GAServiceManager;
 import com.google.analytics.tracking.android.GoogleAnalytics;
@@ -9,8 +16,12 @@ import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
@@ -20,9 +31,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import zoom.city.android.main.MyAdActivity;
 import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
+import zoom.city.android.main.constant.Constant;
+import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.helper.Helper;
+import zoom.city.android.main.pages.MainPage;
+import zoom.city.android.main.pages.cityzoom.CityZoomPage;
+import zoom.city.android.main.parser.JsonParser;
 
 public class RainbowPage extends AppCompatActivity {
 
@@ -30,7 +47,7 @@ public class RainbowPage extends AppCompatActivity {
 	TextView txtView1, txtView2, txtView3, txtView4, txtView5;
 
 	InterstitialAd interstitial;
-	
+	SharedPreferences myPrefs;
 	GoogleAnalytics mGa;
 	Tracker mTracker;
 	
@@ -40,6 +57,15 @@ public class RainbowPage extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.page_rainbow);
 
+		myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		//Generisanje tranzit strane
+		if(DataContainer.androTransitImageList.get("9") != null){
+			Intent i = new Intent(RainbowPage.this, MyAdActivity.class);
+			i.putExtra("activity_code", 9);
+			startActivity(i);
+		}
+		
 		inicComponent();
 		fillData();
 		onCOmponentClick();
@@ -334,12 +360,27 @@ public class RainbowPage extends AppCompatActivity {
 		//mTracker.send(null);
 	}
 	
+	public void finishActivity(){
+		Intent data = new Intent();
+        data.putExtra("activity_code", 9);
+        setResult(Activity.RESULT_OK, data);
+	}
+
+    @Override
+    public void onBackPressed() {
+       finishActivity();
+       super.onBackPressed();
+    }
+	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
-            finish(); break;
+        case android.R.id.home: {
+        	finishActivity();
+            finish(); 
+            break;
             }
+        }
         return true;
     }
 	
@@ -360,6 +401,82 @@ public class RainbowPage extends AppCompatActivity {
 				Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
 			}
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    // Check which request we're responding to
+	    if (requestCode == 1) {
+	        // Make sure the request was successful
+	        if (resultCode == RESULT_OK) {
+	        	int activityCode = data.getIntExtra("activity_code", 0);
+
+	        	if(activityCode == 0) {
+	        		return;
+	        	}
+	        	
+    			Intent i = new Intent(RainbowPage.this, MyAdActivity.class);
+    			i.putExtra("activityCode", 9);
+    			if(DataContainer.androTransitImageList.get("9") != null){
+    				startActivity(i);
+    			}
+	        }
+	    }
+	}
+	
+	private class JSONParseTransit extends AsyncTask<String, String, JSONObject> {
+        @Override
+        	protected void onPreExecute() {
+        	    if(!myPrefs.getBoolean("RainbowPageFirstTime", true)){
+        	    	this.cancel(true);
+        	    }
+        		super.onPreExecute();
+        	}
+
+		@Override
+		protected JSONObject doInBackground(String... args) {
+			JsonParser jParser = new JsonParser();
+
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String formatted = simpleDateFormat.format(cal.getTime());
+			
+			if(DataContainer.androTransitImageList == null){
+				DataContainer.androTransitImageList = new HashMap<String, Bitmap>();
+			}
+			
+			JSONObject transitPage = null;
+			
+			int[] transitArray = {10,11,12};
+			for(int i : transitArray){
+				JSONObject json = jParser.getJSONFromUrl(
+						Constant.MAIN_URL + "service/transit?seckey=zoom" 
+								+ "&country=" + myPrefs.getString("drzavaId", "0")
+								+ "&city=" + myPrefs.getString("gradId", "0") 
+								+ "&date=" + formatted 
+								+ "&page=" + i);
+				
+				try {
+					transitPage = json.getJSONArray("data").getJSONObject(0);
+					Log.d("MYTAG", "Image: " + transitPage.getString("image"));
+					Log.d("MYTAG", "URL: " + transitPage.getString("link_android"));
+					DataContainer.androTransitImageList.put("" + i,Helper.getBitmapFromURL(transitPage.getString("image")));
+					DataContainer.androTransitUrlList.put("" + i, transitPage.getString("link_android"));
+				} catch (JSONException e) {
+					e.printStackTrace();
+					Log.d("MYTAG", "526: " + "index " + i + " " + e.getMessage());
+				}
+			}
+			return transitPage;
+		}
+       
+       @Override
+    	protected void onPostExecute(JSONObject result) {
+    	   Editor editor = myPrefs.edit();
+    	   editor.putBoolean("RainbowPageFirstTime", false);
+    	   editor.commit();
+    	   super.onPostExecute(result);
+    	}
+   }
 
 
 }

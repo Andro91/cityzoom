@@ -9,6 +9,7 @@ import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,8 +21,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import zoom.city.android.main.MyAdActivity;
 import zoom.city.android.main.R;
 import zoom.city.android.main.constant.ComponentInstance;
+import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.PreviewListItemPage;
 
@@ -41,6 +44,13 @@ public class MedicoPage extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.page_medico);
 
+		//Generisanje tranzit strane
+		if(DataContainer.androTransitImageList.get("6") != null){
+			Intent i = new Intent(MedicoPage.this, MyAdActivity.class);
+			i.putExtra("activity_code", 6);
+			startActivity(i);
+		}
+		
 		inicComponent();
 		fillData();
 		onCOmponentClick();
@@ -265,12 +275,27 @@ public class MedicoPage extends AppCompatActivity {
 		//mTracker.send(null);
 	}
 	
+	public void finishActivity(){
+		Intent data = new Intent();
+        data.putExtra("activity_code", 6);
+        setResult(Activity.RESULT_OK, data);
+	}
+
+    @Override
+    public void onBackPressed() {
+       finishActivity();
+       super.onBackPressed();
+    }
+	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
-            finish(); break;
+        case android.R.id.home: {
+        	finishActivity();
+            finish(); 
+            break;
             }
+        }
         return true;
     }
 	
