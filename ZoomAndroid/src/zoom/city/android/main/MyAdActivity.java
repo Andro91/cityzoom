@@ -19,15 +19,19 @@ public class MyAdActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_my_ad);
 		
 		ImageView button = (ImageView) findViewById(R.id.new_id_for_image_view_close);
-		final int activityCode = getIntent().getIntExtra("activity_code", 1);
+		final String activityCode = getIntent().getStringExtra("activity_code");
 		
 		
 		ImageView adImage = (ImageView) findViewById(R.id.image_view_my_ad);
-		Bitmap bitmap = DataContainer.androTransitImageList.get(Integer.toString(activityCode));
+		Bitmap bitmap = DataContainer.androTransitImageList.get(activityCode);
 		
 		if(bitmap == null){
 			finish();
 		}
+		
+		long timeNow = System.currentTimeMillis() / 1000L;
+		
+		DataContainer.androTransitTimestampList.put(activityCode, timeNow); 
 		
 		adImage.setImageBitmap(bitmap);
 		
@@ -37,7 +41,7 @@ public class MyAdActivity extends AppCompatActivity {
 			public void onClick(View v) {
 				Intent browserIntent = new Intent(
 						Intent.ACTION_VIEW, Uri.parse(
-								DataContainer.androTransitUrlList.get(Integer.toString(activityCode))));
+								DataContainer.androTransitUrlList.get(activityCode)));
 				startActivityForResult(browserIntent, 1);
 			}
 		});

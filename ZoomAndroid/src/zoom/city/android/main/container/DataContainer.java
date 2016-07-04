@@ -28,6 +28,7 @@ public class DataContainer {
 	
 	public static HashMap<String, String> androTransitUrlList = new HashMap<String, String>();
 	public static HashMap<String, Bitmap> androTransitImageList = new HashMap<String, Bitmap>();
+	public static HashMap<String, Long> androTransitTimestampList = new HashMap<String, Long>();
 	
 	public static ArrayList<String> bigBanerUrlList = new ArrayList<String>();
 

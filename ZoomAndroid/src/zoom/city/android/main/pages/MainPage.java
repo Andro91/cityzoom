@@ -99,7 +99,7 @@ public class MainPage extends AppCompatActivity {
 	SliderLayout mDemoSlider;
 	SharedPreferences myPrefs;
 	Activity activity;
-	InterstitialAd interstitial;
+//	InterstitialAd interstitial;
 	
 	GoogleAnalytics mGa;
 	Tracker mTracker;
@@ -113,7 +113,8 @@ public class MainPage extends AppCompatActivity {
 	Handler mHandler;
 	Thread mThread;
 	int notificationCounter = 0;
-	Runnable notificationRunnable;
+	Runnable notificationRunnable, transitRunnable;
+	int lastTransit = 0;
 	
 	WebView alertDialogWebView;
 	
@@ -180,6 +181,33 @@ public class MainPage extends AppCompatActivity {
 				notificationCounter++;
 			}
 		};
+		
+		transitRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				
+				String transitIndex;
+				
+				if(lastTransit != 0){
+					transitIndex = "1" + lastTransit;
+				}else{
+					transitIndex = "1";
+				}
+				
+				long timeNow = System.currentTimeMillis() / 1000L;
+	        	long timeOfLastTransitDisplay = DataContainer.androTransitTimestampList.get(transitIndex);
+	        	long timeSinceLastTransitDisplay =  timeNow - timeOfLastTransitDisplay;
+	        	
+    			Intent i = new Intent(MainPage.this, MyAdActivity.class);
+    			i.putExtra("activityCode", transitIndex);
+    			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay < 300){
+    				mHandler.postDelayed(transitRunnable, 8000);
+    				startActivity(i);
+    			}
+    			
+			}
+		};
         
         new JSONParseNotification().execute();
         
@@ -202,7 +230,8 @@ public class MainPage extends AppCompatActivity {
     }
     
 
-    @SuppressLint("NewApi") public void showAlertDialog(Notification n){
+    @SuppressLint("NewApi") 
+    public void showAlertDialog(Notification n){
     	if (aDialog != null) {
 			aDialog.hide();
 		}
@@ -522,11 +551,14 @@ public class MainPage extends AppCompatActivity {
 								+ "&page=" + i);
 				
 				try {
-					transitPage = json.getJSONArray("data").getJSONObject(0);
-					Log.d("MYTAG", "Image: " + transitPage.getString("image"));
-					Log.d("MYTAG", "URL: " + transitPage.getString("link_android"));
-					DataContainer.androTransitImageList.put("" + i,Helper.getBitmapFromURL(transitPage.getString("image")));
-					DataContainer.androTransitUrlList.put("" + i, transitPage.getString("link_android"));
+					for(int j = 0; j <= json.getJSONArray("data").length(); j++){
+						transitPage = json.getJSONArray("data").getJSONObject(j);
+						Log.d("MYTAG", "Image: " + transitPage.getString("image"));
+						Log.d("MYTAG", "URL: " + transitPage.getString("link_android"));
+						String a = (j == 0) ? "" : "" + j;
+						DataContainer.androTransitImageList.put("" + i + a,Helper.getBitmapFromURL(transitPage.getString("image")));
+						DataContainer.androTransitUrlList.put("" + i + a, transitPage.getString("link_android"));
+					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 					Log.d("MYTAG", "526: " + "index " + i + " " + e.getMessage());
@@ -546,95 +578,24 @@ public class MainPage extends AppCompatActivity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
-
-		// Inicijalizacija action bara
-//		ComponentInstance.inicActionBar(this);
-
-		// inicijalizacija velikog banera
-//		ComponentInstance.inicBigBaner(this, "homepage",
-//				myPrefs.getString("drzavaId", "0"),
-//				myPrefs.getString("gradId", "0"));
 		
-//		//Inicijalizacija slajdera POCETAK
-//		mDemoSlider = (SliderLayout)findViewById(R.id.slider);
-//		mDemoSlider.setDuration(8000);
-//		new JSONParse().execute();
-//		//Inicijalizacija slajdera KRAJ
-
-		//inicijalizacija slajdera
-//        for(int i = 0; i < DataContainer.getInstance().getBigBanerItemList().get("homepage").size(); i++){
-//            TextSliderView textSliderView = new TextSliderView(this);
-//            // initialize a SliderLayout
-//            textSliderView
-//                    .description("Baner")
-//                    .image(DataContainer.getInstance().getBigBanerItemList().get("homepage").get(i).getImage())
-//                    .setScaleType(BaseSliderView.ScaleType.Fit)
-//                    .setOnSliderClickListener(this);
-//
-//            //add your extra information
-//            textSliderView.getBundle()
-//                    .putString("companyId", DataContainer.getInstance().getBigBanerItemList().get("homepage").get(0).getCompanyId());
-//
-//           mDemoSlider.addSlider(textSliderView);
-//        }
-		
-		
-		// inicijalizacija malih banera
-		/*
-		 * ComponentInstance.inicSmallBaner(this, "homepage",
-		 * myPrefs.getString("drzavaId", "0"), myPrefs.getString("gradId", "0"),
-		 * myPrefs.getString("jezikId", "0"));
-		 */
-		// inic google baner
 		ComponentInstance.inicGoogleBaner(this,
 				myPrefs.getString("nazivGrada", ""),
 				"ca-app-pub-1530516813542398/4376661865");
 
-		interstitial = ComponentInstance.inicFullScreenBaner(this,
-				"ca-app-pub-1530516813542398/3942683067");
-
 		fillData();
 
-		
-		
 		super.onResume();
 	}
 
 
 	private void onComponentClick() {
-		// TODO Auto-generated method stub
+		
 		layout1.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				// PREPORUKE
-
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									PreviewListItemPage.class);
-							intent.putExtra(
-									"title",
-									ComponentInstance
-											.getTitleString(ComponentInstance.STRING_PREPORUKE));
-							intent.putExtra("date", "");
-
-							// Preporuke su tipa event
-							intent.putExtra("type", "event");
-
-							startActivity(intent);
-						}
-					});
-				} else {
 
 					Intent intent = new Intent(view.getContext(),
 							PreviewListItemPage.class);
@@ -646,251 +607,90 @@ public class MainPage extends AppCompatActivity {
 					intent.putExtra("type", "event");
 
 					startActivity(intent);
-
-				}
 			}
 		});
 		layout2.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				// KULTURNI VODIC
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									KulturniVodicPage.class);
-							startActivity(intent);
-						}
-					});
-				} else {
-
 					Intent intent = new Intent(MainPage.this,
 							KulturniVodicPage.class);
 					startActivityForResult(intent, 1);
-
-				}
-
 			}
 		});
 		layout3.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				// CITY ZOOM
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									CityZoomPage.class);
-							startActivity(intent);
-						}
-					});
-				} else {
-
 					Intent intent = new Intent(MainPage.this,
 							CityZoomPage.class);
 					startActivityForResult(intent, 1);
-
-				}
-
 			}
 		});
 		layout4.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				// ADRESAR
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									AdresarPage.class);
-							startActivity(intent);
-						}
-					});
-				} else {
 					Intent intent = new Intent(view.getContext(),
 							AdresarPage.class);
 					startActivity(intent);
-
-				}
-
 			}
 		});
 		layout5.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				// ICE I PICE
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									PicePage.class);
-							startActivity(intent);
-						}
-					});
-				} else {
 					Intent intent = new Intent(view.getContext(),
 							PicePage.class);
 					startActivityForResult(intent, 1);
-
-				}
-
 			}
 		});
 		layout6.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				// NIGHTLIFE
-
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									NightlifePage.class);
-							startActivity(intent);
-						}
-					});
-				} else {
 					Intent intent = new Intent(view.getContext(),
 							NightlifePage.class);
 					startActivityForResult(intent, 1);
-
-				}
 			}
 		});
 		layout7.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				// SHOPPING
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									PreviewListItemPage.class);
-							intent.putExtra(
-									"title",
-									ComponentInstance
-											.getTitleString(ComponentInstance.STRING_SHOPPING));
-							startActivity(intent);
-						}
-					});
-				} else {
 					Intent intent = new Intent(view.getContext(),
 							PreviewListItemPage.class);
 					intent.putExtra("title", ComponentInstance
 							.getTitleString(ComponentInstance.STRING_SHOPPING));
 					startActivity(intent);
-				}
-
 			}
 		});
 		layout8.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				// TAXI SMS
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									TaxiSMSPage.class);
-							intent.putExtra(
-									"title",
-									ComponentInstance
-											.getTitleString(ComponentInstance.STRING_TAXI_SMS));
-							startActivity(intent);
-						}
-					});
-				} else {
 					Intent intent = new Intent(view.getContext(),
 							TaxiSMSPage.class);
 					intent.putExtra("title", ComponentInstance
 							.getTitleString(ComponentInstance.STRING_TAXI_SMS));
 					startActivity(intent);
-				}
-
 			}
 		});
 		layout9.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				// SMESTAJ
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									SmestajPage.class);
-							startActivity(intent);
-						}
-					});
-				} else {
 					Intent intent = new Intent(view.getContext(),
 							SmestajPage.class);
 					startActivityForResult(intent, 1);
-				}
-
 			}
 		});
 		layout10.setOnClickListener(new View.OnClickListener() {
@@ -898,53 +698,19 @@ public class MainPage extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				// WELLNESS
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									WellnessAndSpaPage.class);
-							startActivity(intent);
-						}
-					});
-				} else {
 					Intent intent = new Intent(view.getContext(),
 							WellnessAndSpaPage.class);
 					startActivityForResult(intent, 1);
-				}
-
 			}
 		});
 		layout11.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				// RAINBOw
-				if (interstitial.isLoaded()) {
-					interstitial.show();
-					interstitial.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdClosed() {
-							// TODO Auto-generated method stub
-							super.onAdClosed();
-
-							Intent intent = new Intent(MainPage.this,
-									RainbowPage.class);
-							startActivity(intent);
-						}
-					});
-				} else {
+				// RAINBOW
 					Intent intent = new Intent(view.getContext(),
 							RainbowPage.class);
 					startActivityForResult(intent, 1);
-				}
-
 			}
 		});
 		layout12.setOnClickListener(new View.OnClickListener() {
@@ -961,7 +727,6 @@ public class MainPage extends AppCompatActivity {
 	}
 
 	private void fillData() {
-		// TODO Auto-generated method stub
 		txtView1.setText(ComponentInstance
 				.getTitleString(ComponentInstance.STRING_PREPORUKE));
 		txtView2.setText(ComponentInstance
@@ -987,7 +752,6 @@ public class MainPage extends AppCompatActivity {
 	}
 
 	private void inicComponent() {
-		// TODO Auto-generated method stub
 		layout1 = (LinearLayout) findViewById(R.id.linearLayoutIcon1);
 		layout2 = (LinearLayout) findViewById(R.id.linearLayoutIcon2);
 		layout3 = (LinearLayout) findViewById(R.id.linearLayoutIcon3);
@@ -1114,7 +878,7 @@ public class MainPage extends AppCompatActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    // Check which request we're responding to
-	    if (requestCode == 1) {
+	    if (requestCode == 1 && data != null) {
 	        // Make sure the request was successful
 	        if (resultCode == RESULT_OK) {
 	        	int activityCode = data.getIntExtra("activity_code", 0);
@@ -1123,11 +887,17 @@ public class MainPage extends AppCompatActivity {
 	        		return;
 	        	}
 	        	
+	        	long timeNow = System.currentTimeMillis() / 1000L;
+	        	long timeOfLastTransitDisplay = DataContainer.androTransitTimestampList.get(activityCode);
+	        	long timeSinceLastTransitDisplay =  timeNow - timeOfLastTransitDisplay;
+	        	
     			Intent i = new Intent(MainPage.this, MyAdActivity.class);
-    			i.putExtra("activityCode", 1);
-    			if(DataContainer.androTransitImageList.get("1") != null){
+    			i.putExtra("activityCode", "1");
+    			if(DataContainer.androTransitImageList.get("1") != null && timeSinceLastTransitDisplay < 300){
+    				mHandler.postDelayed(transitRunnable, 8000);
     				startActivity(i);
     			}
+    			
 	        }
 	    }
 	}
