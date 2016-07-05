@@ -114,7 +114,7 @@ public class MainPage extends AppCompatActivity {
 	Thread mThread;
 	int notificationCounter = 0;
 	Runnable notificationRunnable, transitRunnable;
-	int lastTransit = 0;
+	int lastTransit = 1;
 	
 	WebView alertDialogWebView;
 	
@@ -188,19 +188,25 @@ public class MainPage extends AppCompatActivity {
 			public void run() {
 				
 				String transitIndex;
-				
+				Log.d("MYTAG","transitRunnable");
 				if(lastTransit != 0){
-					transitIndex = "1" + lastTransit;
+					transitIndex = "1" + "-" + lastTransit;
 				}else{
 					transitIndex = "1";
 				}
+				lastTransit++;
 				
-				long timeNow = System.currentTimeMillis() / 1000L;
-	        	long timeOfLastTransitDisplay = DataContainer.androTransitTimestampList.get(transitIndex);
-	        	long timeSinceLastTransitDisplay =  timeNow - timeOfLastTransitDisplay;
-	        	
+				long timeSinceLastTransitDisplay = 0;
+				if(DataContainer.androTransitTimestampList.get(transitIndex) != null){
+					long timeNow = System.currentTimeMillis() / 1000L;
+		        	long timeOfLastTransitDisplay = DataContainer.androTransitTimestampList.get(transitIndex);
+		        	timeSinceLastTransitDisplay =  timeNow - timeOfLastTransitDisplay;
+				}
+				
     			Intent i = new Intent(MainPage.this, MyAdActivity.class);
-    			i.putExtra("activityCode", transitIndex);
+    			i.putExtra("activity_code", 1);
+    			i.putExtra("transit_index", transitIndex);
+
     			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay < 300){
     				mHandler.postDelayed(transitRunnable, 8000);
     				startActivity(i);
@@ -551,17 +557,24 @@ public class MainPage extends AppCompatActivity {
 								+ "&page=" + i);
 				
 				try {
-					for(int j = 0; j <= json.getJSONArray("data").length(); j++){
+					for(int j = 0; j < json.getJSONArray("data").length(); j++){
 						transitPage = json.getJSONArray("data").getJSONObject(j);
-						Log.d("MYTAG", "Image: " + transitPage.getString("image"));
-						Log.d("MYTAG", "URL: " + transitPage.getString("link_android"));
-						String a = (j == 0) ? "" : "" + j;
+//						Log.d("MYTAG", "Image: " + transitPage.getString("image"));
+//						Log.d("MYTAG", "URL: " + transitPage.getString("link_android"));
+						
+						String a = (j == 0) ? "" : "-" + j;
 						DataContainer.androTransitImageList.put("" + i + a,Helper.getBitmapFromURL(transitPage.getString("image")));
 						DataContainer.androTransitUrlList.put("" + i + a, transitPage.getString("link_android"));
+						DataContainer.androTransitTimestampList.put("" + i + a, 0L);
+						
+						Log.d("MYTAG", "Transit index: " + "" + i + a);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 					Log.d("MYTAG", "526: " + "index " + i + " " + e.getMessage());
+				} catch (OutOfMemoryError e) {
+					Log.d("MYTAG", "CityZoomPage: OOM " + e.getMessage());
+					System.gc();
 				}
 			}
 			return transitPage;
@@ -584,6 +597,8 @@ public class MainPage extends AppCompatActivity {
 				"ca-app-pub-1530516813542398/4376661865");
 
 		fillData();
+		
+		mHandler.postDelayed(transitRunnable, 8000);
 
 		super.onResume();
 	}
@@ -851,6 +866,7 @@ public class MainPage extends AppCompatActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		mHandler.removeCallbacks(transitRunnable);
 		active = false;
 	}
 	
@@ -887,12 +903,16 @@ public class MainPage extends AppCompatActivity {
 	        		return;
 	        	}
 	        	
-	        	long timeNow = System.currentTimeMillis() / 1000L;
-	        	long timeOfLastTransitDisplay = DataContainer.androTransitTimestampList.get(activityCode);
-	        	long timeSinceLastTransitDisplay =  timeNow - timeOfLastTransitDisplay;
+	        	long timeSinceLastTransitDisplay = 0;
+	        	if (DataContainer.androTransitTimestampList.get(activityCode) != null) {
+	        		long timeNow = System.currentTimeMillis() / 1000L;
+		        	long timeOfLastTransitDisplay = DataContainer.androTransitTimestampList.get(activityCode);
+		        	timeSinceLastTransitDisplay =  timeNow - timeOfLastTransitDisplay;
+				}
 	        	
     			Intent i = new Intent(MainPage.this, MyAdActivity.class);
-    			i.putExtra("activityCode", "1");
+    			i.putExtra("activity_code", 1);
+    			
     			if(DataContainer.androTransitImageList.get("1") != null && timeSinceLastTransitDisplay < 300){
     				mHandler.postDelayed(transitRunnable, 8000);
     				startActivity(i);

@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +32,7 @@ import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.PreviewListItemPage;
 import zoom.city.android.main.pages.cityzoom.CityZoomPage;
+import zoom.city.android.main.pages.cityzoom.SmestajPage;
 import zoom.city.android.main.pages.kalendar.KalendarPickerPage;
 
 public class KulturniVodicPage extends AppCompatActivity {
@@ -46,6 +48,9 @@ public class KulturniVodicPage extends AppCompatActivity {
 	
 	GoogleAnalytics mGa;
 	Tracker mTracker;
+	Handler mHandler;
+	Runnable transitRunnable;
+	int lastTransit = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +58,50 @@ public class KulturniVodicPage extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.page_kulturni_vodic);
 
+		mHandler = new Handler();
+		
 		//Generisanje tranzit strane
 		if(DataContainer.androTransitImageList.get("2") != null){
 			Intent i = new Intent(KulturniVodicPage.this, MyAdActivity.class);
 			i.putExtra("activity_code", 4);
 			startActivity(i);
+			mHandler.postDelayed(transitRunnable, 8000);
 		}
+		
+		
+		
+		transitRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				
+				String transitIndex;
+				
+				if(lastTransit != 0){
+					transitIndex = "4" + "-" + lastTransit;
+				}else{
+					transitIndex = "4";
+				}
+				lastTransit++;
+				
+				long timeSinceLastTransitDisplay = 0;
+				if(DataContainer.androTransitTimestampList.get(transitIndex) != null){
+					long timeNow = System.currentTimeMillis() / 1000L;
+		        	long timeOfLastTransitDisplay = DataContainer.androTransitTimestampList.get(transitIndex);
+		        	timeSinceLastTransitDisplay =  timeNow - timeOfLastTransitDisplay;
+				}
+				
+    			Intent i = new Intent(KulturniVodicPage.this, MyAdActivity.class);
+    			i.putExtra("activity_code", 4);
+    			i.putExtra("transit_index", transitIndex);
+
+    			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay < 300){
+    				mHandler.postDelayed(transitRunnable, 8000);
+    				startActivity(i);
+    			}
+    			
+			}
+		};
 		
 		myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 

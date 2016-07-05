@@ -23,6 +23,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,7 @@ import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.MainPage;
 import zoom.city.android.main.pages.cityzoom.CityZoomPage;
+import zoom.city.android.main.pages.nightlife.NightlifePage;
 import zoom.city.android.main.parser.JsonParser;
 
 public class RainbowPage extends AppCompatActivity {
@@ -50,6 +52,9 @@ public class RainbowPage extends AppCompatActivity {
 	SharedPreferences myPrefs;
 	GoogleAnalytics mGa;
 	Tracker mTracker;
+	Handler mHandler;
+	Runnable transitRunnable;
+	int lastTransit = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +64,50 @@ public class RainbowPage extends AppCompatActivity {
 
 		myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
+		mHandler = new Handler();
+		
 		//Generisanje tranzit strane
 		if(DataContainer.androTransitImageList.get("9") != null){
 			Intent i = new Intent(RainbowPage.this, MyAdActivity.class);
 			i.putExtra("activity_code", 9);
 			startActivity(i);
+			mHandler.postDelayed(transitRunnable, 8000);
 		}
+		
+		
+		
+		transitRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				
+				String transitIndex;
+				
+				if(lastTransit != 0){
+					transitIndex = "9" + "-" + lastTransit;
+				}else{
+					transitIndex = "9";
+				}
+				lastTransit++;
+				
+				long timeSinceLastTransitDisplay = 0;
+				if(DataContainer.androTransitTimestampList.get(transitIndex) != null){
+					long timeNow = System.currentTimeMillis() / 1000L;
+		        	long timeOfLastTransitDisplay = DataContainer.androTransitTimestampList.get(transitIndex);
+		        	timeSinceLastTransitDisplay =  timeNow - timeOfLastTransitDisplay;
+				}
+				
+    			Intent i = new Intent(RainbowPage.this, MyAdActivity.class);
+    			i.putExtra("activity_code", 9);
+    			i.putExtra("transit_index", transitIndex);
+
+    			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay < 300){
+    				mHandler.postDelayed(transitRunnable, 8000);
+    				startActivity(i);
+    			}
+    			
+			}
+		};
 		
 		inicComponent();
 		fillData();
@@ -80,6 +123,8 @@ public class RainbowPage extends AppCompatActivity {
 		ComponentInstance.inicBigBaner(this, "rainbow",
 				myPrefs.getString("drzavaId", "0"),
 				myPrefs.getString("gradId", "0"));
+		
+		new JSONParseTransit().execute();
 		
 		ComponentInstance.inicGoogleBaner(this,myPrefs.getString("nazivGrada", ""),"ca-app-pub-1530516813542398/7050926665");
 	
@@ -456,14 +501,21 @@ public class RainbowPage extends AppCompatActivity {
 								+ "&page=" + i);
 				
 				try {
-					transitPage = json.getJSONArray("data").getJSONObject(0);
-					Log.d("MYTAG", "Image: " + transitPage.getString("image"));
-					Log.d("MYTAG", "URL: " + transitPage.getString("link_android"));
-					DataContainer.androTransitImageList.put("" + i,Helper.getBitmapFromURL(transitPage.getString("image")));
-					DataContainer.androTransitUrlList.put("" + i, transitPage.getString("link_android"));
+					for(int j = 0; j < json.getJSONArray("data").length(); j++){
+						transitPage = json.getJSONArray("data").getJSONObject(j);
+						
+						String a = (j == 0) ? "" : "-" + j;
+						DataContainer.androTransitImageList.put("" + i + a,Helper.getBitmapFromURL(transitPage.getString("image")));
+						DataContainer.androTransitUrlList.put("" + i + a, transitPage.getString("link_android"));
+						DataContainer.androTransitTimestampList.put("" + i + a, 0L);
+						
+						Log.d("MYTAG", "Transit index: " + "" + i + a);
+					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 					Log.d("MYTAG", "526: " + "index " + i + " " + e.getMessage());
+				} catch (OutOfMemoryError e) {
+					Log.d("MYTAG", "RainbowPage: OOM " + e.getMessage());
 				}
 			}
 			return transitPage;

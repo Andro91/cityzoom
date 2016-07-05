@@ -23,6 +23,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -52,12 +53,17 @@ public class CityZoomPage extends AppCompatActivity {
 	
 	GoogleAnalytics mGa;
 	Tracker mTracker;
+	Handler mHandler;
+	Runnable transitRunnable;
+	int lastTransit = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.page_city_zoom);
+		
+		mHandler = new Handler();
 
 		myPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
@@ -66,11 +72,45 @@ public class CityZoomPage extends AppCompatActivity {
 			Intent i = new Intent(CityZoomPage.this, MyAdActivity.class);
 			i.putExtra("activity_code", 3);
 			startActivity(i);
+			mHandler.postDelayed(transitRunnable, 8000);
 		}
 		
 		inicComponent();
 		onCOmponentClick();
 		fillData();
+		
+		transitRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				
+				String transitIndex;
+				Log.d("MYTAG","transitRunnable");
+				if(lastTransit != 0){
+					transitIndex = "3" + "-" + lastTransit;
+				}else{
+					transitIndex = "3";
+				}
+				lastTransit++;
+				
+				long timeSinceLastTransitDisplay = 0;
+				if(DataContainer.androTransitTimestampList.get(transitIndex) != null){
+					long timeNow = System.currentTimeMillis() / 1000L;
+		        	long timeOfLastTransitDisplay = DataContainer.androTransitTimestampList.get(transitIndex);
+		        	timeSinceLastTransitDisplay =  timeNow - timeOfLastTransitDisplay;
+				}
+				
+    			Intent i = new Intent(CityZoomPage.this, MyAdActivity.class);
+    			i.putExtra("activity_code", 3);
+    			i.putExtra("transit_index", transitIndex);
+
+    			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay < 300){
+    				mHandler.postDelayed(transitRunnable, 8000);
+    				startActivity(i);
+    			}
+    			
+			}
+		};
 		
 		new JSONParseTransit().execute();
 
@@ -581,6 +621,8 @@ public class CityZoomPage extends AppCompatActivity {
 			}
 	}
 	
+	
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    // Check which request we're responding to
@@ -596,6 +638,7 @@ public class CityZoomPage extends AppCompatActivity {
     			Intent i = new Intent(CityZoomPage.this, MyAdActivity.class);
     			i.putExtra("activityCode", 3);
     			if(DataContainer.androTransitImageList.get("3") != null){
+    				mHandler.postDelayed(transitRunnable, 8000);
     				startActivity(i);
     			}
 	        }
@@ -635,14 +678,23 @@ public class CityZoomPage extends AppCompatActivity {
 								+ "&page=" + i);
 				
 				try {
-					transitPage = json.getJSONArray("data").getJSONObject(0);
-					Log.d("MYTAG", "Image: " + transitPage.getString("image"));
-					Log.d("MYTAG", "URL: " + transitPage.getString("link_android"));
-					DataContainer.androTransitImageList.put("" + i,Helper.getBitmapFromURL(transitPage.getString("image")));
-					DataContainer.androTransitUrlList.put("" + i, transitPage.getString("link_android"));
+					for(int j = 0; j < json.getJSONArray("data").length(); j++){
+						transitPage = json.getJSONArray("data").getJSONObject(j);
+//						Log.d("MYTAG", "Image: " + transitPage.getString("image"));
+//						Log.d("MYTAG", "URL: " + transitPage.getString("link_android"));
+						
+						String a = (j == 0) ? "" : "-" + j;
+						DataContainer.androTransitImageList.put("" + i + a,Helper.getBitmapFromURL(transitPage.getString("image")));
+						DataContainer.androTransitUrlList.put("" + i + a, transitPage.getString("link_android"));
+						DataContainer.androTransitTimestampList.put("" + i + a, 0L);
+						
+						Log.d("MYTAG", "Transit index: " + "" + i + a);
+					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 					Log.d("MYTAG", "526: " + "index " + i + " " + e.getMessage());
+				} catch (OutOfMemoryError e) {
+					Log.d("MYTAG", "CityZoomPage: OOM " + e.getMessage());
 				}
 			}
 			return transitPage;
@@ -656,6 +708,8 @@ public class CityZoomPage extends AppCompatActivity {
     	   super.onPostExecute(result);
     	}
    }
+	
+	
 	
 
 }

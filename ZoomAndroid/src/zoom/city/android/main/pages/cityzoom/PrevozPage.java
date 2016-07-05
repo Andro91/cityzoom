@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import zoom.city.android.main.constant.ComponentInstance;
 import zoom.city.android.main.container.DataContainer;
 import zoom.city.android.main.helper.Helper;
 import zoom.city.android.main.pages.PreviewListItemPage;
+import zoom.city.android.main.pages.rainbow.RainbowWellnesPage;
 
 public class PrevozPage extends AppCompatActivity {
 
@@ -38,19 +40,58 @@ public class PrevozPage extends AppCompatActivity {
 	
 	GoogleAnalytics mGa;
 	Tracker mTracker;
+	Handler mHandler;
+	Runnable transitRunnable;
+	int lastTransit = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.page_prevoz);
+		
+		mHandler = new Handler();
 
 		//Generisanje tranzit strane
 		if(DataContainer.androTransitImageList.get("13") != null){
 			Intent i = new Intent(PrevozPage.this, MyAdActivity.class);
 			i.putExtra("activity_code", 13);
 			startActivity(i);
+			mHandler.postDelayed(transitRunnable, 8000);
 		}
+		
+		transitRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				
+				String transitIndex;
+				
+				if(lastTransit != 0){
+					transitIndex = "13" + "-" + lastTransit;
+				}else{
+					transitIndex = "13";
+				}
+				lastTransit++;
+				
+				long timeSinceLastTransitDisplay = 0;
+				if(DataContainer.androTransitTimestampList.get(transitIndex) != null){
+					long timeNow = System.currentTimeMillis() / 1000L;
+		        	long timeOfLastTransitDisplay = DataContainer.androTransitTimestampList.get(transitIndex);
+		        	timeSinceLastTransitDisplay =  timeNow - timeOfLastTransitDisplay;
+				}
+				
+    			Intent i = new Intent(PrevozPage.this, MyAdActivity.class);
+    			i.putExtra("activity_code", 13);
+    			i.putExtra("transit_index", transitIndex);
+
+    			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay < 300){
+    				mHandler.postDelayed(transitRunnable, 8000);
+    				startActivity(i);
+    			}
+    			
+			}
+		};
 		
 		inicComponent();
 		fillData();
