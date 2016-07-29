@@ -86,7 +86,7 @@ public class SmestajPage extends AppCompatActivity {
     			i.putExtra("activity_code", 2);
     			i.putExtra("transit_index", transitIndex);
 
-    			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay < 300){
+    			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay > 300){
     				mHandler.postDelayed(transitRunnable, 8000);
     				startActivity(i);
     			}

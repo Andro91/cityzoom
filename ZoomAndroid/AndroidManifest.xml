@@ -237,7 +237,8 @@
         <activity
             android:name=".MyAdActivity"
             android:label="@string/title_activity_my_ad"
-            android:theme="@style/Theme.AppCompat.NoActionBar" >
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:launchMode="singleInstance" >
         </activity>
     </application>
 

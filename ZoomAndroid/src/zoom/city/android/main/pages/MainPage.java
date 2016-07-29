@@ -116,11 +116,18 @@ public class MainPage extends AppCompatActivity {
 	Runnable notificationRunnable, transitRunnable;
 	int lastTransit = 1;
 	
+	public boolean stopped = false;
+	
+	
 	WebView alertDialogWebView;
 	
 	public ArrayList<Notification> notifications;
 	
 	private CharSequence mTitle;
+	
+	AsyncTask<String, String, JSONArray> async1 = null;
+	AsyncTask<String, String, JSONArray> async2 = null;
+	AsyncTask<String, String, JSONObject> async3 = null;
 	
 	static boolean active = false;
 
@@ -151,7 +158,7 @@ public class MainPage extends AppCompatActivity {
 		//Inicijalizacija slajdera POCETAK
 		mDemoSlider = (SliderLayout)findViewById(R.id.slider);
 		mDemoSlider.setDuration(8000);
-		new JSONParse().execute();
+		async1 = new JSONParse().execute();
 		//Inicijalizacija slajdera KRAJ
 		
 		inicComponent();
@@ -188,7 +195,7 @@ public class MainPage extends AppCompatActivity {
 			public void run() {
 				
 				String transitIndex;
-				Log.d("MYTAG","transitRunnable");
+			
 				if(lastTransit != 0){
 					transitIndex = "1" + "-" + lastTransit;
 				}else{
@@ -206,8 +213,8 @@ public class MainPage extends AppCompatActivity {
     			Intent i = new Intent(MainPage.this, MyAdActivity.class);
     			i.putExtra("activity_code", 1);
     			i.putExtra("transit_index", transitIndex);
-
-    			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay < 300){
+    			
+    			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay > 300){
     				mHandler.postDelayed(transitRunnable, 8000);
     				startActivity(i);
     			}
@@ -215,9 +222,9 @@ public class MainPage extends AppCompatActivity {
 			}
 		};
         
-        new JSONParseNotification().execute();
+        async2 = new JSONParseNotification().execute();
         
-        new JSONParseTransit().execute();
+        async3 = new JSONParseTransit().execute();
         
         mHandler = new Handler();
         
@@ -231,6 +238,7 @@ public class MainPage extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+        	finish();
             super.onBackPressed();
         }
     }
@@ -371,16 +379,28 @@ public class MainPage extends AppCompatActivity {
 //    }
 	
     private class JSONParse extends AsyncTask<String, String, JSONArray> {
+    	
+    	private volatile boolean running = true;
+    	
+    	@Override
+        protected void onCancelled() {
+            running = false;
+        }
+    	
         @Override
-        	protected void onPreExecute() {
-        		// TODO Auto-generated method stub
-        		super.onPreExecute();
-        	}
+    	protected void onPreExecute() {
+    		// TODO Auto-generated method stub
+    		super.onPreExecute();
+    	}
 
 		@Override
 		protected JSONArray doInBackground(String... args) {
 			JsonParser jParser = new JsonParser();
 
+			if(!running){
+				return null;
+			} 
+			
 			// Getting JSON from URL
 			JSONObject json = jParser.getJSONFromUrl(
 					Constant.MAIN_URL + "service/banner?seckey=zoom&country=" + myPrefs.getString("drzavaId", "0")
@@ -405,6 +425,9 @@ public class MainPage extends AppCompatActivity {
        
        @Override
     	protected void onPostExecute(JSONArray result) {
+    	   if(result == null){
+    		   return;
+    	   }
     	   //Log.d("MYTAG", "121: "+result.toString());
     	   if(result.length() == 1){
     		   mDemoSlider.setVisibility(View.GONE);
@@ -465,6 +488,14 @@ public class MainPage extends AppCompatActivity {
    }
     
 	private class JSONParseNotification extends AsyncTask<String, String, JSONArray> {
+		
+		private volatile boolean running = true;
+    	
+    	@Override
+        protected void onCancelled() {
+            running = false;
+        }
+    	
 		@Override
 		protected void onPreExecute() {
 			notifications = new ArrayList<Notification>();
@@ -480,6 +511,10 @@ public class MainPage extends AppCompatActivity {
 			String formatted = simpleDateFormat.format(cal.getTime());
 			
 			Log.d("MYTAG",formatted);
+			
+			if(!running){
+				return null;
+			}
 			
 			// Getting JSON from URL
 			JSONObject json = jParser.getJSONFromUrl(Constant.MAIN_URL + "service/notification?seckey=zoom"
@@ -502,6 +537,9 @@ public class MainPage extends AppCompatActivity {
 
 		@Override
 		protected void onPostExecute(JSONArray result) {
+			if(result == null){
+				return;
+			}
 			super.onPostExecute(result);
 			for (int i = 0; i < result.length(); i++) {
 				Log.d("LENGTH", ""+result.length());
@@ -525,13 +563,22 @@ public class MainPage extends AppCompatActivity {
 	}
 	
 	private class JSONParseTransit extends AsyncTask<String, String, JSONObject> {
-        @Override
-        	protected void onPreExecute() {
-        	    if(!myPrefs.getBoolean("MainPageFirstTime", true)){
-        	    	this.cancel(true);
-        	    }
-        		super.onPreExecute();
-        	}
+        
+		private volatile boolean running = true;
+    	
+    	@Override
+        protected void onCancelled() {
+            running = false;
+            Log.d("MYTAG","onCancel TransitParse");
+        }
+		
+		@Override
+    	protected void onPreExecute() {
+    	    if(!myPrefs.getBoolean("MainPageFirstTime", true)){
+    	    	//this.cancel(true);
+    	    }
+    		super.onPreExecute();
+    	}
 
 		@Override
 		protected JSONObject doInBackground(String... args) {
@@ -549,6 +596,10 @@ public class MainPage extends AppCompatActivity {
 			
 			int[] transitArray = {1,2,3,4,5,8,9,14};
 			for(int i : transitArray){
+				if(!running || stopped){
+					Log.d("MYTAG", "TRANSIT ASYNC STOPPED!");
+					return null;
+				}
 				JSONObject json = jParser.getJSONFromUrl(
 						Constant.MAIN_URL + "service/transit?seckey=zoom" 
 								+ "&country=" + myPrefs.getString("drzavaId", "0")
@@ -585,19 +636,22 @@ public class MainPage extends AppCompatActivity {
     	   Editor editor = myPrefs.edit();
     	   editor.putBoolean("MainPageFirstTime", false);
     	   editor.commit();
+    	   Log.d("MYTAG","mHandler.transitRunnable == onPostExecute()");
+    	   //mHandler.postDelayed(transitRunnable, 8000);
     	   super.onPostExecute(result);
     	}
    }
 
 	@Override
 	protected void onResume() {
-		
+		stopped = false;
 		ComponentInstance.inicGoogleBaner(this,
 				myPrefs.getString("nazivGrada", ""),
 				"ca-app-pub-1530516813542398/4376661865");
 
 		fillData();
 		
+		Log.d("MYTAG","mHandler.transitRunnable == OnResume()");
 		mHandler.postDelayed(transitRunnable, 8000);
 
 		super.onResume();
@@ -851,8 +905,6 @@ public class MainPage extends AppCompatActivity {
 				});
 
 		mTracker.set(Fields.SCREEN_NAME, "Sreen - " + title);
-
-
 	}
 
 	@Override
@@ -866,13 +918,22 @@ public class MainPage extends AppCompatActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		Log.d("MYTAG", "MainPage.onPause()");
 		mHandler.removeCallbacks(transitRunnable);
+		mHandler.removeCallbacksAndMessages(null);
+		
 		active = false;
 	}
 	
 	@Override
 	protected void onStop() {
+		stopped = true;
+		Log.d("MYTAG", "MainPage.onStop()");
 		mDemoSlider.stopAutoCycle();
+		mHandler.removeCallbacksAndMessages(null);
+		async1.cancel(true);
+		async2.cancel(true);
+		async1.cancel(true);
 		super.onStop();
 	}
 
@@ -889,6 +950,7 @@ public class MainPage extends AppCompatActivity {
  	   	editor.putBoolean("CityZoomPageFirstTime", true);
  	   	editor.putBoolean("RainbowPageFirstTime", true);
  	   	editor.commit();
+ 	   	finish();
 	}
 	
 	@Override
@@ -913,7 +975,7 @@ public class MainPage extends AppCompatActivity {
     			Intent i = new Intent(MainPage.this, MyAdActivity.class);
     			i.putExtra("activity_code", 1);
     			
-    			if(DataContainer.androTransitImageList.get("1") != null && timeSinceLastTransitDisplay < 300){
+    			if(DataContainer.androTransitImageList.get("1") != null && timeSinceLastTransitDisplay > 300){
     				mHandler.postDelayed(transitRunnable, 8000);
     				startActivity(i);
     			}
