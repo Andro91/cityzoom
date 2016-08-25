@@ -215,7 +215,7 @@ public class MainPage extends AppCompatActivity {
     			i.putExtra("transit_index", transitIndex);
     			
     			if(DataContainer.androTransitImageList.get(transitIndex) != null && timeSinceLastTransitDisplay > 300){
-    				mHandler.postDelayed(transitRunnable, 8000);
+    				mHandler.postDelayed(transitRunnable, 5000);
     				startActivity(i);
     			}
     			
@@ -652,7 +652,7 @@ public class MainPage extends AppCompatActivity {
 		fillData();
 		
 		Log.d("MYTAG","mHandler.transitRunnable == OnResume()");
-		mHandler.postDelayed(transitRunnable, 8000);
+		mHandler.postDelayed(transitRunnable, 5000);
 
 		super.onResume();
 	}
@@ -976,7 +976,7 @@ public class MainPage extends AppCompatActivity {
     			i.putExtra("activity_code", 1);
     			
     			if(DataContainer.androTransitImageList.get("1") != null && timeSinceLastTransitDisplay > 300){
-    				mHandler.postDelayed(transitRunnable, 8000);
+    				mHandler.postDelayed(transitRunnable, 5000);
     				startActivity(i);
     			}
     			
